@@ -79,7 +79,7 @@ namespace JourneyToTheCenterOfTheCell
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            arial24 = this.Content.Load<SpriteFont>("arialFont");
+            arial24 = this.Content.Load<SpriteFont>("Fonts/arialFont");
             t.Initialise(arial24);
             // TODO: use this.Content to load your game content here
         }
@@ -145,6 +145,8 @@ namespace JourneyToTheCenterOfTheCell
             // out textbox is ready to draw at all times will only actually draw if its boolean is set to true using textboxvariable.DisplayFont() method 
             //this way triggers or events that need a textbox can set the texbox parameters and switch the textbox to display for duration of event
             t.Draw(spriteBatch,graphics);
+
+            mapClient.DrawModel(theCamera, projection);
 
             base.Draw(gameTime);
         }

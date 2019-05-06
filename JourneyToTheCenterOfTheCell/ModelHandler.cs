@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,21 @@ namespace JourneyToTheCenterOfTheCell
         private int sizeX;
         private int sizeY;
         private float plotScale;
+
+
+        //=======Not needed once Models are added that hold textures
+        private const int NumOfModels = 3;
+        string[] ModelNameMatrix = new string[NumOfModels] { "Models/Cube", "Models/Cubic", "Models/Cube" };
+        Vector3[] ModelTranslations = new Vector3[NumOfModels]
+        {
+            new Vector3(100, 200, 100),
+            new Vector3(50, 50, 50),
+            new Vector3(100, 50, 100)
+        };
+        private float[] ModelRotations = new float[NumOfModels] { 0.0f, 0.75f, 0.0f };
+
+        Model[] Models = new Model[NumOfModels]; //Not needed once PlotList is working
+
 
         /**
 	    *	@brief parameterised constructor to the PlotClient object. Create a complete PlotClient object.
@@ -135,6 +151,14 @@ namespace JourneyToTheCenterOfTheCell
             SkyBox plotSkyBox = new SkyBox(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
             landPlots.Add(Map.buildType.SkyBox.ToString(), plotSkyBox);
 
+            for (int i = 0; i < NumOfModels; i++)
+            {
+                Models[i] = Content.Load<Model>(ModelNameMatrix[i]);
+                //Structure plotModel = new Structure()
+
+                //Add dictionary element to landPlots
+            }
+
             //modelFile = "Models/city_residential_03";
             //textureFile = "Maya/sourceimages/city_residential_03_dif";
             //Vector3 positionBuilding = new Vector3(0, 0, 0);
@@ -232,6 +256,30 @@ namespace JourneyToTheCenterOfTheCell
             for(int ii = 0; ii < plotList.Count; ii++)
             {
                 Debug.WriteLine("plot x: " + plotList[ii].actorPosition.X + " y: " + plotList[ii].actorPosition.Y + " Z: " + plotList[ii].actorPosition.Z);
+            }
+        }
+
+        public void DrawModel(Matrix view, Matrix projection)
+        {
+            for (int i = 0; i < NumOfModels; i++)
+            {
+                Model model = Models[i];
+                Matrix[] transforms = new Matrix[model.Bones.Count];
+                model.CopyAbsoluteBoneTransformsTo(transforms);
+
+                foreach (ModelMesh mesh in model.Meshes) //for each mesh in the model
+                {
+                    foreach (BasicEffect effect in mesh.Effects) //and for each effect in the model
+                    {
+                        effect.EnableDefaultLighting();
+                        effect.World = transforms[mesh.ParentBone.Index] * Matrix.CreateRotationY(ModelRotations[i]) * Matrix.CreateTranslation(ModelTranslations[i]);
+                        effect.View = view;
+                        effect.Projection = projection;
+                    }
+
+                    mesh.Draw(); //draw the model
+
+                }
             }
         }
     }
