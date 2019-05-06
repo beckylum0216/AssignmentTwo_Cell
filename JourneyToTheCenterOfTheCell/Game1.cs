@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
+using MonoGame.Extended.NuclexGui;
+using MonoGame.Extended.Input.InputListeners;
 
 namespace JourneyToTheCenterOfTheCell
 {
@@ -30,10 +32,19 @@ namespace JourneyToTheCenterOfTheCell
         int screenX;
         int screenY;
         TextBox t = new TextBox();
+
+        GuiManager guiTest;
+        InputListenerComponent inputListener;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            inputListener = new InputListenerComponent(this);
+            GuiInputService guiInputService = new GuiInputService(inputListener);
+            guiTest = new GuiManager(Services, guiInputService);
+
         }
 
         /// <summary>
@@ -60,7 +71,7 @@ namespace JourneyToTheCenterOfTheCell
             Vector3 deltaVector = new Vector3(0, 0, 0.001f);
             Vector3 AABBOffsetCamera = new Vector3(0.5f, 0.25f, 0.5f);
             camera = new Camera(theCamera, camPositionVector, camEyeVector, deltaVector, AABBOffsetCamera);
-            cameraSpeed = 10f;
+            cameraSpeed = 5f;
             fps = 90f;
 
             mapClient = new ModelHandler(Content, 1, 1, 1.0f);
@@ -141,7 +152,10 @@ namespace JourneyToTheCenterOfTheCell
             {
                 mapClient.GetPlotList()[ii].ActorDraw(theWorld, theCamera, projection);
             }
-            //t.DisplayFont();//displa
+
+            
+
+            t.DisplayFont();//display
             // out textbox is ready to draw at all times will only actually draw if its boolean is set to true using textboxvariable.DisplayFont() method 
             //this way triggers or events that need a textbox can set the texbox parameters and switch the textbox to display for duration of event
             t.Draw(spriteBatch,graphics);

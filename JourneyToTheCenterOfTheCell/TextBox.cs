@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+
 //author: Bruno Neto
 
 namespace JourneyToTheCenterOfTheCell
@@ -55,7 +56,8 @@ namespace JourneyToTheCenterOfTheCell
                 //uses spritebatch variable from game1
                 spriteBatch.Begin();
 
-                
+                testField.SetString("testing testing 123");
+
 
                 
                 // draw outline rectanlgle
