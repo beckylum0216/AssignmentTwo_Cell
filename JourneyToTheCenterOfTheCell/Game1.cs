@@ -62,7 +62,7 @@ namespace JourneyToTheCenterOfTheCell
         {
             screenX = GraphicsDevice.Viewport.Width;
             screenY = GraphicsDevice.Viewport.Height;
-            projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), screenX / screenY, 0.1f, 8000f);
+            projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), screenX / screenY, 0.1f, 15000f);
 
             int centerX = (int)(screenX / 2);
             int centerY = (int)(screenY / 2);
@@ -182,17 +182,18 @@ namespace JourneyToTheCenterOfTheCell
 
             
 
-            //t.DisplayFont();//display
+            t.DisplayFont();//display
             // out textbox is ready to draw at all times will only actually draw if its boolean is set to true using textboxvariable.DisplayFont() method 
             //this way triggers or events that need a textbox can set the texbox parameters and switch the textbox to display for duration of event
-            t.Draw(spriteBatch,graphics);
+            
 
             mapClient.DrawModel(theCamera, projection);
+            t.Draw(spriteBatch, graphics);
 
             //guiSystem.Draw(gameTime);
 
 
-            UserInterface.Active.Draw(spriteBatch);
+            //UserInterface.Active.Draw(spriteBatch);
 
             base.Draw(gameTime);
         }
