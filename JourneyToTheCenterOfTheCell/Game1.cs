@@ -2,8 +2,11 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
-using MonoGame.Extended.NuclexGui;
+using MonoGame.Extended.Gui;
 using MonoGame.Extended.Input.InputListeners;
+using MonoGame.Extended.ViewportAdapters;
+using GeonBit.UI;
+using GeonBit.UI.Entities;
 
 namespace JourneyToTheCenterOfTheCell
 {
@@ -33,17 +36,19 @@ namespace JourneyToTheCenterOfTheCell
         int screenY;
         TextBox t = new TextBox();
 
-        GuiManager guiTest;
-        InputListenerComponent inputListener;
+        //DefaultViewportAdapter viewportAdapter;
+        //GuiSpriteBatchRenderer guiRenderer;
+        //GuiSystem guiSystem;
+
+        UserInterface userInt;
+        
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            inputListener = new InputListenerComponent(this);
-            GuiInputService guiInputService = new GuiInputService(inputListener);
-            guiTest = new GuiManager(Services, guiInputService);
+            
 
         }
 
@@ -78,7 +83,23 @@ namespace JourneyToTheCenterOfTheCell
             mapClient.SetPlotDictionary();
             mapClient.SetPlotList();
             mapClient.PrintPlotList();
+
+            //viewportAdapter = new DefaultViewportAdapter(GraphicsDevice);
+            //guiRenderer = new GuiSpriteBatchRenderer(GraphicsDevice, () => Matrix.Identity);
+            //guiSystem = new GuiSystem(viewportAdapter, guiRenderer);
+            //testGui gui = new testGui();
+            //GuiScreen newScreen = gui.GetScreen();
+            //guiSystem.Screens.Add(newScreen);
+
             
+            UserInterface.Initialize(Content, BuiltinThemes.hd);
+
+            testGui gui = new testGui();
+
+            Panel testPanel = gui.GetPanel();
+
+            UserInterface.Active.AddEntity(testPanel);
+
             base.Initialize();
         }
 
@@ -92,6 +113,8 @@ namespace JourneyToTheCenterOfTheCell
             spriteBatch = new SpriteBatch(GraphicsDevice);
             arial24 = this.Content.Load<SpriteFont>("Fonts/arialFont");
             t.Initialise(arial24);
+
+            
             // TODO: use this.Content to load your game content here
         }
 
@@ -137,6 +160,10 @@ namespace JourneyToTheCenterOfTheCell
 
             theCamera = camera.SubjectUpdate(mouseInputDelta, deltaTime, fps);
 
+            //guiSystem.Update(gameTime);
+
+            UserInterface.Active.Update(gameTime);
+
             base.Update(gameTime);
         }
 
@@ -155,12 +182,17 @@ namespace JourneyToTheCenterOfTheCell
 
             
 
-            t.DisplayFont();//display
+            //t.DisplayFont();//display
             // out textbox is ready to draw at all times will only actually draw if its boolean is set to true using textboxvariable.DisplayFont() method 
             //this way triggers or events that need a textbox can set the texbox parameters and switch the textbox to display for duration of event
             t.Draw(spriteBatch,graphics);
 
             mapClient.DrawModel(theCamera, projection);
+
+            //guiSystem.Draw(gameTime);
+
+
+            UserInterface.Active.Draw(spriteBatch);
 
             base.Draw(gameTime);
         }

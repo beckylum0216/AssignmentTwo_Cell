@@ -56,7 +56,7 @@ namespace JourneyToTheCenterOfTheCell
                 //uses spritebatch variable from game1
                 spriteBatch.Begin();
 
-                testField.SetString("testing testing 123");
+                
 
 
                 
