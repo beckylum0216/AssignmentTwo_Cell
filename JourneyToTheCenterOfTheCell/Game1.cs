@@ -48,6 +48,7 @@ namespace JourneyToTheCenterOfTheCell
             newGame.SetGameState(gameManager);
             newGame.Initialise();
 
+
             
 
             MenuView gui = new MenuView();
@@ -125,14 +126,11 @@ namespace JourneyToTheCenterOfTheCell
 
             
 
-            //t.DisplayFont();//display
+            t.DisplayFont();//display
             // out textbox is ready to draw at all times will only actually draw if its boolean is set to true using textboxvariable.DisplayFont() method 
             //this way triggers or events that need a textbox can set the texbox parameters and switch the textbox to display for duration of event
-            t.Draw(spriteBatch,graphics);
+            
 
-            
-            
-            
 
             base.Draw(gameTime);
         }

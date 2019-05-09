@@ -193,13 +193,13 @@ namespace JourneyToTheCenterOfTheCell
         public void SetPlotList()
         {
             string modelFile = "Models/skybox_cube";
-            string textureFile = "Textures/skybox_diffuse";
+            string textureFile = "Textures/InnerBody2";
             // move the centre of the skybox to the centre of the "city"
             float centerOrigin = 1;
             Vector3 positionSkyBox = new Vector3(centerOrigin, 0f, centerOrigin);
             Vector3 rotationSkyBox = new Vector3(0, 0, 0);
             Vector3 AABBOffset = new Vector3(0, 0, 0);
-            float scaleSkyBox = 15f;
+            float scaleSkyBox = 100f;
             //Actor plotSkyBox = landPlots["SkyBox"].ActorClone(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
             SkyBox skyBoxObj = new SkyBox(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
             plotList.Add(skyBoxObj);
