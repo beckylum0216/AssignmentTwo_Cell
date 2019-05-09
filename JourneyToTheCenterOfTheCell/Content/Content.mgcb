@@ -4881,7 +4881,6 @@
 /processorParam:TextureFormat=Color
 /build:Textures/InnerBody2.jpg
 
-
 #begin Textures/skybox_diffuse.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
