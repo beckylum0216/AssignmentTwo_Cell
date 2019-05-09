@@ -7,6 +7,7 @@ using MonoGame.Extended.Input.InputListeners;
 using MonoGame.Extended.ViewportAdapters;
 using GeonBit.UI;
 using GeonBit.UI.Entities;
+using System.Collections.Generic;
 
 namespace JourneyToTheCenterOfTheCell
 {
@@ -39,6 +40,10 @@ namespace JourneyToTheCenterOfTheCell
         //DefaultViewportAdapter viewportAdapter;
         //GuiSpriteBatchRenderer guiRenderer;
         //GuiSystem guiSystem;
+
+        private List<string> ModelFileNames = new List<string>();
+        private List<Vector3> ModelTranslations = new List<Vector3>();
+        private List<float> ModelRotations = new List<float>();
 
         UserInterface userInt;
         
@@ -79,7 +84,25 @@ namespace JourneyToTheCenterOfTheCell
             cameraSpeed = 5f;
             fps = 90f;
 
-            mapClient = new ModelHandler(Content, 1, 1, 1.0f);
+            //===========Model Handling===========================
+            ModelFileNames.Add("Models/Cube");
+            ModelFileNames.Add("Models/Cubic");
+            ModelFileNames.Add("Models/BloodVessel");
+            ModelFileNames.Add("Models/WhiteBloodCell");
+
+            ModelTranslations.Add(new Vector3(100, 200, 100));
+            ModelTranslations.Add(new Vector3(50, 50, 50));
+            ModelTranslations.Add(new Vector3(200, 200, -100));
+            ModelTranslations.Add(new Vector3(200, 200, -200));
+
+            ModelRotations.Add(0.0f);
+            ModelRotations.Add(0.75f);
+            ModelRotations.Add(0.0f);
+            ModelRotations.Add(0.0f);
+
+            //===================================================
+
+            mapClient = new ModelHandler(Content, 1, 1, 1.0f, ModelFileNames, ModelTranslations, ModelRotations);
             mapClient.SetPlotDictionary();
             mapClient.SetPlotList();
             mapClient.PrintPlotList();
@@ -187,8 +210,8 @@ namespace JourneyToTheCenterOfTheCell
             //this way triggers or events that need a textbox can set the texbox parameters and switch the textbox to display for duration of event
             
 
-            mapClient.DrawModel(theCamera, projection);
-            t.Draw(spriteBatch, graphics);
+            mapClient.DrawModels(theCamera, projection);
+            //t.Draw(spriteBatch, graphics);
 
             //guiSystem.Draw(gameTime);
 
