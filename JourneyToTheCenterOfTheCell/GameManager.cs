@@ -25,6 +25,10 @@ namespace JourneyToTheCenterOfTheCell
         int screenY;
         Codex codex;//the codex class
 
+        private List<string> ModelFileNames = new List<string>();
+        private List<Vector3> ModelTranslations = new List<Vector3>();
+        private List<float> ModelRotations = new List<float>();
+
         public void Initialise()
         {
             
@@ -55,7 +59,24 @@ namespace JourneyToTheCenterOfTheCell
             cameraSpeed = 5f;
             fps = 90f;
 
-            mapClient = new ModelHandler(gameCtx.GetGameInstance().Content, 1, 1, 1.0f);
+            //========================================================
+            ModelFileNames.Add("Models/Cube");
+            ModelFileNames.Add("Models/Cubic");
+            ModelFileNames.Add("Models/BloodVessel");
+            ModelFileNames.Add("Models/WhiteBloodCell");
+
+            ModelTranslations.Add(new Vector3(100, 200, 100));
+            ModelTranslations.Add(new Vector3(50, 50, 50));
+            ModelTranslations.Add(new Vector3(200, 200, -100));
+            ModelTranslations.Add(new Vector3(200, 200, -200));
+
+            ModelRotations.Add(0.0f);
+            ModelRotations.Add(0.75f);
+            ModelRotations.Add(0.0f);
+            ModelRotations.Add(0.0f);
+            //=======================================================
+
+            mapClient = new ModelHandler(gameCtx.GetGameInstance().Content, 1, 1, 1.0f, ModelFileNames, ModelTranslations, ModelRotations);
             mapClient.SetPlotDictionary();
             mapClient.SetPlotList();
             mapClient.PrintPlotList();
@@ -97,12 +118,13 @@ namespace JourneyToTheCenterOfTheCell
 
         public override void Draw(GameContext gameCtx)
         {
+
             for (int ii = 0; ii < mapClient.GetPlotList().Count; ii++)
             {
                 mapClient.GetPlotList()[ii].ActorDraw(theWorld, theCamera, projection);
             }
-            
-            mapClient.DrawModel(theCamera, projection);
+
+            mapClient.DrawModels(theCamera, projection);
             codex.Draw();//draw the codex (should be drawn in deactivated state i.e. top of the screen)
         }
     }
