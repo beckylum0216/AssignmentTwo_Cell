@@ -15,19 +15,25 @@ namespace JourneyToTheCenterOfTheCell
     {
         private List <Actor> plotList = new List<Actor>();
         private Dictionary<string, Actor> landPlots = new Dictionary<string, Actor>();
-        //private Map[,] gridMap;
+        private Map[,] gridMap;
         private ContentManager Content;
         private int sizeX;
         private int sizeY;
         private float plotScale;
 
-        //private List<String> ModelList = new List<String>();
 
-        MapGenerator MapHandler;
-        private List<Model> Models = new List<Model>();
-        private List<string> ModelFileNames = new List<string>();
-        private List<Vector3> ModelTranslations = new List<Vector3>();
-        private List<float> ModelRotations = new List<float>();
+        //=======Not needed once Models are added that hold textures
+        private const int NumOfModels = 3;
+        string[] ModelNameMatrix = new string[NumOfModels] { "Models/Cube", "Models/Cubic", "Models/Cube" };
+        Vector3[] ModelTranslations = new Vector3[NumOfModels]
+        {
+            new Vector3(100, 200, 100),
+            new Vector3(50, 50, 50),
+            new Vector3(100, 50, 100)
+        };
+        private float[] ModelRotations = new float[NumOfModels] { 0.0f, 0.75f, 0.0f };
+
+        Model[] Models = new Model[NumOfModels]; //Not needed once PlotList is working
 
 
         /**
@@ -40,23 +46,12 @@ namespace JourneyToTheCenterOfTheCell
 	    *	@pre 
 	    *	@post Camera will exist
 	    */
-        public ModelHandler(ContentManager inputContent,  int inputX, int inputY, float inputScale, List<string> FileNames, List<Vector3> Translations, List<float> Rotations)
+        public ModelHandler(ContentManager inputContent,  int inputX, int inputY, float inputScale)
         {
             this.Content = inputContent;
             this.sizeX = inputX;
             this.sizeY = inputY;
             this.plotScale = inputScale;
-
-
-            
-
-            this.ModelFileNames = FileNames;
-            this.ModelTranslations = Translations;
-            this.ModelRotations = Rotations;
-
-            Initialisemodels();
-
-            MapHandler = new MapGenerator(inputContent, Models, ModelTranslations, ModelRotations);
 
             // initialise map
             //MapGenerator mapCreate = new MapGenerator(sizeX, sizeY);
@@ -147,15 +142,22 @@ namespace JourneyToTheCenterOfTheCell
         public void SetPlotDictionary()
         {
             string modelFile = "Models/skybox_cube";
-            string textureFile = "Textures/InnerBody2";
+            string textureFile = "Textures/skybox_diffuse";
             float centerOrigin = (23 * 22) / 2;
             Vector3 positionSkyBox = new Vector3(centerOrigin, 0f, centerOrigin);
             Vector3 rotationSkyBox = new Vector3(0, 0, 0);
             Vector3 AABBOffset = new Vector3(0, 0, 0);
-            float scaleSkyBox = 100f;
+            float scaleSkyBox = 15f;
             SkyBox plotSkyBox = new SkyBox(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
             landPlots.Add(Map.buildType.SkyBox.ToString(), plotSkyBox);
 
+            for (int i = 0; i < NumOfModels; i++)
+            {
+                Models[i] = Content.Load<Model>(ModelNameMatrix[i]);
+                //Structure plotModel = new Structure()
+
+                //Add dictionary element to landPlots
+            }
 
             //modelFile = "Models/city_residential_03";
             //textureFile = "Maya/sourceimages/city_residential_03_dif";
@@ -191,13 +193,13 @@ namespace JourneyToTheCenterOfTheCell
         public void SetPlotList()
         {
             string modelFile = "Models/skybox_cube";
-            string textureFile = "Textures/InnerBody2";
+            string textureFile = "Textures/skybox_diffuse";
             // move the centre of the skybox to the centre of the "city"
             float centerOrigin = 1;
             Vector3 positionSkyBox = new Vector3(centerOrigin, 0f, centerOrigin);
             Vector3 rotationSkyBox = new Vector3(0, 0, 0);
             Vector3 AABBOffset = new Vector3(0, 0, 0);
-            float scaleSkyBox = 100f;
+            float scaleSkyBox = 15f;
             //Actor plotSkyBox = landPlots["SkyBox"].ActorClone(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
             SkyBox skyBoxObj = new SkyBox(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
             plotList.Add(skyBoxObj);
@@ -257,18 +259,28 @@ namespace JourneyToTheCenterOfTheCell
             }
         }
 
-        public void Initialisemodels()
+        public void DrawModel(Matrix view, Matrix projection)
         {
-
-            for(int i = 0; i < Models.Count; i++)
+            for (int i = 0; i < NumOfModels; i++)
             {
-                Models.Add(Content.Load<Model>(ModelFileNames[i]));
-            }
-        }
+                Model model = Models[i];
+                Matrix[] transforms = new Matrix[model.Bones.Count];
+                model.CopyAbsoluteBoneTransformsTo(transforms);
 
-        public void DrawModels(Matrix view, Matrix projection)
-        {
-            MapHandler.DrawModels(view, projection);
+                foreach (ModelMesh mesh in model.Meshes) //for each mesh in the model
+                {
+                    foreach (BasicEffect effect in mesh.Effects) //and for each effect in the model
+                    {
+                        effect.EnableDefaultLighting();
+                        effect.World = transforms[mesh.ParentBone.Index] * Matrix.CreateRotationY(ModelRotations[i]) * Matrix.CreateTranslation(ModelTranslations[i]);
+                        effect.View = view;
+                        effect.Projection = projection;
+                    }
+
+                    mesh.Draw(); //draw the model
+
+                }
+            }
         }
     }
 }
