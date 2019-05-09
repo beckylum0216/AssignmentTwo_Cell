@@ -101,8 +101,9 @@ namespace JourneyToTheCenterOfTheCell
             {
                 mapClient.GetPlotList()[ii].ActorDraw(theWorld, theCamera, projection);
             }
-            codex.Draw();//draw the codex (should be drawn in deactivated state i.e. top of the screen)
+            
             mapClient.DrawModel(theCamera, projection);
+            codex.Draw();//draw the codex (should be drawn in deactivated state i.e. top of the screen)
         }
     }
 }
