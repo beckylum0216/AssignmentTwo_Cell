@@ -7,6 +7,8 @@ using MonoGame.Extended.Input.InputListeners;
 using MonoGame.Extended.ViewportAdapters;
 using GeonBit.UI;
 using GeonBit.UI.Entities;
+using System.Collections.Generic;
+using System;
 
 namespace JourneyToTheCenterOfTheCell
 {
@@ -17,39 +19,19 @@ namespace JourneyToTheCenterOfTheCell
     {
         private SpriteFont arial24;
 
-
-
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        private Matrix theWorld = Matrix.CreateTranslation(new Vector3(0, 0, 0));
-        private Matrix theCamera;
-        private Matrix projection;
-        private Camera camera;
-        private float cameraSpeed;
-        private float fps;
-        private ModelHandler mapClient;
-        private Vector3 mouseInputDelta;
-        private InputHandler inputHandlers;
-        private InputHandler.keyStates keyboardInput;
-        private GamePadState gamePadInput;
-        int screenX;
-        int screenY;
+        GameContext newGame;
+
+
+
         TextBox t = new TextBox();
-
-        //DefaultViewportAdapter viewportAdapter;
-        //GuiSpriteBatchRenderer guiRenderer;
-        //GuiSystem guiSystem;
-
-        UserInterface userInt;
         
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
             
-
         }
 
         /// <summary>
@@ -60,45 +42,27 @@ namespace JourneyToTheCenterOfTheCell
         /// </summary>
         protected override void Initialize()
         {
-            screenX = GraphicsDevice.Viewport.Width;
-            screenY = GraphicsDevice.Viewport.Height;
-            projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), screenX / screenY, 0.1f, 8000f);
-
-            int centerX = (int)(screenX / 2);
-            int centerY = (int)(screenY / 2);
-
-            this.IsMouseVisible = true;
-            Mouse.SetPosition((int)centerX, (int)centerY);
-            gamePadInput = GamePad.GetState(PlayerIndex.One);
-
-            Vector3 camEyeVector = new Vector3(0, 0, 0);
-            Vector3 camPositionVector = Vector3.Add(new Vector3(0, 0, 0), new Vector3(0, 1.6f, 0));
-            Vector3 deltaVector = new Vector3(0, 0, 0.001f);
-            Vector3 AABBOffsetCamera = new Vector3(0.5f, 0.25f, 0.5f);
-            camera = new Camera(theCamera, camPositionVector, camEyeVector, deltaVector, AABBOffsetCamera);
-            cameraSpeed = 5f;
-            fps = 90f;
-
-            mapClient = new ModelHandler(Content, 1, 1, 1.0f);
-            mapClient.SetPlotDictionary();
-            mapClient.SetPlotList();
-            mapClient.PrintPlotList();
-
-            //viewportAdapter = new DefaultViewportAdapter(GraphicsDevice);
-            //guiRenderer = new GuiSpriteBatchRenderer(GraphicsDevice, () => Matrix.Identity);
-            //guiSystem = new GuiSystem(viewportAdapter, guiRenderer);
-            //testGui gui = new testGui();
-            //GuiScreen newScreen = gui.GetScreen();
-            //guiSystem.Screens.Add(newScreen);
+            GameManager gameManager = new GameManager();
+            MenuManager menuManager = new MenuManager();
+            newGame = new GameContext(this, graphics, spriteBatch);
+            newGame.SetGameState(menuManager);
+            newGame.Initialise();
 
             
-            UserInterface.Initialize(Content, BuiltinThemes.hd);
 
-            testGui gui = new testGui();
+            MenuView gui = new MenuView();
+            List<String> tempAns = new List<String>();
+            tempAns.Add("lorem ipsum");
+            tempAns.Add("blah");
+            Quiz testQuiz = new Quiz("Lorem ipsum dolor sit amet," +
+                " consectetur adipiscing elit, sed do eiusmod " +
+                "tempor incididunt ut labore et " +
+                "dolore magna aliqua.", tempAns, "blah");
+            //QuizView quiz = new QuizView(testQuiz, screenX, screenY);
+            //Panel testPanel = quiz.GetQuizPanel();
 
-            Panel testPanel = gui.GetPanel();
-
-            UserInterface.Active.AddEntity(testPanel);
+           
+            //UserInterface.Active.AddEntity(testPanel);
 
             base.Initialize();
         }
@@ -111,6 +75,8 @@ namespace JourneyToTheCenterOfTheCell
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            newGame.SetSpriteBatch(spriteBatch);
+
             arial24 = this.Content.Load<SpriteFont>("Fonts/arialFont");
             t.Initialise(arial24);
 
@@ -137,32 +103,10 @@ namespace JourneyToTheCenterOfTheCell
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            screenX = GraphicsDevice.Viewport.Width;
-            screenY = GraphicsDevice.Viewport.Height;
+            newGame.SetGameTime(gameTime);
+            newGame.Update();
 
-            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            inputHandlers = new InputHandler(screenX, screenY);
-            mouseInputDelta = inputHandlers.MouseHandler(screenX, screenY, 1.00f);
-
-            if (!gamePadInput.IsConnected)
-            {
-                Debug.WriteLine("gamePadInput: " + gamePadInput.IsConnected);
-                keyboardInput = inputHandlers.KeyboardHandler();
-            }
-            else
-            {
-                keyboardInput = inputHandlers.LeftGamePadHandler();
-            }
-
-            camera.SubjectMove(keyboardInput, cameraSpeed, deltaTime, fps);
-            //setting up collisions
-
-            theCamera = camera.SubjectUpdate(mouseInputDelta, deltaTime, fps);
-
-            //guiSystem.Update(gameTime);
-
-            UserInterface.Active.Update(gameTime);
+           
 
             base.Update(gameTime);
         }
@@ -175,10 +119,7 @@ namespace JourneyToTheCenterOfTheCell
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            for (int ii = 0; ii < mapClient.GetPlotList().Count; ii++)
-            {
-                mapClient.GetPlotList()[ii].ActorDraw(theWorld, theCamera, projection);
-            }
+            newGame.Draw();
 
             
 
@@ -187,12 +128,9 @@ namespace JourneyToTheCenterOfTheCell
             //this way triggers or events that need a textbox can set the texbox parameters and switch the textbox to display for duration of event
             t.Draw(spriteBatch,graphics);
 
-            mapClient.DrawModel(theCamera, projection);
-
-            //guiSystem.Draw(gameTime);
-
-
-            UserInterface.Active.Draw(spriteBatch);
+            
+            
+            
 
             base.Draw(gameTime);
         }
