@@ -23,7 +23,7 @@ namespace JourneyToTheCenterOfTheCell
         private GamePadState gamePadInput;
         int screenX;
         int screenY;
-
+        Codex codex;//the codex class 
 
         public override void Initialise(GameContext gameCtx)
         {
@@ -51,6 +51,8 @@ namespace JourneyToTheCenterOfTheCell
             mapClient.SetPlotDictionary();
             mapClient.SetPlotList();
             mapClient.PrintPlotList();
+            codex = new Codex();
+            codex.Initialize(gameCtx.GetGraphics(), gameCtx.GetGameInstance().Content);//initialize the basic codex(no samples taken)
 
         }
 
@@ -61,7 +63,7 @@ namespace JourneyToTheCenterOfTheCell
 
             float deltaTime = (float)gameCtx.GetGameTime().ElapsedGameTime.TotalSeconds;
 
-            inputHandlers = new InputHandler(screenX, screenY);
+            inputHandlers = new InputHandler(screenX, screenY,codex);
             mouseInputDelta = inputHandlers.MouseHandler(screenX, screenY, 1.00f);
 
             if (!gamePadInput.IsConnected)
@@ -78,6 +80,7 @@ namespace JourneyToTheCenterOfTheCell
             //setting up collisions
 
             theCamera = camera.SubjectUpdate(mouseInputDelta, deltaTime, fps);
+            codex.Update(gameCtx.GetGameTime());//this update animates the codex drop down
         }
 
         public override void Draw(GameContext gameCtx)
@@ -86,7 +89,7 @@ namespace JourneyToTheCenterOfTheCell
             {
                 mapClient.GetPlotList()[ii].ActorDraw(theWorld, theCamera, projection);
             }
-
+            codex.Draw();//draw the codex (should be drawn in deactivated state i.e. top of the screen)
             mapClient.DrawModel(theCamera, projection);
         }
     }
