@@ -6,8 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//version:1.2
-//added in keys for activate and deactivate of codex
+
 
 namespace JourneyToTheCenterOfTheCell
 {
@@ -19,17 +18,17 @@ namespace JourneyToTheCenterOfTheCell
         private KeyboardState keyboardInput;
         private MouseState mouseInput;
         private GamePadState gamePadInput;
-        private Codex c;
+
         private Vector3 mouseDelta;
         private Vector3 mousePosition;
-        //Codex codex;
-        public InputHandler(int screenX, int screenY, Codex codex)
+
+        public InputHandler(int screenX, int screenY)
         {
             this.mouseDelta = new Vector3(0, 0, 0);
             float centerX = (float)screenX / 2;
             float centerY = (float)screenY / 2;
             this.mousePosition = new Vector3(centerX, centerY, 0);
-            c = codex;
+
 
         }
 
@@ -158,26 +157,9 @@ namespace JourneyToTheCenterOfTheCell
             
             if(keyboardInput.IsKeyDown(Keys.C))
             {
-                
-                
-
                 directionState = keyStates.ZoomOut;
             }
-
-            if (keyboardInput.IsKeyDown(Keys.V))
-            {
-
-                c.Activate();
-
-                
-            }
-            if (keyboardInput.IsKeyDown(Keys.X))
-            {
-
-                c.Deactivate();
-;
-            }
-
+            
 
             // this is a hack
             return directionState;
