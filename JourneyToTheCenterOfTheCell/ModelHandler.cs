@@ -15,8 +15,8 @@ namespace JourneyToTheCenterOfTheCell
     {
         private List <Actor> plotList = new List<Actor>();
         private Dictionary<string, Actor> landPlots = new Dictionary<string, Actor>();
-        private Map[,,] gridMap;
-        MapGenerator mapCreate;
+        //private Map[,,] gridMap;
+        //MapGenerator mapCreate;
         private ContentManager Content;
         private int sizeX;
         private int sizeY;
@@ -57,13 +57,13 @@ namespace JourneyToTheCenterOfTheCell
             this.plotScale = inputScale;
 
             // initialise map
-            MapGenerator mapCreate = new MapGenerator(sizeX, sizeY, sizeZ);
-            mapCreate.SetMap();
+            //MapGenerator mapCreate = new MapGenerator(sizeX, sizeY, sizeZ);
+            //mapCreate.SetMap();
             //mapCreate.PrintGrid();
-            mapCreate.SetCoords();
+            //mapCreate.SetCoords();
             //mapCreate.PrintCoords();
            
-            gridMap = mapCreate.GetGridMap();
+            //gridMap = mapCreate.GetGridMap();
         }
 
         /** 
