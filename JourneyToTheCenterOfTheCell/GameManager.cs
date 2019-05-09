@@ -57,7 +57,7 @@ namespace JourneyToTheCenterOfTheCell
             mapClient.SetPlotDictionary();
             mapClient.SetPlotList();
             mapClient.PrintPlotList();
-           
+            
             codex = new Codex();
             codex.Initialize(gameCtx.GetGraphics(), gameCtx.GetGameInstance().Content);//initialize the basic codex(no samples taken)
         }

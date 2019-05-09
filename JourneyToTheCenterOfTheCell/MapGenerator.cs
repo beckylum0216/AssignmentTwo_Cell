@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 
-namespace AssignmentOne_Pigeon_Sim
+namespace JourneyToTheCenterOfTheCell
 {
     class MapGenerator
     {
         private int sizeX = 0;
         private int sizeZ = 0;
-        private Block[,] gridMap;
+        
+        private Map[,] gridMap;
 
         /**
 	    *	@brief parameterised constructor for the MapGenerator object. Create a complete MapGenerator object.
@@ -26,7 +27,7 @@ namespace AssignmentOne_Pigeon_Sim
         {
             sizeX = inputX;
             sizeZ = inputZ;
-            gridMap = new Block[sizeX, sizeZ];
+            gridMap = new Map[sizeX, sizeZ];
         }
 
         /** 
@@ -57,7 +58,7 @@ namespace AssignmentOne_Pigeon_Sim
                         string modelPath = "Models/city_road_05";
                         string texturePath = "Maya/sourceimages/city_road_05_dif";
                         Vector3 buildingRotation = new Vector3(0,0,0);
-                        Block tempBlock = new Block(ii, 0, jj, Block.buildType.Building, modelPath, texturePath, 1f, buildingRotation);
+                        Map tempBlock = new Map(ii, 0, jj, Map.buildType.Building, modelPath, texturePath, 1f, buildingRotation);
                         gridMap[ii, jj] = tempBlock;
 
 
@@ -66,7 +67,7 @@ namespace AssignmentOne_Pigeon_Sim
                             string modelFile = "Models/city_road_02";
                             string textureFile = "Maya/sourceimages/city_road_02_dif";
                             Vector3 roadRotation = new Vector3(0, 0, 0);
-                            Block roadWest = new Block(ii - 1, 0, jj, Block.buildType.RoadVertical, modelFile, textureFile, 1f, roadRotation);
+                            Map roadWest = new Map(ii - 1, 0, jj, Map.buildType.RoadVertical, modelFile, textureFile, 1f, roadRotation);
                             gridMap[ii - 1, jj] = roadWest;
                         }
                         
@@ -75,7 +76,7 @@ namespace AssignmentOne_Pigeon_Sim
                             string modelFile = "Models/city_road_02";
                             string textureFile = "Maya/sourceimages/city_road_02_dif";
                             Vector3 roadRotation = new Vector3(0, 90, 00);
-                            Block roadNorth = new Block(ii, 0, jj - 1, Block.buildType.RoadHorizontal, modelFile, textureFile, 1f, roadRotation);
+                            Map roadNorth = new Map(ii, 0, jj - 1, Map.buildType.RoadHorizontal, modelFile, textureFile, 1f, roadRotation);
                             gridMap[ii, jj - 1] = roadNorth;
                         }
 
@@ -84,7 +85,7 @@ namespace AssignmentOne_Pigeon_Sim
                             string modelFile = "Models/city_road_02";
                             string textureFile = "Maya/sourceimages/city_road_02_dif";
                             Vector3 roadRotation = new Vector3(0, 0, 0);
-                            Block roadEast = new Block(ii + 1, 0, jj, Block.buildType.RoadVertical, modelFile, textureFile, 1f, roadRotation);
+                            Map roadEast = new Map(ii + 1, 0, jj, Map.buildType.RoadVertical, modelFile, textureFile, 1f, roadRotation);
                             gridMap[ii + 1, jj] = roadEast;
                         }
 
@@ -93,7 +94,7 @@ namespace AssignmentOne_Pigeon_Sim
                             string modelFile = "Models/city_road_02";
                             string textureFile = "Maya/sourceimages/city_road_02_dif";
                             Vector3 roadRotation = new Vector3(0, 90, 00);
-                            Block roadSouth = new Block(ii, 0, jj + 1, Block.buildType.RoadHorizontal, modelFile, textureFile, 1f, roadRotation);
+                            Map roadSouth = new Map(ii, 0, jj + 1, Map.buildType.RoadHorizontal, modelFile, textureFile, 1f, roadRotation);
                             gridMap[ii, jj + 1] = roadSouth;
                         }
                         
@@ -117,21 +118,21 @@ namespace AssignmentOne_Pigeon_Sim
                             string modelFile = "Models/city_road_03";
                             string textureFile = "Maya/sourceimages/city_road_03_dif";
                             Vector3 cornerRotation = new Vector3(0, 0, 0);
-                            gridMap[ii, jj] = new Block(ii, 0, jj, Block.buildType.RoadCorner, modelFile, textureFile, 1f, cornerRotation);
+                            gridMap[ii, jj] = new Map(ii, 0, jj, Map.buildType.RoadCorner, modelFile, textureFile, 1f, cornerRotation);
                         }
                         else if(junctions == 3)
                         {
                             string modelFile = "Models/city_road_03";
                             string textureFile = "Maya/sourceimages/city_road_03_dif";
                             Vector3 TRotation = new Vector3(0, 0, 0);
-                            gridMap[ii, jj] = new Block(ii, 0, jj, Block.buildType.RoadT, modelFile, textureFile, 1f, TRotation);
+                            gridMap[ii, jj] = new Map(ii, 0, jj, Map.buildType.RoadT, modelFile, textureFile, 1f, TRotation);
                         }
                         else
                         {
                             string modelFile = "Models/city_road_03";
                             string textureFile = "Maya/sourceimages/city_road_03_dif";
                             Vector3 crossRotation = new Vector3(0, 0, 0);
-                            gridMap[ii, jj] = new Block(ii, 0, jj, Block.buildType.RoadCross, modelFile, textureFile, 1f, crossRotation);
+                            gridMap[ii, jj] = new Map(ii, 0, jj, Map.buildType.RoadCross, modelFile, textureFile, 1f, crossRotation);
                         }
                     }
                 }
@@ -155,13 +156,13 @@ namespace AssignmentOne_Pigeon_Sim
         *	@post 
         */
 
-        private int FindNeighbours(int gridX, int gridY, Block[,] inputGrid)
+        private int FindNeighbours(int gridX, int gridY, Map[,] inputGrid)
         {
             int junction = 0;
 
             if((gridX - 1) >= 0)
             {
-                if (inputGrid[gridX - 1, gridY].GetBlockType() == Block.buildType.RoadHorizontal)
+                if (inputGrid[gridX - 1, gridY].GetBlockType() == Map.buildType.RoadHorizontal)
                 {
                     junction += 1;
                 }
@@ -169,7 +170,7 @@ namespace AssignmentOne_Pigeon_Sim
             
             if((gridY - 1) >= 0)
             {
-                if (inputGrid[gridX, gridY - 1].GetBlockType() == Block.buildType.RoadVertical)
+                if (inputGrid[gridX, gridY - 1].GetBlockType() == Map.buildType.RoadVertical)
                 {
                     junction += 1;
                 }
@@ -177,7 +178,7 @@ namespace AssignmentOne_Pigeon_Sim
 
             if((gridX + 1) < sizeX)
             {
-                if(inputGrid[gridX + 1, gridY].GetBlockType() == Block.buildType.RoadHorizontal)
+                if(inputGrid[gridX + 1, gridY].GetBlockType() == Map.buildType.RoadHorizontal)
                 {
                     junction += 1;
                 }
@@ -185,7 +186,7 @@ namespace AssignmentOne_Pigeon_Sim
             
             if((gridY + 1) < sizeZ)
             {
-                if (inputGrid[gridX, gridY + 1].GetBlockType() == Block.buildType.RoadVertical)
+                if (inputGrid[gridX, gridY + 1].GetBlockType() == Map.buildType.RoadVertical)
                 {
                     junction += 1;
                 }
@@ -242,7 +243,7 @@ namespace AssignmentOne_Pigeon_Sim
         *	@pre 
         *	@post 
         */
-        public Block[,] GetGridMap()
+        public Map[,] GetGridMap()
         {
             return gridMap;
         }
