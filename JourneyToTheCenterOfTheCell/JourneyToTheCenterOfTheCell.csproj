@@ -43,6 +43,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Actor.cs" />
+    <Compile Include="Codex.cs" />
+    <Compile Include="CodexGui.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Game1.cs" />
