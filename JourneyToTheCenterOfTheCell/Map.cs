@@ -81,7 +81,7 @@ namespace JourneyToTheCenterOfTheCell
 	    */
         public int GetPositionX()
         {
-            return this.positionX;
+            return positionX;
         }
 
 

@@ -15,10 +15,12 @@ namespace JourneyToTheCenterOfTheCell
     {
         private List <Actor> plotList = new List<Actor>();
         private Dictionary<string, Actor> landPlots = new Dictionary<string, Actor>();
-        private Map[,] gridMap;
+        private Map[,,] gridMap;
+        MapGenerator mapCreate;
         private ContentManager Content;
         private int sizeX;
         private int sizeY;
+        private int sizeZ;
         private float plotScale;
 
 
@@ -46,21 +48,22 @@ namespace JourneyToTheCenterOfTheCell
 	    *	@pre 
 	    *	@post Camera will exist
 	    */
-        public ModelHandler(ContentManager inputContent,  int inputX, int inputY, float inputScale)
+        public ModelHandler(ContentManager inputContent,  int inputX, int inputY, int inputZ, float inputScale)
         {
-            this.Content = inputContent;
-            this.sizeX = inputX;
-            this.sizeY = inputY;
+            Content = inputContent;
+            sizeX = inputX;
+            sizeY = inputY;
+            sizeZ = inputZ;
             this.plotScale = inputScale;
 
             // initialise map
-            //MapGenerator mapCreate = new MapGenerator(sizeX, sizeY);
-            //mapCreate.SetMap();
+            MapGenerator mapCreate = new MapGenerator(sizeX, sizeY, sizeZ);
+            mapCreate.SetMap();
             //mapCreate.PrintGrid();
-            //mapCreate.SetCoords();
+            mapCreate.SetCoords();
             //mapCreate.PrintCoords();
            
-            //gridMap = mapCreate.GetGridMap();
+            gridMap = mapCreate.GetGridMap();
         }
 
         /** 

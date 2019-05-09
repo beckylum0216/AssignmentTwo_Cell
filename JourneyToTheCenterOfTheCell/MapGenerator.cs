@@ -12,8 +12,8 @@ namespace JourneyToTheCenterOfTheCell
     {
         private int sizeX = 0;
         private int sizeZ = 0;
-        
-        private Map[,] gridMap;
+        private int sizeY = 0;
+        private Map[,,] gridMap;
 
         /**
 	    *	@brief parameterised constructor for the MapGenerator object. Create a complete MapGenerator object.
@@ -23,11 +23,13 @@ namespace JourneyToTheCenterOfTheCell
 	    *	@pre 
 	    *	@post MapGenerator will exist
 	    */
-        public MapGenerator(int inputX, int inputZ)
+        public MapGenerator(int inputX,int inputY, int inputZ)
         {
             sizeX = inputX;
+            sizeY = inputY;
             sizeZ = inputZ;
-            gridMap = new Map[sizeX, sizeZ];
+            
+            gridMap = new Map[sizeX,sizeY, sizeZ];
         }
 
         /** 
@@ -51,59 +53,61 @@ namespace JourneyToTheCenterOfTheCell
             // sets the initial "block consisting of building and adjacent road
             for(int ii = 0; ii < sizeX; ii++)
             {
-                for(int jj = 0; jj < sizeZ; jj++)
+                for(int jj = 0; jj < sizeY; jj++)
                 {
-                    if(ii % 2 == 1 && jj % 2 == 1)
-                    {
-                        string modelPath = "Models/city_road_05";
-                        string texturePath = "Maya/sourceimages/city_road_05_dif";
-                        Vector3 buildingRotation = new Vector3(0,0,0);
-                        Map tempBlock = new Map(ii, 0, jj, Map.buildType.Building, modelPath, texturePath, 1f, buildingRotation);
-                        gridMap[ii, jj] = tempBlock;
+                    for(int ee = 0; ee < sizeZ; ee++ )
+                    { 
+                        if (ii % 2 == 1 && jj % 2 == 1)
+                        {
+                            string modelPath = "Models/Cube";
+                            string texturePath = "Textures/skybox_diffuse";
+                            Vector3 Rotation = new Vector3(0, 0, 0);
+                            Map tempBlock = new Map(ii, jj, ee, Map.buildType.Building, modelPath, texturePath, 1f, Rotation);
+                            gridMap[ii, jj,ee] = tempBlock;
 
 
-                        if ((ii - 1) >= 0)
-                        {
-                            string modelFile = "Models/city_road_02";
-                            string textureFile = "Maya/sourceimages/city_road_02_dif";
-                            Vector3 roadRotation = new Vector3(0, 0, 0);
-                            Map roadWest = new Map(ii - 1, 0, jj, Map.buildType.RoadVertical, modelFile, textureFile, 1f, roadRotation);
-                            gridMap[ii - 1, jj] = roadWest;
-                        }
-                        
-                        if((jj - 1) >= 0)
-                        {
-                            string modelFile = "Models/city_road_02";
-                            string textureFile = "Maya/sourceimages/city_road_02_dif";
-                            Vector3 roadRotation = new Vector3(0, 90, 00);
-                            Map roadNorth = new Map(ii, 0, jj - 1, Map.buildType.RoadHorizontal, modelFile, textureFile, 1f, roadRotation);
-                            gridMap[ii, jj - 1] = roadNorth;
-                        }
+                            if ((ii - 1) >= 0)
+                            {
+                                string modelFile = "Models/Cubic";
+                                string textureFile = "Textures/skybox_diffuse";
+                                Vector3 Rotation2 = new Vector3(0, 0, 0);
+                                Map roadWest = new Map(ii - 1, jj, ee, Map.buildType.RoadVertical, modelFile, textureFile, 1f, Rotation2);
+                                gridMap[ii - 1, jj,ee] = roadWest;
+                            }
 
-                        if((ii + 1) < sizeX)
-                        {
-                            string modelFile = "Models/city_road_02";
-                            string textureFile = "Maya/sourceimages/city_road_02_dif";
-                            Vector3 roadRotation = new Vector3(0, 0, 0);
-                            Map roadEast = new Map(ii + 1, 0, jj, Map.buildType.RoadVertical, modelFile, textureFile, 1f, roadRotation);
-                            gridMap[ii + 1, jj] = roadEast;
-                        }
+                            if ((jj - 1) >= 0)
+                            {
+                                string modelFile = "Cube";
+                                string textureFile = "Textures/skybox_diffuse";
+                                Vector3 Rotation3 = new Vector3(0, 90, 00);
+                                Map roadNorth = new Map(ii, jj, ee - 1, Map.buildType.RoadHorizontal, modelFile, textureFile, 1f, Rotation3);
+                                gridMap[ii, jj - 1,ee] = roadNorth;
+                            }
 
-                        if((jj + 1) < sizeZ)
-                        {
-                            string modelFile = "Models/city_road_02";
-                            string textureFile = "Maya/sourceimages/city_road_02_dif";
-                            Vector3 roadRotation = new Vector3(0, 90, 00);
-                            Map roadSouth = new Map(ii, 0, jj + 1, Map.buildType.RoadHorizontal, modelFile, textureFile, 1f, roadRotation);
-                            gridMap[ii, jj + 1] = roadSouth;
-                        }
-                        
+                            if ((ii + 1) < sizeX)
+                            {
+                                string modelFile = "Models/Cubix";
+                                string textureFile = "Textures/skybox_diffuse";
+                                Vector3 Rotation4 = new Vector3(0, 0, 0);
+                                Map roadEast = new Map(ii + 1, jj, ee, Map.buildType.RoadVertical, modelFile, textureFile, 1f, Rotation4);
+                                gridMap[ii + 1, jj,ee] = roadEast;
+                            }
+
+                            if ((jj + 1) < sizeZ)
+                            {
+                                string modelFile = "Models/Cube";
+                                string textureFile = "Textures/skybox_diffuse";
+                                Vector3 Rotation5 = new Vector3(0, 90, 00);
+                                Map roadSouth = new Map(ii, jj, ee + 1, Map.buildType.RoadHorizontal, modelFile, textureFile, 1f, Rotation5);
+                                gridMap[ii, jj + 1,ee] = roadSouth;
+                            }
+                        } 
                     }
                 }
             }
 
             // searches for empty grid spaces and populates it with a suitable asset
-            for (int ii = 0; ii < sizeX; ii++)
+           /* for (int ii = 0; ii < sizeX; ii++)
             {
                 for (int jj = 0; jj < sizeZ; jj++)
                 {
@@ -136,7 +140,7 @@ namespace JourneyToTheCenterOfTheCell
                         }
                     }
                 }
-            }
+            }*/
         }
 
         
@@ -155,7 +159,7 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre 
         *	@post 
         */
-
+/*
         private int FindNeighbours(int gridX, int gridY, Map[,] inputGrid)
         {
             int junction = 0;
@@ -195,7 +199,7 @@ namespace JourneyToTheCenterOfTheCell
             return junction;
            
         }
-
+*/
         /** 
         *   @brief mutator to set the exact coordinates of the model assets
         *   @brief 
@@ -215,15 +219,18 @@ namespace JourneyToTheCenterOfTheCell
         {
             for(int ii = 0; ii < sizeX; ii++)
             {
-                for(int jj = 0; jj < sizeZ; jj++)
+                for(int jj = 0; jj < sizeY; jj++)
                 {
-                    int tempX = gridMap[ii, jj].GetPositionX() * 22;
-                    int tempZ = gridMap[ii, jj].GetPositionZ() * 22;
+                    for(int ee = 0; ee< sizeZ; ee++)
+                    { 
+                        int tempX = gridMap[ii, jj, ee].GetPositionX() * 22;
+                        int tempY = gridMap[ii, jj, ee].GetPositionY() * 22;
+                        int tempZ = gridMap[ii, jj, ee].GetPositionZ() * 22;
 
-                    gridMap[ii, jj].SetCoordX(tempX);
-                    gridMap[ii, jj].SetCoordZ(tempZ);
-                    gridMap[ii, jj].SetCoordY(-2.5f);
-
+                        gridMap[ii, jj, ee].SetCoordX(tempX);
+                        gridMap[ii, jj, ee].SetCoordY(tempY);
+                        gridMap[ii, jj, ee].SetCoordZ(tempZ);
+                    }
                 }
             }
         }
@@ -243,7 +250,7 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre 
         *	@post 
         */
-        public Map[,] GetGridMap()
+        public Map[,,] GetGridMap()
         {
             return gridMap;
         }
@@ -253,9 +260,12 @@ namespace JourneyToTheCenterOfTheCell
         {
             for(int ii = 0; ii < sizeX; ii++)
             {
-                for(int jj = 0; jj < sizeZ; jj++)
+                for(int jj = 0; jj < sizeY; jj++)
                 {
-                    Debug.Write(gridMap[jj, ii].GetBlockType() + " ");
+                    for(int ee = 0; ee< sizeZ; ee++)
+                    { 
+                        Debug.Write(gridMap[jj, ii,ee].GetBlockType() + " ");
+                    }
                 }
 
                 Debug.Write("\n");
@@ -281,9 +291,12 @@ namespace JourneyToTheCenterOfTheCell
         {
             for (int ii = 0; ii < sizeX; ii++)
             {
-                for (int jj = 0; jj < sizeZ; jj++)
+                for (int jj = 0; jj < sizeY; jj++)
                 {
-                    Debug.WriteLine("Coord X: " + gridMap[ii,jj].GetCoordX() +" Y: "+ gridMap[ii, jj].GetCoordY() + " Z: "+ gridMap[ii,jj].GetCoordZ());
+                    for (int ee = 0; ee < sizeZ; ee++)
+                    {
+                        Debug.WriteLine("Coord X: " + gridMap[ii, jj, ee].GetCoordX() + " Y: " + gridMap[ii, jj, ee].GetCoordY() + " Z: " + gridMap[ii, jj, ee].GetCoordZ());
+                    }
                 }
             }
         }

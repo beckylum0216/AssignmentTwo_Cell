@@ -53,7 +53,7 @@ namespace JourneyToTheCenterOfTheCell
             cameraSpeed = 5f;
             fps = 90f;
 
-            mapClient = new ModelHandler(gameCtx.GetGameInstance().Content, 1, 1, 1.0f);
+            mapClient = new ModelHandler(gameCtx.GetGameInstance().Content, 10, 10, 10, 1.0f);
             mapClient.SetPlotDictionary();
             mapClient.SetPlotList();
             mapClient.PrintPlotList();
