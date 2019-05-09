@@ -4869,7 +4869,6 @@
 /processorParam:TextureFormat=Color
 /build:Pics/placeHolderCodex.jpg
 
-<<<<<<< HEAD
 #begin Textures/InnerBody2.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -4882,8 +4881,7 @@
 /processorParam:TextureFormat=Color
 /build:Textures/InnerBody2.jpg
 
-=======
->>>>>>> cea3a83599147f7983534f08e060fba548b2a3b8
+
 #begin Textures/skybox_diffuse.jpg
 /importer:TextureImporter
 /processor:TextureProcessor

@@ -23,7 +23,6 @@ namespace JourneyToTheCenterOfTheCell
         private GamePadState gamePadInput;
         int screenX;
         int screenY;
-<<<<<<< HEAD
         Codex codex;//the codex class
 
         public void Initialise()
@@ -33,9 +32,6 @@ namespace JourneyToTheCenterOfTheCell
         }
          
 
-=======
-        Codex codex;//the codex class 
->>>>>>> cea3a83599147f7983534f08e060fba548b2a3b8
 
         public override void Initialise(GameContext gameCtx)
         {
