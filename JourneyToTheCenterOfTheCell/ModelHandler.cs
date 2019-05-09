@@ -22,18 +22,15 @@ namespace JourneyToTheCenterOfTheCell
         private float plotScale;
 
 
-        //=======Not needed once Models are added that hold textures
-        private const int NumOfModels = 3;
-        string[] ModelNameMatrix = new string[NumOfModels] { "Models/Cube", "Models/Cubic", "Models/Cube" };
-        Vector3[] ModelTranslations = new Vector3[NumOfModels]
-        {
-            new Vector3(100, 200, 100),
-            new Vector3(50, 50, 50),
-            new Vector3(100, 50, 100)
-        };
-        private float[] ModelRotations = new float[NumOfModels] { 0.0f, 0.75f, 0.0f };
+        //private List<String> ModelList = new List<String>();
 
-        Model[] Models = new Model[NumOfModels]; //Not needed once PlotList is working
+        MapGenerator MapHandler;
+        private List<Model> Models = new List<Model>();
+        private List<string> ModelFileNames = new List<string>();
+        private List<Vector3> ModelTranslations = new List<Vector3>();
+        private List<float> ModelRotations = new List<float>();
+
+
 
 
         /**
@@ -46,12 +43,20 @@ namespace JourneyToTheCenterOfTheCell
 	    *	@pre 
 	    *	@post Camera will exist
 	    */
-        public ModelHandler(ContentManager inputContent,  int inputX, int inputY, float inputScale)
+        public ModelHandler(ContentManager inputContent, int inputX, int inputY, float inputScale, List<string> FileNames, List<Vector3> ModelPositions, List<float> MRotations)
         {
             this.Content = inputContent;
             this.sizeX = inputX;
             this.sizeY = inputY;
             this.plotScale = inputScale;
+
+            this.ModelFileNames = FileNames;
+            this.ModelTranslations = ModelPositions;
+            this.ModelRotations = MRotations;
+
+            InitialiseModels();
+            MapHandler = new MapGenerator(inputContent, Models, ModelTranslations, ModelRotations); //initialises MapHandler
+
 
             // initialise map
             //MapGenerator mapCreate = new MapGenerator(sizeX, sizeY);
@@ -59,7 +64,7 @@ namespace JourneyToTheCenterOfTheCell
             //mapCreate.PrintGrid();
             //mapCreate.SetCoords();
             //mapCreate.PrintCoords();
-           
+
             //gridMap = mapCreate.GetGridMap();
         }
 
@@ -151,6 +156,7 @@ namespace JourneyToTheCenterOfTheCell
             SkyBox plotSkyBox = new SkyBox(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
             landPlots.Add(Map.buildType.SkyBox.ToString(), plotSkyBox);
 
+/*
             for (int i = 0; i < NumOfModels; i++)
             {
                 Models[i] = Content.Load<Model>(ModelNameMatrix[i]);
@@ -158,6 +164,7 @@ namespace JourneyToTheCenterOfTheCell
 
                 //Add dictionary element to landPlots
             }
+*/
 
             //modelFile = "Models/city_residential_03";
             //textureFile = "Maya/sourceimages/city_residential_03_dif";
@@ -259,28 +266,18 @@ namespace JourneyToTheCenterOfTheCell
             }
         }
 
-        public void DrawModel(Matrix view, Matrix projection)
+
+        private void InitialiseModels() //Loads in the models in the MODEL HANDLER
         {
-            for (int i = 0; i < NumOfModels; i++)
+            for (int i = 0; i < ModelFileNames.Count; i++)
             {
-                Model model = Models[i];
-                Matrix[] transforms = new Matrix[model.Bones.Count];
-                model.CopyAbsoluteBoneTransformsTo(transforms);
-
-                foreach (ModelMesh mesh in model.Meshes) //for each mesh in the model
-                {
-                    foreach (BasicEffect effect in mesh.Effects) //and for each effect in the model
-                    {
-                        effect.EnableDefaultLighting();
-                        effect.World = transforms[mesh.ParentBone.Index] * Matrix.CreateRotationY(ModelRotations[i]) * Matrix.CreateTranslation(ModelTranslations[i]);
-                        effect.View = view;
-                        effect.Projection = projection;
-                    }
-
-                    mesh.Draw(); //draw the model
-
-                }
+                Models.Add(Content.Load<Model>(ModelFileNames[i]));
             }
+
+        }
+        public void DrawModels(Matrix view, Matrix projection)
+        {
+            MapHandler.DrawModels(view, projection);
         }
     }
 }
