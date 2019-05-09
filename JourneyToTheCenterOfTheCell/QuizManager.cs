@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 
 namespace JourneyToTheCenterOfTheCell
 {
-    class MenuManager:GameState
+    class QuizManager:GameState
     {
         private int screenX;
         private int screenY;
+
+
 
         public override void Initialise(GameContext gameCtx)
         {
@@ -19,8 +21,17 @@ namespace JourneyToTheCenterOfTheCell
             screenY = gameCtx.GetGraphics().GraphicsDevice.Viewport.Height;
 
             UserInterface.Initialize(gameCtx.GetGameInstance().Content, BuiltinThemes.hd);
-            MenuView gui = new MenuView(gameCtx);
-            Panel testPanel = gui.GetPanel(screenX, screenY);
+
+            List<String> tempAns = new List<String>();
+            tempAns.Add("lorem ipsum");
+            tempAns.Add("blah");
+            Quiz testQuiz = new Quiz("Lorem ipsum dolor sit amet," +
+                " consectetur adipiscing elit, sed do eiusmod " +
+                "tempor incididunt ut labore et " +
+                "dolore magna aliqua.", tempAns, "blah");
+            QuizView newQuiz = new QuizView(testQuiz, screenX, screenY);
+
+            Panel testPanel = newQuiz.GetQuizPanel();
 
 
             UserInterface.Active.AddEntity(testPanel);
@@ -35,6 +46,5 @@ namespace JourneyToTheCenterOfTheCell
         {
             UserInterface.Active.Draw(gameCtx.GetSpriteBatch());
         }
-
     }
 }

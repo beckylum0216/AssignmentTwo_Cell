@@ -58,6 +58,7 @@
     <Compile Include="MenuManager.cs" />
     <Compile Include="ModelHandler.cs" />
     <Compile Include="Quiz.cs" />
+    <Compile Include="QuizManager.cs" />
     <Compile Include="QuizView.cs" />
     <Compile Include="Structure.cs" />
     <Compile Include="Program.cs" />
