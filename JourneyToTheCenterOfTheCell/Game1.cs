@@ -45,7 +45,7 @@ namespace JourneyToTheCenterOfTheCell
             GameManager gameManager = new GameManager();
             MenuManager menuManager = new MenuManager();
             newGame = new GameContext(this, graphics, spriteBatch);
-            newGame.SetGameState(menuManager);
+            newGame.SetGameState(gameManager);
             newGame.Initialise();
 
             
