@@ -25,13 +25,13 @@ namespace JourneyToTheCenterOfTheCell
         int screenY;
         Codex codex;//the codex class
 
-        public void Initialise()
+
+        public GameManager()
         {
-            
 
         }
-         
-        public override void Initialise(GameContext gameCtx)
+
+        public GameManager(GameContext gameCtx)
         {
             theWorld = Matrix.CreateTranslation(new Vector3(0, 0, 0));
             screenX = gameCtx.GetGraphics().GraphicsDevice.Viewport.Width;
@@ -57,9 +57,21 @@ namespace JourneyToTheCenterOfTheCell
             mapClient.SetPlotDictionary();
             mapClient.SetPlotList();
             mapClient.PrintPlotList();
-            
+
             codex = new Codex();
             codex.Initialize(gameCtx.GetGraphics(), gameCtx.GetGameInstance().Content);//initialize the basic codex(no samples taken)
+        }
+
+
+        public void Initialise()
+        {
+            
+
+        }
+         
+        public override void Initialise(GameContext gameCtx)
+        {
+            
         }
 
 
