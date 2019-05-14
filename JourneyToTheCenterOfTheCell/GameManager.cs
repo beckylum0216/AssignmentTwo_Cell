@@ -21,14 +21,20 @@ namespace JourneyToTheCenterOfTheCell
         private ModelHandler mapClient;
         private Vector3 mouseInputDelta;
         private InputHandler inputHandlers;
+        
         private InputHandler.keyStates keyboardInput;
         private GamePadState gamePadInput;
         int screenX;
         int screenY;
+<<<<<<< HEAD
         CodexManager codex;//the codex class
         InfoPanel infoPane;
         Panel testPane;
 
+=======
+        Codex codex;//the codex class
+       
+>>>>>>> 07cdbec38e39a719bf9bb63c71cf7cb0d0798ce4
 
         public GameManager()
         {
@@ -64,12 +70,17 @@ namespace JourneyToTheCenterOfTheCell
 
             codex = new CodexManager();
             codex.Initialize(gameCtx.GetGraphics(), gameCtx.GetGameInstance().Content);//initialize the basic codex(no samples taken)
+<<<<<<< HEAD
             //UserInterface.Initialize(gameCtx.GetGameInstance().Content, BuiltinThemes.hd);
             infoPane = new InfoPanel();
             testPane = infoPane.GetPanel(gameCtx.GetGameInstance().Content, "blah" , "blah blah", "Pics/placeHolderCodex");
 
             //UserInterface.Active.AddEntity(testPane);
 
+=======
+            
+            
+>>>>>>> 07cdbec38e39a719bf9bb63c71cf7cb0d0798ce4
         }
 
 
