@@ -19,12 +19,13 @@ namespace JourneyToTheCenterOfTheCell
         private ModelHandler mapClient;
         private Vector3 mouseInputDelta;
         private InputHandler inputHandlers;
+        
         private InputHandler.keyStates keyboardInput;
         private GamePadState gamePadInput;
         int screenX;
         int screenY;
         Codex codex;//the codex class
-
+       
 
         public GameManager()
         {
@@ -60,6 +61,8 @@ namespace JourneyToTheCenterOfTheCell
 
             codex = new Codex();
             codex.Initialize(gameCtx.GetGraphics(), gameCtx.GetGameInstance().Content);//initialize the basic codex(no samples taken)
+            
+            
         }
 
 

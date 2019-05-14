@@ -1,0 +1,10 @@
+cells-from-pixabay: 			www.pixabay.com
+782px-Peroxisome-wikimedia: 		wikimedia.com
+Lysosome-wikimedia:			wikimedia.com
+cytoskeleton-thecellimagelibrary: 	cellimagelibrary.org 
+ER-thecellimagelibrary: 		cellimagelibrary.org
+mitochondrion-cell image library	cellimagelibrary.org
+golgi			:Bruno Neto
+lockedInfoCodex		:Bruno Neto
+placeHolderCodex	:Bruno Neto
+seleno			:Bruno Neto
