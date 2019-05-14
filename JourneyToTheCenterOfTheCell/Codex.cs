@@ -162,93 +162,108 @@ namespace JourneyToTheCenterOfTheCell
             }
             if (active1)//if panel 1 active
             {
+                
                 if (codexActivate)// if the codex has been activated
                 {
                     UserInterface.Active.RemoveEntity(test);//load panel one into the codex user interface
                     test = gui.GetPanel(content, "The Cell", cellInfo, cellPic);
                     UserInterface.Active.AddEntity(test);
                 }
+                active1 = false;// after displaying panel set to false to allow the page to be reloaded(for instances of browsing back and forth through the info pages)
                 
             }
             
             
             if (active2)
             {
+                
                 if (codexActivate)// if the codex has been activated
                 {
                     UserInterface.Active.RemoveEntity(test);
                     test = gui.GetPanel(content, "Nucleus", nucleusInfo, nucleusPic);
                     UserInterface.Active.AddEntity(test);
                 }
-
+                active2 = false;
             }
             if (active3)
             {
+                
                 if (codexActivate)// if the codex has been activated
                 {
                     UserInterface.Active.RemoveEntity(test);
                     test = gui.GetPanel(content, "Endoplasmic Reticulum", ERInfo, ERPic);
                     UserInterface.Active.AddEntity(test);
                 }
+                active3 = false;
 
             }
             if (active4)
             {
+               
                 if (codexActivate)// if the codex has been activated
                 {
                     UserInterface.Active.RemoveEntity(test);
                     test = gui.GetPanel(content, "Lysosome", lysosomeInfo, lysosomePic);
                     UserInterface.Active.AddEntity(test);
                 }
-
+                active4 = false;
             }
             if (active5)
             {
+                
                 if (codexActivate)// if the codex has been activated
                 {
                     UserInterface.Active.RemoveEntity(test);
                     test = gui.GetPanel(content, "Peroxisome", peroxisomeInfo, peroxisomePic);
                     UserInterface.Active.AddEntity(test);
                 }
+                active5 = false;
 
             }
             if (active6)
             {
+                
                 if (codexActivate)// if the codex has been activated
                 {
                     UserInterface.Active.RemoveEntity(test);
                     test = gui.GetPanel(content, "Golgi Apparatus", golgiInfo, golgiPic);
                     UserInterface.Active.AddEntity(test);
                 }
+                active6 = false;
             }
             if (active7)
             {
+                
                 if (codexActivate)// if the codex has been activated
                 {
                     UserInterface.Active.RemoveEntity(test);
                     test = gui.GetPanel(content, "Mitochondria", mitoInfo, mitoPic);
                     UserInterface.Active.AddEntity(test);
                 }
-
+                active7 = false;
             }
             if (active8)
             {
+               
                 if (codexActivate)// if the codex has been activated
                 {
                     UserInterface.Active.RemoveEntity(test);
                     test = gui.GetPanel(content, "Cytoskeleton", cytoskeletonInfo, cytoskeletonPic);
                     UserInterface.Active.AddEntity(test);
                 }
+                active8 = false;
 
             }
             if (active9)
             {
+               
                 if (codexActivate)// if the codex has been activated
                 {
                     UserInterface.Active.RemoveEntity(test);
                     test = gui.GetPanel(content, "Selenocysteine", SelenocysteineInfo, SelenocysteinePic);
                     UserInterface.Active.AddEntity(test);
                 }
+                active9 = false;
             }
 
             UserInterface.Active.Update(gameTime);
