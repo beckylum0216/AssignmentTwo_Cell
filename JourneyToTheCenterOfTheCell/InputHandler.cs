@@ -21,13 +21,8 @@ namespace JourneyToTheCenterOfTheCell
         private CodexManager c;//codex is passed through and saved to this variable for input resolutions
         private Vector3 mouseDelta;
         private Vector3 mousePosition;
-<<<<<<< HEAD
 
         public InputHandler(int screenX, int screenY, CodexManager codex)
-=======
-       
-        public InputHandler(int screenX, int screenY, Codex codex)
->>>>>>> 07cdbec38e39a719bf9bb63c71cf7cb0d0798ce4
         {
             this.mouseDelta = new Vector3(0, 0, 0);
             float centerX = (float)screenX / 2;

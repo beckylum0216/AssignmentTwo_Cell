@@ -14,12 +14,10 @@ namespace JourneyToTheCenterOfTheCell
         //UserInterface userInt;
         Panel test;
         //UserInterface userInt;
-<<<<<<< HEAD:JourneyToTheCenterOfTheCell/CodexManager.cs
-        CodexView gui;
-=======
-        CodexGui cgui;
+
+        CodexView cgui;
         InfoPanel gui;
->>>>>>> 07cdbec38e39a719bf9bb63c71cf7cb0d0798ce4:JourneyToTheCenterOfTheCell/Codex.cs
+
         public bool codexActivate = false;
         string lysosomeInfo = "A lysosome is a membrane-bound organelle found in many animal cells. They are spherical vesicles that contain hydrolytic enzymes that can break down many kinds of biomolecules. A lysosome has a specific composition, of both its membrane proteins, and its lumenal proteins. The lumen's pH  is optimal for the enzymes involved in hydrolysis, analogous to the activity of the stomach. Besides degradation of polymers, the lysosome is involved in various cell processes, including secretion, plasma membrane repair, cell signaling, and energy metabolism.";
         string lysosomePic = "Pics/Lysosome-wikimedia";
@@ -59,14 +57,11 @@ namespace JourneyToTheCenterOfTheCell
         {
             content = Content;
             spritebatch = new SpriteBatch(g.GraphicsDevice);
-<<<<<<< HEAD:JourneyToTheCenterOfTheCell/CodexManager.cs
-            UserInterface.Initialize(Content, BuiltinThemes.hd);
-            gui = new CodexView();
-=======
+
             UserInterface.Initialize(content, BuiltinThemes.hd);
-            cgui = new CodexGui();
+            cgui = new CodexView();
             gui = new InfoPanel();
->>>>>>> 07cdbec38e39a719bf9bb63c71cf7cb0d0798ce4:JourneyToTheCenterOfTheCell/Codex.cs
+
             test = new Panel();
             test = cgui.GetPanel(content);
             
