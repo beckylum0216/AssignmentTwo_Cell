@@ -43,11 +43,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Actor.cs" />
-    <Compile Include="Codex.cs" />
-    <Compile Include="CodexGui.cs" />
+    <Compile Include="CodexManager.cs" />
+    <Compile Include="CodexView.cs" />
     <Compile Include="GameContext.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="GameState.cs" />
+    <Compile Include="InfoPanel.cs" />
     <Compile Include="IntroView.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Camera.cs" />

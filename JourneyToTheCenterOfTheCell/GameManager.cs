@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GeonBit.UI;
+using GeonBit.UI.Entities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
@@ -23,7 +25,9 @@ namespace JourneyToTheCenterOfTheCell
         private GamePadState gamePadInput;
         int screenX;
         int screenY;
-        Codex codex;//the codex class
+        CodexManager codex;//the codex class
+        InfoPanel infoPane;
+        Panel testPane;
 
 
         public GameManager()
@@ -36,7 +40,7 @@ namespace JourneyToTheCenterOfTheCell
             theWorld = Matrix.CreateTranslation(new Vector3(0, 0, 0));
             screenX = gameCtx.GetGraphics().GraphicsDevice.Viewport.Width;
             screenY = gameCtx.GetGraphics().GraphicsDevice.Viewport.Height;
-            projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), screenX / screenY, 0.1f, 8000f);
+            projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), screenX / screenY, 0.1f, 20000f);
 
             int centerX = (int)(screenX / 2);
             int centerY = (int)(screenY / 2);
@@ -53,13 +57,19 @@ namespace JourneyToTheCenterOfTheCell
             cameraSpeed = 5f;
             fps = 90f;
 
-            mapClient = new ModelHandler(gameCtx.GetGameInstance().Content, 10, 10, 10, 1.0f);
+            mapClient = new ModelHandler(gameCtx.GetGameInstance().Content, 20, 20, 20, 1.0f);
             mapClient.SetPlotDictionary();
             mapClient.SetPlotList();
             mapClient.PrintPlotList();
 
-            codex = new Codex();
+            codex = new CodexManager();
             codex.Initialize(gameCtx.GetGraphics(), gameCtx.GetGameInstance().Content);//initialize the basic codex(no samples taken)
+            //UserInterface.Initialize(gameCtx.GetGameInstance().Content, BuiltinThemes.hd);
+            infoPane = new InfoPanel();
+            testPane = infoPane.GetPanel(gameCtx.GetGameInstance().Content, "blah" , "blah blah", "Pics/placeHolderCodex");
+
+            //UserInterface.Active.AddEntity(testPane);
+
         }
 
 
@@ -100,6 +110,7 @@ namespace JourneyToTheCenterOfTheCell
 
             theCamera = camera.SubjectUpdate(mouseInputDelta, deltaTime, fps);
             codex.Update(gameCtx.GetGameTime());//this update animates the codex drop down
+            //UserInterface.Active.Update(gameCtx.GetGameTime());
         }
 
         public override void Draw(GameContext gameCtx)
@@ -111,6 +122,8 @@ namespace JourneyToTheCenterOfTheCell
             
             mapClient.DrawModel(theCamera, projection);
             codex.Draw();//draw the codex (should be drawn in deactivated state i.e. top of the screen)
+            
+            //UserInterface.Active.Draw(gameCtx.GetSpriteBatch());
         }
     }
 }

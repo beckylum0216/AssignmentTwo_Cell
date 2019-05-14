@@ -11,9 +11,10 @@ namespace JourneyToTheCenterOfTheCell
     class MapGenerator
     {
         private int sizeX = 0;
-        private int sizeZ = 0;
         private int sizeY = 0;
-        private Map[,,] gridMap;
+        private int sizeZ = 0;
+        private Map[,] gridMap;
+        private List<Vector3> randomList;
 
         /**
 	    *	@brief parameterised constructor for the MapGenerator object. Create a complete MapGenerator object.
@@ -23,13 +24,13 @@ namespace JourneyToTheCenterOfTheCell
 	    *	@pre 
 	    *	@post MapGenerator will exist
 	    */
-        public MapGenerator(int inputX,int inputY, int inputZ)
+        public MapGenerator(int inputX, int inputY, int inputZ)
         {
             sizeX = inputX;
             sizeY = inputY;
             sizeZ = inputZ;
-            
-            gridMap = new Map[sizeX,sizeY, sizeZ];
+            gridMap = new Map[sizeX, sizeZ];
+            randomList = new List<Vector3>();
         }
 
         /** 
@@ -49,98 +50,39 @@ namespace JourneyToTheCenterOfTheCell
         public void SetMap()
         {
 
-
-            // sets the initial "block consisting of building and adjacent road
-            for(int ii = 0; ii < sizeX; ii++)
+            
+            // sets the initial "Map consisting of building and adjacent road
+            Random randomNum = new Random();
+            for(int ii = 0; ii < 100; ii += 1)
             {
-                for(int jj = 0; jj < sizeY; jj++)
+                int randomX = randomNum.Next(100);
+                int randomY = randomNum.Next(100);
+                int randomZ = randomNum.Next(100);
+
+                Vector3 newPosition = new Vector3(randomX, randomY, randomZ);
+                randomList.Add(newPosition);
+            }
+
+            for(int aa = 0; aa < 100; aa += 1)
+            {
+                for (int ii = 0; ii < this.sizeX; ii += 1)
                 {
-                    for(int ee = 0; ee < sizeZ; ee++ )
-                    { 
-                        if (ii % 2 == 1 && jj % 2 == 1)
+                    for (int jj = 0; jj < this.sizeZ; jj += 1)
+                    {
+                        if((ii == randomList[aa].X) && (jj == randomList[aa].Z))
                         {
-                            string modelPath = "Models/Cube";
-                            string texturePath = "Textures/skybox_diffuse";
-                            Vector3 Rotation = new Vector3(0, 0, 0);
-                            Map tempBlock = new Map(ii, jj, ee, Map.buildType.Building, modelPath, texturePath, 1f, Rotation);
-                            gridMap[ii, jj,ee] = tempBlock;
-
-
-                            if ((ii - 1) >= 0)
-                            {
-                                string modelFile = "Models/Cubic";
-                                string textureFile = "Textures/skybox_diffuse";
-                                Vector3 Rotation2 = new Vector3(0, 0, 0);
-                                Map roadWest = new Map(ii - 1, jj, ee, Map.buildType.RoadVertical, modelFile, textureFile, 1f, Rotation2);
-                                gridMap[ii - 1, jj,ee] = roadWest;
-                            }
-
-                            if ((jj - 1) >= 0)
-                            {
-                                string modelFile = "Cube";
-                                string textureFile = "Textures/skybox_diffuse";
-                                Vector3 Rotation3 = new Vector3(0, 90, 00);
-                                Map roadNorth = new Map(ii, jj, ee - 1, Map.buildType.RoadHorizontal, modelFile, textureFile, 1f, Rotation3);
-                                gridMap[ii, jj - 1,ee] = roadNorth;
-                            }
-
-                            if ((ii + 1) < sizeX)
-                            {
-                                string modelFile = "Models/Cubix";
-                                string textureFile = "Textures/skybox_diffuse";
-                                Vector3 Rotation4 = new Vector3(0, 0, 0);
-                                Map roadEast = new Map(ii + 1, jj, ee, Map.buildType.RoadVertical, modelFile, textureFile, 1f, Rotation4);
-                                gridMap[ii + 1, jj,ee] = roadEast;
-                            }
-
-                            if ((jj + 1) < sizeZ)
-                            {
-                                string modelFile = "Models/Cube";
-                                string textureFile = "Textures/skybox_diffuse";
-                                Vector3 Rotation5 = new Vector3(0, 90, 00);
-                                Map roadSouth = new Map(ii, jj, ee + 1, Map.buildType.RoadHorizontal, modelFile, textureFile, 1f, Rotation5);
-                                gridMap[ii, jj + 1,ee] = roadSouth;
-                            }
-                        } 
+                            string modelPath = "Models/Fireninja_blueninja";
+                            string texturePath = "Textures/Skin1";
+                            float mapScale = 1.0f;
+                            Vector3 buildingRotation = new Vector3(0, 0, 0);
+                            Map tempMap = new Map(randomList[aa], Map.buildType.Building, modelPath, texturePath, mapScale, buildingRotation);
+                            gridMap[ii, jj] = tempMap;
+                        }
                     }
                 }
             }
+            
 
-            // searches for empty grid spaces and populates it with a suitable asset
-           /* for (int ii = 0; ii < sizeX; ii++)
-            {
-                for (int jj = 0; jj < sizeZ; jj++)
-                {
-                    if (gridMap[ii, jj] == null)
-                    {
-                        int junctions = FindNeighbours(ii, jj, gridMap);
-
-                        Debug.WriteLine("Junctions: " + junctions);
-
-                        if (junctions == 2)
-                        {
-                            string modelFile = "Models/city_road_03";
-                            string textureFile = "Maya/sourceimages/city_road_03_dif";
-                            Vector3 cornerRotation = new Vector3(0, 0, 0);
-                            gridMap[ii, jj] = new Map(ii, 0, jj, Map.buildType.RoadCorner, modelFile, textureFile, 1f, cornerRotation);
-                        }
-                        else if(junctions == 3)
-                        {
-                            string modelFile = "Models/city_road_03";
-                            string textureFile = "Maya/sourceimages/city_road_03_dif";
-                            Vector3 TRotation = new Vector3(0, 0, 0);
-                            gridMap[ii, jj] = new Map(ii, 0, jj, Map.buildType.RoadT, modelFile, textureFile, 1f, TRotation);
-                        }
-                        else
-                        {
-                            string modelFile = "Models/city_road_03";
-                            string textureFile = "Maya/sourceimages/city_road_03_dif";
-                            Vector3 crossRotation = new Vector3(0, 0, 0);
-                            gridMap[ii, jj] = new Map(ii, 0, jj, Map.buildType.RoadCross, modelFile, textureFile, 1f, crossRotation);
-                        }
-                    }
-                }
-            }*/
         }
 
         
@@ -159,14 +101,14 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre 
         *	@post 
         */
-/*
+
         private int FindNeighbours(int gridX, int gridY, Map[,] inputGrid)
         {
             int junction = 0;
 
             if((gridX - 1) >= 0)
             {
-                if (inputGrid[gridX - 1, gridY].GetBlockType() == Map.buildType.RoadHorizontal)
+                if (inputGrid[gridX - 1, gridY].GetMapType() == Map.buildType.RoadHorizontal)
                 {
                     junction += 1;
                 }
@@ -174,7 +116,7 @@ namespace JourneyToTheCenterOfTheCell
             
             if((gridY - 1) >= 0)
             {
-                if (inputGrid[gridX, gridY - 1].GetBlockType() == Map.buildType.RoadVertical)
+                if (inputGrid[gridX, gridY - 1].GetMapType() == Map.buildType.RoadVertical)
                 {
                     junction += 1;
                 }
@@ -182,7 +124,7 @@ namespace JourneyToTheCenterOfTheCell
 
             if((gridX + 1) < sizeX)
             {
-                if(inputGrid[gridX + 1, gridY].GetBlockType() == Map.buildType.RoadHorizontal)
+                if(inputGrid[gridX + 1, gridY].GetMapType() == Map.buildType.RoadHorizontal)
                 {
                     junction += 1;
                 }
@@ -190,7 +132,7 @@ namespace JourneyToTheCenterOfTheCell
             
             if((gridY + 1) < sizeZ)
             {
-                if (inputGrid[gridX, gridY + 1].GetBlockType() == Map.buildType.RoadVertical)
+                if (inputGrid[gridX, gridY + 1].GetMapType() == Map.buildType.RoadVertical)
                 {
                     junction += 1;
                 }
@@ -199,7 +141,7 @@ namespace JourneyToTheCenterOfTheCell
             return junction;
            
         }
-*/
+
         /** 
         *   @brief mutator to set the exact coordinates of the model assets
         *   @brief 
@@ -217,22 +159,28 @@ namespace JourneyToTheCenterOfTheCell
         */
         public void SetCoords()
         {
-            for(int ii = 0; ii < sizeX; ii++)
+            for(int aa = 0; aa < 100; aa += 1)
             {
-                for(int jj = 0; jj < sizeY; jj++)
+                for (int ii = 0; ii < sizeX; ii++)
                 {
-                    for(int ee = 0; ee< sizeZ; ee++)
-                    { 
-                        int tempX = gridMap[ii, jj, ee].GetPositionX() * 22;
-                        int tempY = gridMap[ii, jj, ee].GetPositionY() * 22;
-                        int tempZ = gridMap[ii, jj, ee].GetPositionZ() * 22;
+                    for (int jj = 0; jj < sizeZ; jj++)
+                    {
+                        if ((ii == randomList[aa].X) && (jj == randomList[aa].Z))
+                        {
+                            float tempX = gridMap[ii, jj].GetPositionMap().X * 22;
+                            float tempY = gridMap[ii, jj].GetPositionMap().Y * 22;
+                            float tempZ = gridMap[ii, jj].GetPositionMap().Z * 22;
 
-                        gridMap[ii, jj, ee].SetCoordX(tempX);
-                        gridMap[ii, jj, ee].SetCoordY(tempY);
-                        gridMap[ii, jj, ee].SetCoordZ(tempZ);
+                            gridMap[ii, jj].SetCoordX(tempX);
+                            gridMap[ii, jj].SetCoordZ(tempZ);
+                            gridMap[ii, jj].SetCoordY(tempY);
+
+                        }
+
                     }
                 }
             }
+           
         }
 
         /** 
@@ -250,7 +198,7 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre 
         *	@post 
         */
-        public Map[,,] GetGridMap()
+        public Map[,] GetGridMap()
         {
             return gridMap;
         }
@@ -258,18 +206,23 @@ namespace JourneyToTheCenterOfTheCell
         // output function for debugging
         public void PrintGrid()
         {
-            for(int ii = 0; ii < sizeX; ii++)
+            for(int aa = 0; aa < 100; aa += 1)
             {
-                for(int jj = 0; jj < sizeY; jj++)
+                for (int ii = 0; ii < sizeX; ii++)
                 {
-                    for(int ee = 0; ee< sizeZ; ee++)
-                    { 
-                        Debug.Write(gridMap[jj, ii,ee].GetBlockType() + " ");
-                    }
-                }
+                    for (int jj = 0; jj < sizeZ; jj++)
+                    {
+                        if ((ii == randomList[aa].X) && (jj == randomList[aa].Z))
+                        {
+                            Debug.Write(gridMap[ii, jj].GetMapType() + " ");
+                        }
 
-                Debug.Write("\n");
+                    }
+
+                    Debug.Write("\n");
+                }
             }
+            
         }
 
         /** 
@@ -289,16 +242,21 @@ namespace JourneyToTheCenterOfTheCell
         */
         public void PrintCoords()
         {
-            for (int ii = 0; ii < sizeX; ii++)
+            for(int aa = 0; aa < 100; aa += 1)
             {
-                for (int jj = 0; jj < sizeY; jj++)
+                for (int ii = 0; ii < sizeX; ii++)
                 {
-                    for (int ee = 0; ee < sizeZ; ee++)
+                    for (int jj = 0; jj < sizeZ; jj++)
                     {
-                        Debug.WriteLine("Coord X: " + gridMap[ii, jj, ee].GetCoordX() + " Y: " + gridMap[ii, jj, ee].GetCoordY() + " Z: " + gridMap[ii, jj, ee].GetCoordZ());
+                        if ((ii == randomList[aa].X) && (jj == randomList[aa].Z))
+                        {
+                            Debug.WriteLine("Coord X: " + gridMap[ii, jj].GetCoordX() + " Y: " + gridMap[ii, jj].GetCoordY() + " Z: " + gridMap[ii, jj].GetCoordZ());
+                        }
+
                     }
                 }
             }
+            
         }
 
 
