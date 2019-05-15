@@ -87,7 +87,7 @@ namespace JourneyToTheCenterOfTheCell
 
             float deltaTime = (float)gameCtx.GetGameTime().ElapsedGameTime.TotalSeconds;
 
-            inputHandlers = new InputHandler(screenX, screenY,codex);
+            inputHandlers = new InputHandler(screenX, screenY, codex);
             mouseInputDelta = inputHandlers.MouseHandler(screenX, screenY, 1.00f);
 
             if (!gamePadInput.IsConnected)
@@ -104,7 +104,7 @@ namespace JourneyToTheCenterOfTheCell
             //setting up collisions
 
             theCamera = camera.SubjectUpdate(mouseInputDelta, deltaTime, fps);
-            codex.Update(gameCtx.GetGameTime());//this update animates the codex drop down
+            codex.Update(gameCtx.GetGameTime(), keyboardInput);//this update animates the codex drop down
             //UserInterface.Active.Update(gameCtx.GetGameTime());
         }
 

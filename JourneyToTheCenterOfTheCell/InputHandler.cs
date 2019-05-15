@@ -14,7 +14,7 @@ namespace JourneyToTheCenterOfTheCell
     /// @see https://www.gamefromscratch.com/post/2015/06/28/MonoGame-Tutorial-Handling-Keyboard-Mouse-and-GamePad-Input.aspx
     public class InputHandler
     {
-        public enum keyStates { Forwards, Backwards, Left, Right, NULL, Pigeon, FPS, CW, CCW, ZoomIn, ZoomOut};
+        public enum keyStates { Forwards, Backwards, Left, Right, NULL, CodexDown, CodexUp, CW, CCW, ZoomIn, ZoomOut};
         private KeyboardState keyboardInput;
         private MouseState mouseInput;
         private GamePadState gamePadInput;
@@ -141,16 +141,6 @@ namespace JourneyToTheCenterOfTheCell
                 directionState = keyStates.CCW;
             }
 
-            if (keyboardInput.IsKeyDown(Keys.D1))
-            {
-                directionState = keyStates.FPS;
-            }
-
-            if (keyboardInput.IsKeyDown(Keys.D2))
-            {
-                directionState = keyStates.Pigeon;
-            }
-
             if(keyboardInput.IsKeyDown(Keys.Z))
             {
                 directionState = keyStates.ZoomIn;
@@ -203,16 +193,16 @@ namespace JourneyToTheCenterOfTheCell
             if (keyboardInput.IsKeyDown(Keys.V))//keypress for activating codex
             {
 
-                c.Activate();
+                directionState = keyStates.CodexDown;
+                //c.Activate();
                 
-
             }
+
             if (keyboardInput.IsKeyDown(Keys.X))//keypress for deactivating codex
             {
 
-                c.Deactivate();
-                
-                
+                directionState = keyStates.CodexUp;
+                //c.Deactivate();
             }
 
 
@@ -335,15 +325,7 @@ namespace JourneyToTheCenterOfTheCell
                     directionState = keyStates.CCW;
                 }
 
-                if (keyboardInput.IsKeyDown(Keys.D1))
-                {
-                    directionState = keyStates.FPS;
-                }
-
-                if (keyboardInput.IsKeyDown(Keys.D2))
-                {
-                    directionState = keyStates.Pigeon;
-                }
+               
                 
             }
             
