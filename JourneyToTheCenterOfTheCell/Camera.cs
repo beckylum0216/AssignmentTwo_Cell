@@ -133,7 +133,7 @@ namespace JourneyToTheCenterOfTheCell
         {
             this.cameraEye = inputVector;
         }
-
+       
         /** 
         *   @brief accessor for the "front" vector. This function also translates a quaternion to a vector 
         *	@param 

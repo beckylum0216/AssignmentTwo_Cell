@@ -52,7 +52,15 @@ namespace JourneyToTheCenterOfTheCell
         bool active7 = false;
         bool active8 = false;
         bool active9 = false;
-
+        bool unlocked1 = false;
+        bool unlocked2 = false;
+        bool unlocked3 = false;
+        bool unlocked4 = false;
+        bool unlocked5 = false;
+        bool unlocked6 = false;
+        bool unlocked7 = false;
+        bool unlocked8 = false;
+        bool unlocked9 = false;
 
         public void Initialize(GraphicsDeviceManager g, ContentManager Content)
         {
@@ -64,7 +72,7 @@ namespace JourneyToTheCenterOfTheCell
             gui = new InfoPanel();
 
             test = new Panel();
-            test = cgui.GetPanel(content);
+            test = cgui.GetPanel(content,unlocked1,unlocked2,unlocked3,unlocked4,unlocked5,unlocked6,unlocked7,unlocked8,unlocked9);
             
             test.Draggable = false;
             
@@ -72,7 +80,69 @@ namespace JourneyToTheCenterOfTheCell
             UserInterface.Active.AddEntity(test);
             
         }
-
+        public void Unlock1()
+        {
+            if (!unlocked1)
+            {
+                unlocked1 = true;
+            }
+        }
+        public void Unlock2()
+        {
+            if (!unlocked2)
+            {
+                unlocked2 = true;
+            }
+        }
+        public void Unlock3()
+        {
+            if (!unlocked3)
+            {
+                unlocked3 = true;
+            }
+        }
+        public void Unlock4()
+        {
+            if (!unlocked4)
+            {
+                unlocked4 = true;
+            }
+        }
+        public void Unlock5()
+        {
+            if (!unlocked5)
+            {
+                unlocked5 = true;
+            }
+        }
+        public void Unlock6()
+        {
+            if (!unlocked6)
+            {
+                unlocked6 = true;
+            }
+        }
+        public void Unlock7()
+        {
+            if (!unlocked7)
+            {
+                unlocked7 = true;
+            }
+        }
+        public void Unlock8()
+        {
+            if (!unlocked8)
+            {
+                unlocked8 = true;
+            }
+        }
+        public void Unlock9()
+        {
+            if (!unlocked9)
+            {
+                unlocked9 = true;
+            }
+        }
         public void Activate()
         {
             codexActivate = true;//sets the boolean for wether the codex panel has been opened/activated 
@@ -164,7 +234,7 @@ namespace JourneyToTheCenterOfTheCell
             {
                 UserInterface.Active.RemoveEntity(test);//remove whatever panel was last stored 
 
-                test = cgui.GetPanel(content);//reset panel to content start page
+                test = cgui.GetPanel(content, unlocked1, unlocked2, unlocked3, unlocked4, unlocked5, unlocked6, unlocked7, unlocked8, unlocked9);//reset panel to content start page
 
                 UserInterface.Active.AddEntity(test);//send the panel to ui
                 test.Offset = new Vector2(0, -540);//initial ofset variable

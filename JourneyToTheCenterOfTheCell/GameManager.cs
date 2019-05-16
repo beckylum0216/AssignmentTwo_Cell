@@ -26,7 +26,7 @@ namespace JourneyToTheCenterOfTheCell
         private GamePadState gamePadInput;
         int screenX;
         int screenY;
-
+        Sampler sample=  new Sampler();
         CodexManager codex;//the codex class
 
 
@@ -67,7 +67,14 @@ namespace JourneyToTheCenterOfTheCell
 
         }
 
-
+        public Camera GetCamera()
+        {
+            return camera;
+        }
+        public List<Actor> GetActorList()//getter for the plotlist in mapclient
+        {
+            return mapClient.GetPlotList();
+        }
         public void Initialise()
         {
             
@@ -106,6 +113,7 @@ namespace JourneyToTheCenterOfTheCell
             theCamera = camera.SubjectUpdate(mouseInputDelta, deltaTime, fps);
             codex.Update(gameCtx.GetGameTime(), keyboardInput);//this update animates the codex drop down
             //UserInterface.Active.Update(gameCtx.GetGameTime());
+            sample.Update(this, codex);
         }
 
         public override void Draw(GameContext gameCtx)

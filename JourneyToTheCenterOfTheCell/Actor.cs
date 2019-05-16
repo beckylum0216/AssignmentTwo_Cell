@@ -28,7 +28,7 @@ namespace JourneyToTheCenterOfTheCell
         public Vector3 minPoint;
         public Vector3 maxPoint;
         public Vector3 AABBOffset;
-
+        public int id = 1;//default setting to 1 for testing
         
         /** 
         *   @brief This function draws the actor
@@ -158,6 +158,8 @@ namespace JourneyToTheCenterOfTheCell
                     minPoint.Z < targetActor.maxPoint.Z);
         }
 
-        
+        public int GetId() { return id; }
+        public void SetId(int ID) { id = ID; }
+
     }
 }
