@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JourneyToTheCenterOfTheCell
 {
-    /// <summary>base clase for map generation smallest unit is a "Block"</summary> 
+    /// <summary>base clase for map generation smallest unit is a "Map"</summary> 
 
     public class Map
     {
@@ -16,6 +16,7 @@ namespace JourneyToTheCenterOfTheCell
         private int positionX; // oopsie
         private int positionY; // oopsie
         private int positionZ; // oopsie
+        private Vector3 positionMap;
         private float coordX;
         private float coordY;
         private float coordZ;
@@ -23,7 +24,7 @@ namespace JourneyToTheCenterOfTheCell
         private Vector3 blockRotation;
 
         // enum of building types
-        public enum buildType {NullBlock, RoadHorizontal, RoadVertical, RoadCorner, Building, RoadT, RoadCross, SkyBox};
+        public enum buildType {NullMap, RoadHorizontal, RoadVertical, RoadCorner, Building, RoadT, RoadCross, SkyBox};
         private buildType blockType;
         private String modelPath;
         private String texturePath;
@@ -33,11 +34,12 @@ namespace JourneyToTheCenterOfTheCell
 	    *	@param 
 	    *	@return 
 	    *	@pre 
-	    *	@post Block will exist
+	    *	@post Map will exist
 	    */
         public Map()
         {
-            this.blockType = buildType.NullBlock;
+            this.positionMap = new Vector3();
+            this.blockType = buildType.NullMap;
         }
 
         /**
@@ -45,14 +47,12 @@ namespace JourneyToTheCenterOfTheCell
 	    *	@param 
 	    *	@return 
 	    *	@pre 
-	    *	@post Block will exist
+	    *	@post Map will exist
 	    */
-        public Map(int gridX, int gridY, int gridZ, buildType gridType, string modelFile, 
+        public Map(Vector3 gridPosition, buildType gridType, string modelFile, 
                         string textureFile, float gridScale, Vector3 gridRotation)
         {
-            this.positionX = gridX;
-            this.positionY = gridY;
-            this.positionZ = gridZ;
+            this.positionMap = gridPosition;
             this.blockType = gridType;
             this.modelPath = modelFile;
             this.texturePath = textureFile;
@@ -60,6 +60,15 @@ namespace JourneyToTheCenterOfTheCell
             this.blockRotation = gridRotation;
         }
 
+        public void SetPositionMap(Vector3 inputPosition)
+        {
+            this.positionMap = inputPosition;
+        }
+
+        public Vector3 GetPositionMap()
+        {
+            return this.positionMap;
+        }
 
         /// <summary> Mutator to the abstracted grid position.</summary>
         /// <param> inputX grid position to be assigned</param> 
@@ -81,7 +90,7 @@ namespace JourneyToTheCenterOfTheCell
 	    */
         public int GetPositionX()
         {
-            return this.positionX;
+            return positionX;
         }
 
 
@@ -140,7 +149,7 @@ namespace JourneyToTheCenterOfTheCell
         * @pre 
         * @post block type will exist
         */
-        public void SetBlockType(buildType inputType)
+        public void SetMapType(buildType inputType)
         {
             this.blockType = inputType;
         }
@@ -152,7 +161,7 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre block type must exist
         *	@post 
         */
-        public buildType GetBlockType()
+        public buildType GetMapType()
         {
             return this.blockType;
         }
@@ -284,7 +293,7 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre scale does not exist
         *	@post scale will exist
         */
-        public void SetBlockScale(float gridScale)
+        public void SetMapScale(float gridScale)
         {
             this.blockScale = gridScale;
         }
@@ -296,7 +305,7 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre must exist
         *	@post 
         */
-        public float GetBlockScale()
+        public float GetMapScale()
         {
             return this.blockScale;
         }
@@ -308,7 +317,7 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre scale does not exist
         *	@post scale will exist
         */
-        public void SetBlockRotation(Vector3 gridRotation)
+        public void SetMapRotation(Vector3 gridRotation)
         {
             this.blockRotation = gridRotation;
         }
@@ -321,7 +330,7 @@ namespace JourneyToTheCenterOfTheCell
          *	@pre must exist
          *	@post
          */
-        public Vector3 GetBlockRotation()
+        public Vector3 GetMapRotation()
         {
             return this.blockRotation;
         }

@@ -14,20 +14,22 @@ namespace JourneyToTheCenterOfTheCell
     /// @see https://www.gamefromscratch.com/post/2015/06/28/MonoGame-Tutorial-Handling-Keyboard-Mouse-and-GamePad-Input.aspx
     public class InputHandler
     {
-        public enum keyStates { Forwards, Backwards, Left, Right, NULL, Pigeon, FPS, CW, CCW, ZoomIn, ZoomOut};
+        public enum keyStates { Forwards, Backwards, Left, Right, NULL, CodexDown, CodexUp, CW, CCW, ZoomIn, ZoomOut};
         private KeyboardState keyboardInput;
         private MouseState mouseInput;
         private GamePadState gamePadInput;
-        private Codex c;//codex is passed through and saved to this variable for input resolutions
+        private CodexManager c;//codex is passed through and saved to this variable for input resolutions
         private Vector3 mouseDelta;
         private Vector3 mousePosition;
 
-        public InputHandler(int screenX, int screenY, Codex codex)
+        public InputHandler(int screenX, int screenY, CodexManager codex)
         {
             this.mouseDelta = new Vector3(0, 0, 0);
             float centerX = (float)screenX / 2;
             float centerY = (float)screenY / 2;
-            this.mousePosition = new Vector3(centerX, centerY, 0);
+           
+                this.mousePosition = new Vector3(centerX, centerY, 0);
+            
             c = codex;
 
         }
@@ -61,30 +63,30 @@ namespace JourneyToTheCenterOfTheCell
             Vector3 inputVector = new Vector3(mouseInput.X, mouseInput.Y, 0);
             Vector3 centerVector = new Vector3(centerX, centerY, 0);
             Vector3 positionVector = Vector3.Subtract(inputVector, centerVector);
-
-            /// if magnitude of vector is greater than radius of x
-            if (positionVector.Length() < magnitude)
-            {
-                mouseDelta = new Vector3(0, 0, 0);
-            }
-            else
-            {
-                /// @see https://books.google.com.au/books?id=RFF0AgAAQBAJ&pg=PA98&lpg=PA98&dq=deadzone+implementation+game+algorithm&source=bl&ots=fZCDZUNrPf&sig=ACfU3U3M4KSKOIelMGPKC9LFrcELk5aZTA&hl=en&sa=X&ved=2ahUKEwja_dnNkZzhAhUIeisKHaaTCzwQ6AEwAXoECAkQAQ#v=onepage&q=deadzone%20implementation%20game%20algorithm&f=false
-                /// calculate distance and work out the proportion of distance to center
-                float percent = ((float)positionVector.Length() - magnitude) / (magnitude + positionVector.Length());
-                positionVector.Normalize();
-
-                /// restricting values between 0 and 2 degrees
-                mouseDelta = Vector3.Multiply(positionVector, percent * 2);
-
-                // only use when restricting between 0 and 1
-                //mouseDelta.Normalize();
-
-            }
             
-            /// reset the mouse cursor to the middle of the screen
-            Mouse.SetPosition((int)centerX, (int)centerY);
+                /// if magnitude of vector is greater than radius of x
+                if (positionVector.Length() < magnitude)
+                {
+                mouseDelta = new Vector3(0, 0, 0);
+                }
+                else
+                {
+                    /// @see https://books.google.com.au/books?id=RFF0AgAAQBAJ&pg=PA98&lpg=PA98&dq=deadzone+implementation+game+algorithm&source=bl&ots=fZCDZUNrPf&sig=ACfU3U3M4KSKOIelMGPKC9LFrcELk5aZTA&hl=en&sa=X&ved=2ahUKEwja_dnNkZzhAhUIeisKHaaTCzwQ6AEwAXoECAkQAQ#v=onepage&q=deadzone%20implementation%20game%20algorithm&f=false
+                    /// calculate distance and work out the proportion of distance to center
+                    float percent = ((float)positionVector.Length() - magnitude) / (magnitude + positionVector.Length());
+                    positionVector.Normalize();
 
+                    /// restricting values between 0 and 2 degrees
+                    mouseDelta = Vector3.Multiply(positionVector, percent * 2);
+
+                    // only use when restricting between 0 and 1
+                    //mouseDelta.Normalize();
+
+                }
+            
+                /// reset the mouse cursor to the middle of the screen
+                Mouse.SetPosition((int)centerX, (int)centerY);
+            
             return mouseDelta;
         }
 
@@ -139,39 +141,68 @@ namespace JourneyToTheCenterOfTheCell
                 directionState = keyStates.CCW;
             }
 
-            if (keyboardInput.IsKeyDown(Keys.D1))
-            {
-                directionState = keyStates.FPS;
-            }
-
-            if (keyboardInput.IsKeyDown(Keys.D2))
-            {
-                directionState = keyStates.Pigeon;
-            }
-
             if(keyboardInput.IsKeyDown(Keys.Z))
             {
                 directionState = keyStates.ZoomIn;
             }
             
             
-            if(keyboardInput.IsKeyDown(Keys.C))//keypress for activating codex
+            if(keyboardInput.IsKeyDown(Keys.C))
             {
                 directionState = keyStates.ZoomOut;
             }
 
-            if (keyboardInput.IsKeyDown(Keys.V))//keypress for deactivating codex
+            if (keyboardInput.IsKeyDown(Keys.D1))//keypress for detail page 1 (for testing and also for final build if i cannot find how to free the mouse)
             {
-
-                c.Activate();
-
-
+                c.Activate1();
             }
-            if (keyboardInput.IsKeyDown(Keys.X))
+            if (keyboardInput.IsKeyDown(Keys.D2))//keypress for detail page 2
+            {
+                c.Activate2();
+            }
+            if (keyboardInput.IsKeyDown(Keys.D3))//keypress for detail page 3
+            {
+                c.Activate3();
+            }
+            if (keyboardInput.IsKeyDown(Keys.D4))//keypress for detail page 4
+            {
+                c.Activate4();
+            }
+            if (keyboardInput.IsKeyDown(Keys.D5))//keypress for detail page 5
+            {
+                c.Activate5();
+            }
+            if (keyboardInput.IsKeyDown(Keys.D6))//keypress for detail page 6
+            {
+                c.Activate6();
+            }
+            if (keyboardInput.IsKeyDown(Keys.D7))//keypress for detail page 7
+            {
+                c.Activate7();
+            }
+            if (keyboardInput.IsKeyDown(Keys.D8))//keypress for detail page 8
+            {
+                c.Activate8();
+            }
+            if (keyboardInput.IsKeyDown(Keys.D9))//keypress for detail page 9
+            {
+                c.Activate9();
+            }
+            
+
+            if (keyboardInput.IsKeyDown(Keys.V))//keypress for activating codex
             {
 
-                c.Deactivate();
+                directionState = keyStates.CodexDown;
+                //c.Activate();
                 
+            }
+
+            if (keyboardInput.IsKeyDown(Keys.X))//keypress for deactivating codex
+            {
+
+                directionState = keyStates.CodexUp;
+                //c.Deactivate();
             }
 
 
@@ -294,15 +325,7 @@ namespace JourneyToTheCenterOfTheCell
                     directionState = keyStates.CCW;
                 }
 
-                if (keyboardInput.IsKeyDown(Keys.D1))
-                {
-                    directionState = keyStates.FPS;
-                }
-
-                if (keyboardInput.IsKeyDown(Keys.D2))
-                {
-                    directionState = keyStates.Pigeon;
-                }
+               
                 
             }
             

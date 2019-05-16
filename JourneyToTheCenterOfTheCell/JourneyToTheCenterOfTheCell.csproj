@@ -43,20 +43,23 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Actor.cs" />
-    <Compile Include="Codex.cs" />
-    <Compile Include="CodexGui.cs" />
+    <Compile Include="CodexManager.cs" />
+    <Compile Include="CodexView.cs" />
     <Compile Include="GameContext.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="GameState.cs" />
+    <Compile Include="InfoPanel.cs" />
     <Compile Include="IntroView.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="ICollidable.cs" />
     <Compile Include="InputHandler.cs" />
+    <Compile Include="MapGenerator.cs" />
     <Compile Include="MenuManager.cs" />
     <Compile Include="ModelHandler.cs" />
     <Compile Include="Quiz.cs" />
+    <Compile Include="QuizManager.cs" />
     <Compile Include="QuizView.cs" />
     <Compile Include="Structure.cs" />
     <Compile Include="Program.cs" />

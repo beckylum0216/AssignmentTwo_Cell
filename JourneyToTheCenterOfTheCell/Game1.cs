@@ -42,16 +42,15 @@ namespace JourneyToTheCenterOfTheCell
         /// </summary>
         protected override void Initialize()
         {
-            GameManager gameManager = new GameManager();
             MenuManager menuManager = new MenuManager();
             newGame = new GameContext(this, graphics, spriteBatch);
-            newGame.SetGameState(gameManager);
+            newGame.SetGameState(menuManager);
             newGame.Initialise();
 
 
             
 
-            MenuView gui = new MenuView();
+            
             List<String> tempAns = new List<String>();
             tempAns.Add("lorem ipsum");
             tempAns.Add("blah");

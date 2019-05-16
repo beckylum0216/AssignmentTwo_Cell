@@ -16,9 +16,11 @@ namespace JourneyToTheCenterOfTheCell
         private List <Actor> plotList = new List<Actor>();
         private Dictionary<string, Actor> landPlots = new Dictionary<string, Actor>();
         private Map[,] gridMap;
+        private MapGenerator mapCreate;
         private ContentManager Content;
         private int sizeX;
         private int sizeY;
+        private int sizeZ;
         private float plotScale;
 
 
@@ -46,21 +48,22 @@ namespace JourneyToTheCenterOfTheCell
 	    *	@pre 
 	    *	@post Camera will exist
 	    */
-        public ModelHandler(ContentManager inputContent,  int inputX, int inputY, float inputScale)
+        public ModelHandler(ContentManager inputContent,  int inputX, int inputY, int inputZ, float inputScale)
         {
-            this.Content = inputContent;
-            this.sizeX = inputX;
-            this.sizeY = inputY;
+            Content = inputContent;
+            sizeX = inputX;
+            sizeY = inputY;
+            sizeZ = inputZ;
             this.plotScale = inputScale;
 
             // initialise map
-            //MapGenerator mapCreate = new MapGenerator(sizeX, sizeY);
-            //mapCreate.SetMap();
-            //mapCreate.PrintGrid();
-            //mapCreate.SetCoords();
-            //mapCreate.PrintCoords();
-           
-            //gridMap = mapCreate.GetGridMap();
+            MapGenerator mapCreate = new MapGenerator(sizeX, sizeY, sizeZ);
+            mapCreate.SetMap();
+            mapCreate.PrintGrid();
+            mapCreate.SetCoords();
+            mapCreate.PrintCoords();
+
+            gridMap = mapCreate.GetGridMap();
         }
 
         /** 
@@ -205,21 +208,24 @@ namespace JourneyToTheCenterOfTheCell
             plotList.Add(skyBoxObj);
 
             Debug.WriteLine("list size:" + plotList.Count);
-            // adds to the list the land and road tiles
-            //for (int ii = 0; ii < sizeX; ii++)
-            //{
-            //    for (int jj = 0; jj < sizeY; jj++)
-            //    {
-            //        Vector3 tempPosition = new Vector3(gridMap[ii, jj].GetCoordX(), gridMap[ii, jj].GetCoordY(), gridMap[ii, jj].GetCoordZ());
+            //adds to the list the land and road tiles
+            for (int ii = 0; ii < sizeX; ii++)
+            {
+                for (int jj = 0; jj < sizeY; jj++)
+                {
+                    if(!(gridMap[ii, jj] == null))
+                    {
+                        Vector3 tempPosition = new Vector3(gridMap[ii, jj].GetCoordX(), gridMap[ii, jj].GetCoordY(), gridMap[ii, jj].GetCoordZ());
+                        Vector3 tempOffset = new Vector3(10, 1, 10);
+                        // prototyping map tiles not working as planned 
+                        // Actor tempPlot = landPlots[gridMap[ii, jj].GetBlockType().ToString()].ActorClone(Content, gridMap[ii, jj].GetModelPath(), gridMap[ii, jj].GetTexturePath(), tempPosition, gridMap[ii, jj].GetBlockRotation(), gridMap[ii, jj].GetBlockScale(), tempOffset);
+                        Structure tempPlot = new Structure(Content, gridMap[ii, jj].GetModelPath(), gridMap[ii, jj].GetTexturePath(), tempPosition, gridMap[ii, jj].GetMapRotation(), gridMap[ii, jj].GetMapScale(), tempOffset);
+                        plotList.Add(tempPlot);
+                    }
                     
-            //        Vector3 tempOffset = new Vector3(10, 1, 10);
-            //        // prototyping map tiles not working as planned 
-            //        // Actor tempPlot = landPlots[gridMap[ii, jj].GetBlockType().ToString()].ActorClone(Content, gridMap[ii, jj].GetModelPath(), gridMap[ii, jj].GetTexturePath(), tempPosition, gridMap[ii, jj].GetBlockRotation(), gridMap[ii, jj].GetBlockScale(), tempOffset);
-            //        Plot tempPlot = new Plot(Content, gridMap[ii, jj].GetModelPath(), gridMap[ii, jj].GetTexturePath(), tempPosition, gridMap[ii, jj].GetBlockRotation(), gridMap[ii, jj].GetBlockScale(), tempOffset);
-            //        plotList.Add(tempPlot);
-            //    }
-            //}
-
+                }
+            }
+            Debug.WriteLine("list size:" + plotList.Count);
             //for(int ii = 0; ii < sizeX; ii++)
             //{
             //    for(int jj = 0; jj < sizeY; jj++)

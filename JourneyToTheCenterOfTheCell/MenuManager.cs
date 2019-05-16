@@ -19,7 +19,7 @@ namespace JourneyToTheCenterOfTheCell
             screenY = gameCtx.GetGraphics().GraphicsDevice.Viewport.Height;
 
             UserInterface.Initialize(gameCtx.GetGameInstance().Content, BuiltinThemes.hd);
-            MenuView gui = new MenuView();
+            MenuView gui = new MenuView(gameCtx);
             Panel testPanel = gui.GetPanel(screenX, screenY);
 
 

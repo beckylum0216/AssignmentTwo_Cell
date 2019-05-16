@@ -16,6 +16,12 @@ namespace JourneyToTheCenterOfTheCell
     {
         public enum GameState {Menu, Game, Save, Load, Quiz, Statistics, Exit}
         private List<String> buttonName;
+        private GameContext gameContext;
+
+        public MenuView(GameContext gameCtx)
+        {
+            this.gameContext = gameCtx;
+        }
 
         public Panel GetPanel(int inputX, int inputY)
         {
@@ -64,7 +70,8 @@ namespace JourneyToTheCenterOfTheCell
             switch (btn.Identifier)
             {
                 case "New Game":
-                    // New game
+                    GameManager newGame = new GameManager(gameContext);
+                    gameContext.SetGameState(newGame);
                     break;
                 case "Save Game":
 
@@ -73,7 +80,9 @@ namespace JourneyToTheCenterOfTheCell
 
                     break;
                 case "Quiz":
-
+                    QuizManager newQuiz = new QuizManager();
+                    gameContext.SetGameState(newQuiz);
+                    gameContext.Initialise();
                     break;
                 case "User Statistics":
                     break;
