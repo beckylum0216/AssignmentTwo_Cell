@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JourneyToTheCenterOfTheCell
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{66F5B863-8CDC-4CE6-8544-9E893F6FEA92}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JourneyToTheCenterOfTheCell.Tests", "UnitTesting\JourneyToTheCenterOfTheCell.Tests.csproj", "{037F83C8-0D2C-467E-AC2D-1127ABB450A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +19,10 @@ Global
 		{3F23E5B2-B333-4EBB-A153-B19EDC6F8A34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F23E5B2-B333-4EBB-A153-B19EDC6F8A34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F23E5B2-B333-4EBB-A153-B19EDC6F8A34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{037F83C8-0D2C-467E-AC2D-1127ABB450A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{037F83C8-0D2C-467E-AC2D-1127ABB450A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{037F83C8-0D2C-467E-AC2D-1127ABB450A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{037F83C8-0D2C-467E-AC2D-1127ABB450A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
