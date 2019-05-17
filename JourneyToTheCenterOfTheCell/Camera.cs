@@ -17,10 +17,11 @@ namespace JourneyToTheCenterOfTheCell
         private Vector3 cameraEye;
         private Vector3 zoomVector;
         private Quaternion deltaQuaternion;
+        private ModelHandler itemHandler;
 
         public Camera(){ }
 
-        public Camera(Matrix inputCamera, Vector3 initPosition, Vector3 eyePosition, Vector3 deltaVector, Vector3 inputOffset)
+        public Camera(Matrix inputCamera, Vector3 initPosition, Vector3 eyePosition, Vector3 deltaVector, Vector3 inputOffset, ModelHandler inputHandler)
         {
             this.theCamera = inputCamera;
             this.futurePosition = initPosition;
@@ -32,10 +33,12 @@ namespace JourneyToTheCenterOfTheCell
             this.maxPoint = this.subjectPosition + this.AABBOffset;
             this.minPoint = this.subjectPosition - this.AABBOffset;
             zoomVector = new Vector3(0, 0, 0);
+            this.itemHandler = inputHandler;
+            Debug.WriteLine("ItemHandler size: " + this.itemHandler.GetItemHash().Count);
         }
 
         public Camera(ContentManager Content, String modelFile, String textureFile, Vector3 predictedPosition, Vector3 inputPosition, 
-                        Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset, Camera inputCamera)
+                        Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset, Camera inputCamera, ModelHandler inputHandler)
         {
             this.modelPath = modelFile;
             this.texturePath = textureFile;
@@ -48,6 +51,7 @@ namespace JourneyToTheCenterOfTheCell
             this.AABBOffset = inputAABBOffset;
             this.maxPoint = this.subjectPosition + this.AABBOffset;
             this.minPoint = this.subjectPosition - this.AABBOffset;
+            this.itemHandler = inputHandler;
 
         }
 
@@ -89,6 +93,18 @@ namespace JourneyToTheCenterOfTheCell
                     }
                 }
 
+            }
+
+            for(int ii = 0; ii < this.GetItems().Count; ii += 1)
+            {
+                if(this.GetItems()[ii].AABBtoAABB(this))
+                {
+                    Debug.WriteLine("collided ID:" + this.GetItems()[ii].GetItemID());
+                    
+                    this.itemHandler.RemoveItemHash(this.GetItems()[ii].GetItemID());
+                    this.GetItems().Remove(this.GetItems()[ii]);
+                   
+                }
             }
 
             Matrix tempCameraObj = Matrix.CreateLookAt(subjectPosition, cameraEye, Vector3.Up);
@@ -237,20 +253,7 @@ namespace JourneyToTheCenterOfTheCell
                 Debug.WriteLine("position Vector: " + subjectPosition.X + " " + subjectPosition.Y + " " + subjectPosition.Z);
             }
 
-            if(direction == InputHandler.keyStates.ZoomIn)
-            {
-                float zoomFactor = 0.05f;
-                subjectPosition /= zoomFactor * subjectRotation * deltaTime * fps;
-                 
-            }
-
-            if (direction == InputHandler.keyStates.ZoomOut)
-            {
-                float zoomFactor = 0.05f;
-                subjectPosition *= zoomFactor * subjectRotation * deltaTime *fps;
-                
-
-            }
+            
 
             // calculates the new camera bounding box
             this.maxPoint = this.subjectPosition + this.AABBOffset;

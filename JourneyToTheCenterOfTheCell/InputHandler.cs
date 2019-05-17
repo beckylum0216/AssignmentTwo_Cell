@@ -14,23 +14,22 @@ namespace JourneyToTheCenterOfTheCell
     /// @see https://www.gamefromscratch.com/post/2015/06/28/MonoGame-Tutorial-Handling-Keyboard-Mouse-and-GamePad-Input.aspx
     public class InputHandler
     {
-        public enum keyStates { Forwards, Backwards, Left, Right, NULL, CodexDown, CodexUp, CW, CCW, ZoomIn, ZoomOut};
+        public enum keyStates { Forwards, Backwards, Left, Right, NULL, CodexDown, CodexUp, Cell, Nucleus, ER,  
+                                Lysosome, Peroxisome, Golgi, Mitochondria, Cytoskeleton, Selenocysteine};
         private KeyboardState keyboardInput;
         private MouseState mouseInput;
         private GamePadState gamePadInput;
-        private CodexManager c;//codex is passed through and saved to this variable for input resolutions
         private Vector3 mouseDelta;
         private Vector3 mousePosition;
 
-        public InputHandler(int screenX, int screenY, CodexManager codex)
+        public InputHandler(int screenX, int screenY)
         {
             this.mouseDelta = new Vector3(0, 0, 0);
             float centerX = (float)screenX / 2;
             float centerY = (float)screenY / 2;
            
-                this.mousePosition = new Vector3(centerX, centerY, 0);
+            this.mousePosition = new Vector3(centerX, centerY, 0);
             
-            c = codex;
 
         }
 
@@ -129,64 +128,44 @@ namespace JourneyToTheCenterOfTheCell
             {
                 directionState = keyStates.Right;
             }
-
-            if (keyboardInput.IsKeyDown(Keys.E))
-            {
-                directionState = keyStates.CW;
-            }
-
-            if (keyboardInput.IsKeyDown(Keys.Q))
-            {
-                Debug.WriteLine("Pressed Q");
-                directionState = keyStates.CCW;
-            }
-
-            if(keyboardInput.IsKeyDown(Keys.Z))
-            {
-                directionState = keyStates.ZoomIn;
-            }
             
-            
-            if(keyboardInput.IsKeyDown(Keys.C))
-            {
-                directionState = keyStates.ZoomOut;
-            }
-
             if (keyboardInput.IsKeyDown(Keys.D1))//keypress for detail page 1 (for testing and also for final build if i cannot find how to free the mouse)
             {
-                c.Activate1();
+                directionState = keyStates.Cell;
             }
+
             if (keyboardInput.IsKeyDown(Keys.D2))//keypress for detail page 2
             {
-                c.Activate2();
+                directionState = keyStates.Nucleus;
             }
+
             if (keyboardInput.IsKeyDown(Keys.D3))//keypress for detail page 3
             {
-                c.Activate3();
+                directionState = keyStates.ER;
             }
             if (keyboardInput.IsKeyDown(Keys.D4))//keypress for detail page 4
             {
-                c.Activate4();
+                directionState = keyStates.Lysosome;
             }
             if (keyboardInput.IsKeyDown(Keys.D5))//keypress for detail page 5
             {
-                c.Activate5();
+                directionState = keyStates.Peroxisome;
             }
             if (keyboardInput.IsKeyDown(Keys.D6))//keypress for detail page 6
             {
-                c.Activate6();
+                directionState = keyStates.Golgi;
             }
             if (keyboardInput.IsKeyDown(Keys.D7))//keypress for detail page 7
             {
-                c.Activate7();
+                directionState  = keyStates.Mitochondria;
             }
             if (keyboardInput.IsKeyDown(Keys.D8))//keypress for detail page 8
             {
-                c.Activate8();
+                directionState = keyStates.Cytoskeleton;
             }
             if (keyboardInput.IsKeyDown(Keys.D9))//keypress for detail page 9
             {
-                c.Activate9();
+                directionState = keyStates.Selenocysteine;
             }
             
 
@@ -314,16 +293,7 @@ namespace JourneyToTheCenterOfTheCell
                     directionState = keyStates.Right;
                 }
 
-                if (gamePadInput.Buttons.RightShoulder == ButtonState.Pressed)
-                {
-                    directionState = keyStates.CW;
-                }
-
-                if (gamePadInput.Buttons.LeftShoulder == ButtonState.Pressed)
-                {
-                    Debug.WriteLine("Pressed Q");
-                    directionState = keyStates.CCW;
-                }
+               
 
                
                 

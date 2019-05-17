@@ -28,8 +28,104 @@ namespace JourneyToTheCenterOfTheCell
         public Vector3 minPoint;
         public Vector3 maxPoint;
         public Vector3 AABBOffset;
-        public int id = 1;//default setting to 1 for testing
         
+
+        /** 
+        *   @brief mutator to the actor position 
+        *   @see
+        *	@param input position the new position
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
+        public void SetPosition(Vector3 inputPosition)
+        {
+            this.actorPosition = inputPosition;
+        }
+
+        /** 
+        *   @brief accessor to the actor position
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return actorPosition
+        *	@pre 
+        *	@post 
+        */
+        public Vector3 GetPosition()
+        {
+            return this.actorPosition;
+        }
+
+        /** 
+        *   @brief mutator to set the actor rotation
+        *   @see
+        *	@param inputRotation new rotation based on vector
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return 
+        *	@pre 
+        *	@post 
+        */
+        public void SetRotation(Vector3 inputRotation)
+        {
+            this.actorRotation = inputRotation;
+        }
+
+        /** 
+        *   @brief accessor to the rotation of the actor
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return actorRotation the current actor rotation
+        *	@pre 
+        *	@post 
+        */
+        public Vector3 GetRotation()
+        {
+            return this.actorRotation;
+        }
+
+        /** 
+        *   @brief mutator to set scale of actor
+        *   @see
+        *	@param inputScale the new scale
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
+        public void SetScale(float inputScale)
+        {
+            this.actorScale = inputScale;
+        }
+
+        /** 
+        *   @brief accessor to the object's scale
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return actorScale
+        *	@pre 
+        *	@post 
+        */
+        public float GetScale()
+        {
+            return this.actorScale;
+        }
+
         /** 
         *   @brief This function draws the actor
         *   @see http://rbwhitaker.wikidot.com/using-3d-models
@@ -158,8 +254,40 @@ namespace JourneyToTheCenterOfTheCell
                     minPoint.Z < targetActor.maxPoint.Z);
         }
 
-        public int GetId() { return id; }
-        public void SetId(int ID) { id = ID; }
+        /** 
+        *   @brief mutator to the 
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return actorScale
+        *	@pre 
+        *	@post 
+        */
+        public void SetMinPoint()
+        {
+            this.minPoint = actorPosition - AABBOffset;
+        }
+
+        public Vector3 GetMinPoint()
+        {
+            return this.minPoint;
+        }
+
+        public void SetMaxPoint()
+        {
+            this.maxPoint = actorPosition + AABBOffset;
+        }
+
+        public Vector3 GetMaxPoint()
+        {
+            return this.minPoint;
+        }
+
+
+
+        
 
     }
 }
