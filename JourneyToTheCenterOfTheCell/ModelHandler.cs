@@ -157,10 +157,9 @@ namespace JourneyToTheCenterOfTheCell
             for (int i = 0; i < NumOfModels; i++)
             {
                 Models[i] = Content.Load<Model>(ModelNameMatrix[i]);
-                //Structure plotModel = new Structure()
-
-                //Add dictionary element to landPlots
             }
+
+
 
             //modelFile = "Models/city_residential_03";
             //textureFile = "Maya/sourceimages/city_residential_03_dif";

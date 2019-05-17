@@ -120,5 +120,20 @@ namespace JourneyToTheCenterOfTheCell
             
             //UserInterface.Active.Draw(gameCtx.GetSpriteBatch());
         }
+
+        public int GetScreenX()
+        {
+            return screenX;
+        }
+         
+        public int GetScreenY()
+        {
+            return screenY;
+        }
+
+        public CodexManager GetCodex()
+        {
+            return codex;
+        }
     }
 }

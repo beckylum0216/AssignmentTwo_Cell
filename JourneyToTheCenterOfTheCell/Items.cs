@@ -93,5 +93,10 @@ namespace JourneyToTheCenterOfTheCell
         {
             throw new NotImplementedException();
         }
+
+
+
+        //Remove ITEM FROM PLOTLIST
+        //INT ID - BOTH ENEMIES
     }
 }

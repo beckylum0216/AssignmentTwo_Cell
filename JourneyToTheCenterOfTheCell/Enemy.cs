@@ -13,9 +13,10 @@ namespace JourneyToTheCenterOfTheCell
     {
 
         //FINITE STATE MACHINE YET TO BE ADDED - CODING IN PROGRESS
+        int ID;
 
         public Enemy(ContentManager Content, String modelFile, String textureFile,
-        Vector3 inputPosition, Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset)
+        Vector3 inputPosition, Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset, int id)
         {
             this.modelPath = modelFile;
             this.texturePath = textureFile;
@@ -28,6 +29,7 @@ namespace JourneyToTheCenterOfTheCell
             this.AABBOffset = inputAABBOffset;
             this.maxPoint = this.actorPosition + this.AABBOffset;
             this.minPoint = this.actorPosition - this.AABBOffset;
+            this.ID = id;
         }
 
         //Positions=====================================
@@ -84,6 +86,11 @@ namespace JourneyToTheCenterOfTheCell
             return this.minPoint;
         }
 
+
+        public int GetID()
+        {
+            return(ID);
+        }
 
         //Overridden from Actor================================
         public override Actor ActorClone(ContentManager Content, string modelFile, string textureFile, Vector3 inputPosition, Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset)
