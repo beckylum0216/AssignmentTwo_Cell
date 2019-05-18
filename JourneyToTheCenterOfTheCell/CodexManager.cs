@@ -23,8 +23,9 @@ namespace JourneyToTheCenterOfTheCell
         private List<Anchor> anchorList;
         private List<string> titleList;
         private List<Codex> codexList;
+        
 
-        public void Initialize(GraphicsDeviceManager g, ContentManager Content)
+        public void Initialize(GraphicsDeviceManager g, ContentManager Content, Dictionary<InputHandler.keyStates, Item> activeState)
         {
             content = Content;
             spritebatch = new SpriteBatch(g.GraphicsDevice);
@@ -97,10 +98,12 @@ namespace JourneyToTheCenterOfTheCell
             infoGui = new InfoView();
             test = new Panel();
 
-            codexGui.SetPanel(content);
+            codexGui.SetPanel(content, activeState);
             test = codexGui.GetPanel();
             
             test.Draggable = false;
+
+           
            
             UserInterface.Active.AddEntity(test);
             
@@ -157,11 +160,12 @@ namespace JourneyToTheCenterOfTheCell
 
         private void CodexUp(bool inputActivation)
         {
+
             if(inputActivation==false)
             {
                 //remove whatever panel was last stored 
                 UserInterface.Active.RemoveEntity(test);
-                codexGui.SetPanel(content);
+                
                 //reset panel to content start page
                 test = codexGui.GetPanel();
                 //send the panel to ui
@@ -179,8 +183,9 @@ namespace JourneyToTheCenterOfTheCell
             }
         }
 
-        public void Update(GameTime gameTime, InputHandler.keyStates inputState)
+        public void Update(GameTime gameTime, InputHandler.keyStates inputState, Dictionary<InputHandler.keyStates, Item> inputActive)
         {
+            codexGui.SetPanel(content, inputActive);
             // if the codex has been activated
             if (inputState == InputHandler.keyStates.CodexDown)
             {
@@ -196,7 +201,9 @@ namespace JourneyToTheCenterOfTheCell
 
             CodexUp(codexActivate);
 
-            for(int ii = 0; ii < codexList.Count; ii += 1)
+            
+
+            for (int ii = 0; ii < codexList.Count; ii += 1)
             {
                 if(inputState == codexList[ii].GetKeyBoardState())
                 {

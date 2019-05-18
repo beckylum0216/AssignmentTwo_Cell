@@ -29,7 +29,7 @@ namespace JourneyToTheCenterOfTheCell
             return this.codexList;
         }
 
-        public void SetPanel(ContentManager Content)
+        public void SetPanel(ContentManager Content, Dictionary<InputHandler.keyStates, Item> activeStateHash)
         {
             newPanel = new Panel();
             Header pageHead = new Header("Codex", Anchor.TopCenter, new Vector2(0, -18));
@@ -40,7 +40,7 @@ namespace JourneyToTheCenterOfTheCell
             for(int ii = 0; ii < codexList.Count; ii += 1)
             {
                 Image codexImage;
-                if(this.codexList[ii].GetItemUnlocked())
+                if(activeStateHash.ContainsKey(codexList[ii].GetKeyBoardState()))
                 {
                     codexImage = new Image(Content.Load<Texture2D>(codexList[ii].GetFinalTexture()), new Vector2(120, 120), ImageDrawMode.Stretch, codexList[ii].GetItemAnchor(), new Vector2(0, 10));
                 }

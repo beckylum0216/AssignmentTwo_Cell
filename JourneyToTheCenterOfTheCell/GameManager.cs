@@ -59,9 +59,7 @@ namespace JourneyToTheCenterOfTheCell
             mapClient.SetItemHash();
             //mapClient.PrintItemList();
 
-            codex = new CodexManager();
-            //initialize the basic codex(no samples taken)
-            codex.Initialize(gameCtx.GetGraphics(), gameCtx.GetGameInstance().Content);
+            
 
             Vector3 camEyeVector = new Vector3(0, 0, 0);
             Vector3 camPositionVector = Vector3.Add(new Vector3(0, 0, 0), new Vector3(0, 1.6f, 0));
@@ -71,7 +69,9 @@ namespace JourneyToTheCenterOfTheCell
             cameraSpeed = 3f;
             fps = 60f;
 
-            
+            codex = new CodexManager();
+            //initialize the basic codex(no samples taken)
+            codex.Initialize(gameCtx.GetGraphics(), gameCtx.GetGameInstance().Content, camera.GetCodexHash());
 
             for (int ii = 0; ii < mapClient.GetPlotList().Count; ii += 1)
             {
@@ -148,7 +148,7 @@ namespace JourneyToTheCenterOfTheCell
 
             theCamera = camera.SubjectUpdate(mouseInputDelta, deltaTime, fps);
             //this update animates the codex drop down
-            codex.Update(gameCtx.GetGameTime(), keyboardInput);
+            codex.Update(gameCtx.GetGameTime(), keyboardInput, camera.GetCodexHash());
             
         }
 

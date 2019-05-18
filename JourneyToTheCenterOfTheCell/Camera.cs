@@ -18,6 +18,7 @@ namespace JourneyToTheCenterOfTheCell
         private Vector3 zoomVector;
         private Quaternion deltaQuaternion;
         private ModelHandler itemHandler;
+        private Dictionary<InputHandler.keyStates, Item> codexHash;
 
         public Camera(){ }
 
@@ -34,7 +35,7 @@ namespace JourneyToTheCenterOfTheCell
             this.minPoint = this.subjectPosition - this.AABBOffset;
             zoomVector = new Vector3(0, 0, 0);
             this.itemHandler = inputHandler;
-            Debug.WriteLine("ItemHandler size: " + this.itemHandler.GetItemHash().Count);
+            this.codexHash = new Dictionary<InputHandler.keyStates, Item>();
         }
 
         public Camera(ContentManager Content, String modelFile, String textureFile, Vector3 predictedPosition, Vector3 inputPosition, 
@@ -52,7 +53,7 @@ namespace JourneyToTheCenterOfTheCell
             this.maxPoint = this.subjectPosition + this.AABBOffset;
             this.minPoint = this.subjectPosition - this.AABBOffset;
             this.itemHandler = inputHandler;
-
+            this.codexHash = new Dictionary<InputHandler.keyStates, Item>();
         }
 
         /** 
@@ -83,14 +84,9 @@ namespace JourneyToTheCenterOfTheCell
 
                 if (this.GetObservers()[ii].AABBtoAABB(this))
                 {
-                    if (this.subjectPosition.Y > 20f)
-                    {
-                        this.AABBResolution(this.GetObservers()[ii], deltaTime, fps);
-                    }
-                    else
-                    {
-                        this.AABBCollider(this.GetObservers()[ii]);
-                    }
+                    
+                    this.AABBResolution(this.GetObservers()[ii], deltaTime, fps);
+                    
                 }
 
             }
@@ -103,7 +99,11 @@ namespace JourneyToTheCenterOfTheCell
                     
                     this.itemHandler.RemoveItemHash(this.GetItems()[ii].GetItemID());
                     this.GetItems().Remove(this.GetItems()[ii]);
-                   
+                    if(!this.codexHash.ContainsKey(this.GetItems()[ii].GetCodexType()))
+                    {
+                        this.codexHash.Add(this.GetItems()[ii].GetCodexType(), this.GetItems()[ii]);
+                    }
+                    
                 }
             }
 
@@ -344,5 +344,9 @@ namespace JourneyToTheCenterOfTheCell
             }
         }
         
+        public Dictionary<InputHandler.keyStates, Item> GetCodexHash()
+        {
+            return this.codexHash;
+        }
     }
 }

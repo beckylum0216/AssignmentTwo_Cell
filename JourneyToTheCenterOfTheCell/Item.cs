@@ -12,6 +12,7 @@ namespace JourneyToTheCenterOfTheCell
     public class Item : Actor
     {
         private int itemID;
+        private InputHandler.keyStates codexType;
 
         /**
 	    *	@brief parameterised constructor to the plot object. Create a complete plot object.
@@ -28,7 +29,8 @@ namespace JourneyToTheCenterOfTheCell
 	    *	@post Camera will exist
 	    */
         public Item(ContentManager Content, int inputID,String modelFile, String textureFile,
-                        Vector3 inputPosition, Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset)
+                        Vector3 inputPosition, Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset, 
+                        InputHandler.keyStates inputType)
         {
             this.itemID = inputID;
             this.modelPath = modelFile;
@@ -42,6 +44,7 @@ namespace JourneyToTheCenterOfTheCell
             this.AABBOffset = inputAABBOffset;
             this.maxPoint = this.actorPosition + this.AABBOffset;
             this.minPoint = this.actorPosition - this.AABBOffset;
+            this.codexType = inputType;
         }
 
         public void SetItemID(int inputID)
@@ -53,6 +56,17 @@ namespace JourneyToTheCenterOfTheCell
         {
             return this.itemID;
         }
+
+        public void SetCodexType(InputHandler.keyStates inputType)
+        {
+            this.codexType = inputType;
+        }
+
+        public InputHandler.keyStates GetCodexType()
+        {
+            return  this.codexType;
+        }
+
 
         public override Actor ActorClone(ContentManager Content, string modelFile, string textureFile, Vector3 inputPosition, Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset)
         {

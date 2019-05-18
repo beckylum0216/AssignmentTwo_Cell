@@ -77,7 +77,7 @@ namespace JourneyToTheCenterOfTheCell
                             string texturePath = "Textures/Skin1";
                             float mapScale = 1.0f;
                             Vector3 buildingRotation = new Vector3(0, 0, 0);
-                            Map tempMap = new Map(randomList[aa], Map.buildType.Building, modelPath, texturePath, mapScale, buildingRotation);
+                            Map tempMap = new Map(randomList[aa], Map.buildType.Building, modelPath, texturePath, mapScale, buildingRotation, InputHandler.keyStates.NULL);
                             gridMap[ii, jj] = tempMap;
                         }
                     }
@@ -129,7 +129,7 @@ namespace JourneyToTheCenterOfTheCell
                             string texturePath = "Textures/city_residential_03_dif";
                             float mapScale = 1.0f;
                             Vector3 buildingRotation = new Vector3(0, 0, 0);
-                            Map tempMap = new Map(randomItemList[aa], Map.buildType.Building, modelPath, texturePath, mapScale, buildingRotation);
+                            Map tempMap = new Map(randomItemList[aa], Map.buildType.Building, modelPath, texturePath, mapScale, buildingRotation, InputHandler.keyStates.Mitochondria);
                             itemMap[ii, jj] = tempMap;
                         }
                     }
@@ -155,43 +155,42 @@ namespace JourneyToTheCenterOfTheCell
         *	@post 
         */
 
-        private int FindNeighbours(int gridX, int gridY, Map[,] inputGrid)
+        private InputHandler.keyStates FindCodexType(int inputRandom)
         {
-            int junction = 0;
+            InputHandler.keyStates codexType = InputHandler.keyStates.NULL;
 
-            if((gridX - 1) >= 0)
+            switch (inputRandom)
             {
-                if (inputGrid[gridX - 1, gridY].GetMapType() == Map.buildType.RoadHorizontal)
-                {
-                    junction += 1;
-                }
-            }
-            
-            if((gridY - 1) >= 0)
-            {
-                if (inputGrid[gridX, gridY - 1].GetMapType() == Map.buildType.RoadVertical)
-                {
-                    junction += 1;
-                }
+                case 0:
+                    codexType = InputHandler.keyStates.Cell;
+                    break;
+                case 1:
+                    codexType = InputHandler.keyStates.Nucleus;
+                    break;
+                case 2:
+                    codexType = InputHandler.keyStates.ER;
+                    break;
+                case 3:
+                    codexType = InputHandler.keyStates.Lysosome;
+                    break;
+                case 4:
+                    codexType = InputHandler.keyStates.Peroxisome;
+                    break;
+                case 5:
+                    codexType = InputHandler.keyStates.Golgi;
+                    break;
+                case 6:
+                    codexType = InputHandler.keyStates.Mitochondria;
+                    break;
+                case 7:
+                    codexType = InputHandler.keyStates.Cytoskeleton;
+                    break;
+                case 8:
+                    codexType = InputHandler.keyStates.Selenocysteine;
+                    break;
             }
 
-            if((gridX + 1) < sizeX)
-            {
-                if(inputGrid[gridX + 1, gridY].GetMapType() == Map.buildType.RoadHorizontal)
-                {
-                    junction += 1;
-                }
-            }
-            
-            if((gridY + 1) < sizeZ)
-            {
-                if (inputGrid[gridX, gridY + 1].GetMapType() == Map.buildType.RoadVertical)
-                {
-                    junction += 1;
-                }
-            }
-            
-            return junction;
+            return codexType;        
            
         }
 
