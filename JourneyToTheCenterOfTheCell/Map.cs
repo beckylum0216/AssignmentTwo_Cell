@@ -22,6 +22,7 @@ namespace JourneyToTheCenterOfTheCell
         private float coordZ;
         private float blockScale;
         private Vector3 blockRotation;
+        private InputHandler.keyStates codexType;
 
         // enum of building types
         public enum buildType {NullMap, RoadHorizontal, RoadVertical, RoadCorner, Building, RoadT, RoadCross, SkyBox};
@@ -50,7 +51,7 @@ namespace JourneyToTheCenterOfTheCell
 	    *	@post Map will exist
 	    */
         public Map(Vector3 gridPosition, buildType gridType, string modelFile, 
-                        string textureFile, float gridScale, Vector3 gridRotation)
+                        string textureFile, float gridScale, Vector3 gridRotation, InputHandler.keyStates codexInput)
         {
             this.positionMap = gridPosition;
             this.blockType = gridType;
@@ -58,6 +59,7 @@ namespace JourneyToTheCenterOfTheCell
             this.texturePath = textureFile;
             this.blockScale = gridScale;
             this.blockRotation = gridRotation;
+            this.codexType = codexInput;
         }
 
         public void SetPositionMap(Vector3 inputPosition)
@@ -335,5 +337,29 @@ namespace JourneyToTheCenterOfTheCell
             return this.blockRotation;
         }
 
+
+        /** 
+         *  @brief mutator to the codexType
+         *	@param inputCodexType codexType to be assigned 
+         *	@return 
+         *	@pre 
+         *	@post
+         */
+        public void SetCodexType(InputHandler.keyStates inputCodexType)
+        {
+            this.codexType = inputCodexType;
+        }
+
+        /** 
+         *  @brief accessor to the codexType
+         *	@param
+         *	@return codexType assigned 
+         *	@pre must exist
+         *	@post
+         */
+        public InputHandler.keyStates GetCodexType()
+        {
+            return this.codexType;
+        }
     }
 }

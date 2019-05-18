@@ -14,6 +14,7 @@ namespace JourneyToTheCenterOfTheCell
         private int sizeY = 0;
         private int sizeZ = 0;
         private Map[,] gridMap;
+        private Map[,] itemMap;
         private List<Vector3> randomList;
 
         /**
@@ -30,6 +31,7 @@ namespace JourneyToTheCenterOfTheCell
             sizeY = inputY;
             sizeZ = inputZ;
             gridMap = new Map[sizeX, sizeZ];
+            itemMap = new Map[sizeX, sizeZ];
             randomList = new List<Vector3>();
         }
 
@@ -47,7 +49,7 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre 
         *	@post 
         */
-        public void SetMap()
+        public void SetStructureMap()
         {
 
             
@@ -75,17 +77,68 @@ namespace JourneyToTheCenterOfTheCell
                             string texturePath = "Textures/Skin1";
                             float mapScale = 1.0f;
                             Vector3 buildingRotation = new Vector3(0, 0, 0);
-                            Map tempMap = new Map(randomList[aa], Map.buildType.Building, modelPath, texturePath, mapScale, buildingRotation);
+                            Map tempMap = new Map(randomList[aa], Map.buildType.Building, modelPath, texturePath, mapScale, buildingRotation, InputHandler.keyStates.NULL);
                             gridMap[ii, jj] = tempMap;
                         }
                     }
                 }
             }
             
+        }
+
+        /** 
+        *   @brief generates the map based on a typical chequerboard pattern
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
+        public void SetItemMap()
+        {
+
+
+            // sets the initial "Map consisting of building and adjacent road
+            Random randomNum = new Random();
+            List<Vector3> randomItemList = new List<Vector3>();
+            for (int ii = 0; ii < 100; ii += 1)
+            {
+                int randomX = randomNum.Next(100);
+                int randomY = randomNum.Next(100);
+                int randomZ = randomNum.Next(100);
+
+                Vector3 newPosition = new Vector3(randomX, randomY, randomZ);
+                randomItemList.Add(newPosition);
+            }
+
+            for (int aa = 0; aa < 100; aa += 1)
+            {
+                for (int ii = 0; ii < this.sizeX; ii += 1)
+                {
+                    for (int jj = 0; jj < this.sizeZ; jj += 1)
+                    {
+                        if ((ii == randomItemList[aa].X) && (jj == randomItemList[aa].Z))
+                        {
+                            string modelPath = "Models/city_residential_03";
+                            string texturePath = "Textures/city_residential_03_dif";
+                            float mapScale = 1.0f;
+                            Vector3 buildingRotation = new Vector3(0, 0, 0);
+                            Map tempMap = new Map(randomItemList[aa], Map.buildType.Building, modelPath, texturePath, mapScale, buildingRotation, InputHandler.keyStates.Mitochondria);
+                            itemMap[ii, jj] = tempMap;
+                        }
+                    }
+                }
+            }
 
         }
 
-        
+
         /** 
         *   @brief this functions helps the program to find the right junction for each empty space.
         *   @brief does not take into account orientation
@@ -102,43 +155,42 @@ namespace JourneyToTheCenterOfTheCell
         *	@post 
         */
 
-        private int FindNeighbours(int gridX, int gridY, Map[,] inputGrid)
+        private InputHandler.keyStates FindCodexType(int inputRandom)
         {
-            int junction = 0;
+            InputHandler.keyStates codexType = InputHandler.keyStates.NULL;
 
-            if((gridX - 1) >= 0)
+            switch (inputRandom)
             {
-                if (inputGrid[gridX - 1, gridY].GetMapType() == Map.buildType.RoadHorizontal)
-                {
-                    junction += 1;
-                }
-            }
-            
-            if((gridY - 1) >= 0)
-            {
-                if (inputGrid[gridX, gridY - 1].GetMapType() == Map.buildType.RoadVertical)
-                {
-                    junction += 1;
-                }
+                case 0:
+                    codexType = InputHandler.keyStates.Cell;
+                    break;
+                case 1:
+                    codexType = InputHandler.keyStates.Nucleus;
+                    break;
+                case 2:
+                    codexType = InputHandler.keyStates.ER;
+                    break;
+                case 3:
+                    codexType = InputHandler.keyStates.Lysosome;
+                    break;
+                case 4:
+                    codexType = InputHandler.keyStates.Peroxisome;
+                    break;
+                case 5:
+                    codexType = InputHandler.keyStates.Golgi;
+                    break;
+                case 6:
+                    codexType = InputHandler.keyStates.Mitochondria;
+                    break;
+                case 7:
+                    codexType = InputHandler.keyStates.Cytoskeleton;
+                    break;
+                case 8:
+                    codexType = InputHandler.keyStates.Selenocysteine;
+                    break;
             }
 
-            if((gridX + 1) < sizeX)
-            {
-                if(inputGrid[gridX + 1, gridY].GetMapType() == Map.buildType.RoadHorizontal)
-                {
-                    junction += 1;
-                }
-            }
-            
-            if((gridY + 1) < sizeZ)
-            {
-                if (inputGrid[gridX, gridY + 1].GetMapType() == Map.buildType.RoadVertical)
-                {
-                    junction += 1;
-                }
-            }
-            
-            return junction;
+            return codexType;        
            
         }
 
@@ -157,7 +209,7 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre 
         *	@post 
         */
-        public void SetCoords()
+        public void SetStructureCoords()
         {
             for(int aa = 0; aa < 100; aa += 1)
             {
@@ -184,6 +236,47 @@ namespace JourneyToTheCenterOfTheCell
         }
 
         /** 
+        *   @brief mutator to set the exact coordinates of the model assets
+        *   @brief 
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
+        public void SetItemCoords()
+        {
+            for (int aa = 0; aa < 100; aa += 1)
+            {
+                for (int ii = 0; ii < sizeX; ii++)
+                {
+                    for (int jj = 0; jj < sizeZ; jj++)
+                    {
+                        if (!(itemMap[ii, jj] == null))
+                        {
+                            float tempX = itemMap[ii, jj].GetPositionMap().X * 22;
+                            float tempY = itemMap[ii, jj].GetPositionMap().Y * 22;
+                            float tempZ = itemMap[ii, jj].GetPositionMap().Z * 22;
+
+                            itemMap[ii, jj].SetCoordX(tempX);
+                            itemMap[ii, jj].SetCoordZ(tempZ);
+                            itemMap[ii, jj].SetCoordY(tempY);
+
+                        }
+
+                    }
+                }
+            }
+
+        }
+
+        /** 
         *   @brief accessor to the exact coordinates of the model assets
         *   @brief 
         *   @see 
@@ -202,7 +295,27 @@ namespace JourneyToTheCenterOfTheCell
         {
             return gridMap;
         }
-        
+
+        /** 
+        *   @brief accessor to the exact coordinates of the model assets
+        *   @brief 
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
+        public Map[,] GetItemMap()
+        {
+            return itemMap;
+        }
+
         // output function for debugging
         public void PrintGrid()
         {

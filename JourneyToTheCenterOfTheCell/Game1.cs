@@ -19,12 +19,10 @@ namespace JourneyToTheCenterOfTheCell
     {
         private SpriteFont arial24;
 
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        public GraphicsDeviceManager graphics;
+        public SpriteBatch spriteBatch;
         GameContext newGame;
-
-
-
+        
         TextBox t = new TextBox();
         
         public Game1()

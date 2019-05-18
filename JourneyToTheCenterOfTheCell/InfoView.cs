@@ -8,17 +8,18 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace JourneyToTheCenterOfTheCell
 {
-    class InfoPanel
+    class InfoView
     {
+        Panel infoPanel;
 
-        public Panel GetPanel(ContentManager Content,string title, string info, string infoImage)
+        public void SetPanel(ContentManager Content, string title, string info, string infoImage)
         {
-            Panel newPanel = new Panel();
+            infoPanel = new Panel();
 
             Header pageHead = new Header(title, Anchor.TopLeft, new Vector2(0, 0));
             //pageHead.AddChild(new HorizontalLine(Anchor.Auto));
             // add title and text
-            
+
 
             //newPanel.AddChild(new Paragraph(info));
 
@@ -33,12 +34,17 @@ namespace JourneyToTheCenterOfTheCell
             string filePath = infoImage;
 
             Image i1 = new Image(Content.Load<Texture2D>(filePath), new Vector2(320, 210), ImageDrawMode.Stretch, Anchor.TopCenter, new Vector2(0, 30));// info pic
-            newPanel.AddChild(pageHead);
-            newPanel.AddChild(i1);
-            newPanel.AddChild(new Paragraph(info, Anchor.CenterLeft, null, new Vector2(0,130), 0.8f));//pic description
-                       
+            infoPanel.AddChild(pageHead);
+            infoPanel.AddChild(i1);
+            infoPanel.AddChild(new Paragraph(info, Anchor.CenterLeft, null, new Vector2(0, 130), 0.8f));//pic description
 
-            return newPanel;
+
+
+        }
+
+        public Panel GetPanel()
+        {
+            return infoPanel;
         }
     }
 }

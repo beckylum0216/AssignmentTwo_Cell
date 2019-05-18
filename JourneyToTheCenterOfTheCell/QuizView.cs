@@ -14,9 +14,12 @@ namespace JourneyToTheCenterOfTheCell
     {
         Panel newPanel;
         List<RadioButton> answerButtons;
-
-        public QuizView(Quiz inputQuiz, int inputX, int inputY) :base(inputQuiz)
+        QuizManager qm;
+        Quiz q;
+        public QuizView(QuizManager QM,Quiz inputQuiz, int inputX, int inputY) :base(inputQuiz)
         {
+            q = inputQuiz;
+            qm = QM;
             Vector2 panelSize = new Vector2(inputX, inputY);
             newPanel = new Panel(panelSize);
             answerButtons = new List<RadioButton>();
@@ -49,11 +52,19 @@ namespace JourneyToTheCenterOfTheCell
             {
                 if (answerButtons[ii].Checked == true)
                 {
-                    if (answerButtons[ii].Identifier == this.GetQuizAnswer())
+                    if (answerButtons[ii].Identifier.ToString() == q.GetQuizAnswer())//if true need to send some data back to quizmanager
                     {
-                        Paragraph answerText = new Paragraph();
-                        answerText.Text = this.GetQuizAnswer();
-                        this.newPanel.AddChild(answerText);
+                        
+                        qm.AddToQuestionNumber();
+                        qm.AddToTotalCorrect();
+                        qm.QuestionComplete();
+                      
+                    }
+                    else
+                    {
+                        qm.AddToQuestionNumber();//this works
+                        qm.QuestionComplete();//this works
+                        
                     }
                 }
             }

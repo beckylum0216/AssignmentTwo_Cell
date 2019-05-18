@@ -11,10 +11,13 @@ using System.Diagnostics;
 
 namespace JourneyToTheCenterOfTheCell
 {
-    class ModelHandler
+    public class ModelHandler
     {
+        private List<Actor> itemList = new List<Actor>();
         private List <Actor> plotList = new List<Actor>();
+        private Dictionary<int, Item> itemHash; 
         private Dictionary<string, Actor> landPlots = new Dictionary<string, Actor>();
+        private Map[,] itemMap;
         private Map[,] gridMap;
         private MapGenerator mapCreate;
         private ContentManager Content;
@@ -56,14 +59,20 @@ namespace JourneyToTheCenterOfTheCell
             sizeZ = inputZ;
             this.plotScale = inputScale;
 
+            itemHash = new Dictionary<int, Item>();
             // initialise map
-            MapGenerator mapCreate = new MapGenerator(sizeX, sizeY, sizeZ);
-            mapCreate.SetMap();
+            mapCreate = new MapGenerator(sizeX, sizeY, sizeZ);
+            mapCreate.SetStructureMap();
+            
             mapCreate.PrintGrid();
-            mapCreate.SetCoords();
+            mapCreate.SetStructureCoords();
             mapCreate.PrintCoords();
 
+            mapCreate.SetItemMap();
+            mapCreate.SetItemCoords();
+
             gridMap = mapCreate.GetGridMap();
+            itemMap = mapCreate.GetItemMap();
         }
 
         /** 
@@ -130,6 +139,38 @@ namespace JourneyToTheCenterOfTheCell
             return plotList;
         }
 
+        /** 
+        *   @brief accessor to the plot list. 
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return plotList the whole list
+        *	@pre 
+        *	@post 
+        */
+        public List<Actor> GetItemList()
+        {
+            return itemList;
+        }
+
+        /** 
+        *   @brief accessor to the plot list. 
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return plotList the whole list
+        *	@pre 
+        *	@post 
+        */
+        public Dictionary<int, Item> GetItemHash()
+        {
+            return itemHash;
+        }
+
 
         /** 
         *   @brief function creates all the prototypes for the game. not used as  
@@ -154,6 +195,7 @@ namespace JourneyToTheCenterOfTheCell
             SkyBox plotSkyBox = new SkyBox(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
             landPlots.Add(Map.buildType.SkyBox.ToString(), plotSkyBox);
 
+            //Ben's Code
             for (int i = 0; i < NumOfModels; i++)
             {
                 Models[i] = Content.Load<Model>(ModelNameMatrix[i]);
@@ -162,34 +204,7 @@ namespace JourneyToTheCenterOfTheCell
                 //Add dictionary element to landPlots
             }
 
-            //modelFile = "Models/city_residential_03";
-            //textureFile = "Maya/sourceimages/city_residential_03_dif";
-            //Vector3 positionBuilding = new Vector3(0, 0, 0);
-            //Vector3 rotationBuilding = new Vector3(0, 0, 0);
-            //Vector3 AABBOffsetBuilding = new Vector3(15, 20, 15);
-            //float scaleBuilding = 2.5f;
-            //Plot plotBuilding = new Plot(Content, modelFile, textureFile, positionBuilding, rotationBuilding, scaleBuilding, AABBOffsetBuilding);
-            //landPlots.Add(Block.buildType.Building.ToString(), plotBuilding);
-
-            //set up roads and tiles
-            //for (int ii = 0; ii < sizeX; ii++)
-            //{
-            //    for(int jj = 0; jj < sizeY; jj++)
-            //    {
-            //        try
-            //        {
-            //            Vector3 tempPosition = new Vector3(gridMap[ii, jj].GetCoordX(), gridMap[ii, jj].GetCoordY(), gridMap[ii, jj].GetCoordZ());
-            //            Vector3 tempOffset = new Vector3(0, 0, 0);
-            //            Plot tempPlot = new Plot(Content, gridMap[ii, jj].GetModelPath(), gridMap[ii, jj].GetTexturePath(),
-            //                                        tempPosition, gridMap[ii, jj].GetBlockRotation(), plotScale, tempOffset);
-            //            landPlots.Add(gridMap[ii, jj].GetBlockType().ToString(), tempPlot);
-            //        }
-            //        catch( System.ArgumentException e)
-            //        {
-            //            Debug.WriteLine("Item Already Added! " + e);
-            //        }
-            //    }
-            //}
+            
         }
 
         // bad bad code 
@@ -216,7 +231,7 @@ namespace JourneyToTheCenterOfTheCell
                     if(!(gridMap[ii, jj] == null))
                     {
                         Vector3 tempPosition = new Vector3(gridMap[ii, jj].GetCoordX(), gridMap[ii, jj].GetCoordY(), gridMap[ii, jj].GetCoordZ());
-                        Vector3 tempOffset = new Vector3(10, 1, 10);
+                        Vector3 tempOffset = new Vector3(20, 10, 20);
                         // prototyping map tiles not working as planned 
                         // Actor tempPlot = landPlots[gridMap[ii, jj].GetBlockType().ToString()].ActorClone(Content, gridMap[ii, jj].GetModelPath(), gridMap[ii, jj].GetTexturePath(), tempPosition, gridMap[ii, jj].GetBlockRotation(), gridMap[ii, jj].GetBlockScale(), tempOffset);
                         Structure tempPlot = new Structure(Content, gridMap[ii, jj].GetModelPath(), gridMap[ii, jj].GetTexturePath(), tempPosition, gridMap[ii, jj].GetMapRotation(), gridMap[ii, jj].GetMapScale(), tempOffset);
@@ -226,24 +241,41 @@ namespace JourneyToTheCenterOfTheCell
                 }
             }
             Debug.WriteLine("list size:" + plotList.Count);
-            //for(int ii = 0; ii < sizeX; ii++)
-            //{
-            //    for(int jj = 0; jj < sizeY; jj++)
-            //    {
-            //        if(gridMap[ii,jj].GetBlockType() == Block.buildType.Building)
-            //        {
-            //            modelFile = "Models/city_residential_03";
-            //            textureFile = "Maya/sourceimages/city_residential_03_dif";
-            //            Vector3 positionBuilding = new Vector3(gridMap[ii,jj].GetCoordX(), 0, gridMap[ii, jj].GetCoordZ());
-            //            Vector3 rotationBuilding = new Vector3(0, 0, 0);
-            //            Vector3 AABBOffsetBuilding = new Vector3(17, 25, 17);
-            //            float scaleBuilding = 3f;
-            //            //Actor plotBuilding = landPlots["Building"].ActorClone(Content, modelFile, textureFile, positionBuilding, rotationBuilding, scaleBuilding, AABBOffsetBuilding);
-            //            Plot plotBuilding = new Plot(Content, modelFile, textureFile, positionBuilding, rotationBuilding, scaleBuilding, AABBOffsetBuilding);
-            //            plotList.Add(plotBuilding);
-            //        }
-            //    }
-            //}
+            
+        }
+
+        // 
+        public void SetItemHash()
+        {
+
+            Debug.WriteLine("list size:" + plotList.Count);
+            //adds to the list the land and road tiles
+            for (int ii = 0; ii < sizeX; ii++)
+            {
+                for (int jj = 0; jj < sizeY; jj++)
+                {
+                    if (!(itemMap[ii, jj] == null))
+                    {
+                        Vector3 tempPosition = new Vector3(itemMap[ii, jj].GetCoordX(), itemMap[ii, jj].GetCoordY(), itemMap[ii, jj].GetCoordZ());
+                        Vector3 tempOffset = new Vector3(20, 10, 20);
+                        
+                        int tempID = (int) Math.Round( (itemMap[ii, jj].GetCoordX() * itemMap[ii, jj].GetCoordY() * itemMap[ii, jj].GetCoordZ())) ;
+                        Item tempPlot = new Item(Content, tempID,itemMap[ii, jj].GetModelPath(), itemMap[ii, jj].GetTexturePath(), tempPosition, itemMap[ii, jj].GetMapRotation(),itemMap[ii, jj].GetMapScale(), tempOffset, itemMap[ii,jj].GetCodexType());
+                        if(!itemHash.ContainsKey(tempPlot.GetItemID()))
+                        {
+                            itemHash.Add(tempPlot.GetItemID(), tempPlot);
+                        }
+                    }
+
+                }
+            }
+            Debug.WriteLine("list size:" + plotList.Count);
+
+        }
+
+        public void RemoveItemHash(int targetID)
+        {
+            itemHash.Remove(targetID);
         }
 
         /** 
@@ -265,6 +297,26 @@ namespace JourneyToTheCenterOfTheCell
             }
         }
 
+        /** 
+        *   @brief Utilty function to print the plot list for debugging
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
+        public void PrintItemList()
+        {
+            for (int ii = 0; ii < itemList.Count; ii++)
+            {
+                Debug.WriteLine("item x: " + itemList[ii].actorPosition.X + " y: " + itemList[ii].actorPosition.Y + " Z: " + itemList[ii].actorPosition.Z);
+            }
+        }
+
+        // Ben's Code
         public void DrawModel(Matrix view, Matrix projection)
         {
             for (int i = 0; i < NumOfModels; i++)
@@ -288,5 +340,8 @@ namespace JourneyToTheCenterOfTheCell
                 }
             }
         }
+
+
+
     }
 }

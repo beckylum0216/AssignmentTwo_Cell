@@ -9,8 +9,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace JourneyToTheCenterOfTheCell
 {
-    public class Structure : Actor
+    public class Item : Actor
     {
+        private int itemID;
+        private InputHandler.keyStates codexType;
+
         /**
 	    *	@brief parameterised constructor to the plot object. Create a complete plot object.
 	    *	@param Content 
@@ -25,9 +28,11 @@ namespace JourneyToTheCenterOfTheCell
 	    *	@pre 
 	    *	@post Camera will exist
 	    */
-        public Structure(ContentManager Content,  String modelFile, String textureFile,
-                        Vector3 inputPosition, Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset)
+        public Item(ContentManager Content, int inputID,String modelFile, String textureFile,
+                        Vector3 inputPosition, Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset, 
+                        InputHandler.keyStates inputType)
         {
+            this.itemID = inputID;
             this.modelPath = modelFile;
             this.texturePath = textureFile;
             this.actorModel = Content.Load<Model>(modelPath);
@@ -39,46 +44,38 @@ namespace JourneyToTheCenterOfTheCell
             this.AABBOffset = inputAABBOffset;
             this.maxPoint = this.actorPosition + this.AABBOffset;
             this.minPoint = this.actorPosition - this.AABBOffset;
+            this.codexType = inputType;
+        }
+
+        public void SetItemID(int inputID)
+        {
+            this.itemID = inputID;
+        }
+
+        public int GetItemID()
+        {
+            return this.itemID;
+        }
+
+        public void SetCodexType(InputHandler.keyStates inputType)
+        {
+            this.codexType = inputType;
+        }
+
+        public InputHandler.keyStates GetCodexType()
+        {
+            return  this.codexType;
         }
 
 
-        
-
-        /** 
-        *   @brief function to update the state of the actor. For plot this is not implmented
-        *   @see
-        *	@param 
-        *	@param  
-        *	@param 
-        *	@param 
-        *	@return actorScale
-        *	@pre 
-        *	@post 
-        */
-        public override Matrix ActorUpdate(Vector3 inputVector)
+        public override Actor ActorClone(ContentManager Content, string modelFile, string textureFile, Vector3 inputPosition, Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset)
         {
             throw new NotImplementedException();
         }
 
-        /** 
-        *   @brief Function that implement the prototype pattern clone functionality 
-        *   @see
-        *	@param 
-        *	@param  
-        *	@param 
-        *	@param 
-        *	@return new plot object
-        *	@pre 
-        *	@post 
-        */
-        public override Actor ActorClone(ContentManager Content, String modelFile, String textureFile, Vector3 inputPosition,
-                                    Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset)
+        public override Matrix ActorUpdate(Vector3 inputVector)
         {
-            return new Structure(Content, modelPath, texturePath, actorPosition, actorRotation, actorScale, AABBOffset);
+            throw new NotImplementedException();
         }
-
-        
-
-        
     }
 }

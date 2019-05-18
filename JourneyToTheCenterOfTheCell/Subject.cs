@@ -27,6 +27,7 @@ namespace JourneyToTheCenterOfTheCell
         public Vector3 maxPoint;
         public Vector3 AABBOffset;
         private List<Actor> observerList= new List<Actor>();
+        private List<Item> itemList = new List<Item>();
 
 
         /** 
@@ -117,6 +118,22 @@ namespace JourneyToTheCenterOfTheCell
         }
 
         /** 
+        *   @brief function subscribes observers to the subject. implementation of the observer pattern 
+        *   @see 
+        *	@param targetActor observer to be added
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return 
+        *	@pre 
+        *	@post 
+        */
+        public void SetItems(Item targetActor)
+        {
+            this.itemList.Add(targetActor);
+        }
+
+        /** 
         *   @brief accessor to the observer list
         *   @see 
         *	@param 
@@ -130,6 +147,22 @@ namespace JourneyToTheCenterOfTheCell
         public List<Actor> GetObservers()
         {
             return observerList;
+        }
+
+        /** 
+        *   @brief accessor to the observer list
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return observerList list of actors 
+        *	@pre 
+        *	@post 
+        */
+        public List<Item> GetItems()
+        {
+            return itemList;
         }
 
         /** 
