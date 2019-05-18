@@ -16,7 +16,7 @@ namespace JourneyToTheCenterOfTheCell
                 Console.Out.WriteLine("Wandering... \n");
                 if (true /*Enemy Position is near player, switch to attack*/)
                     Transition(EnemyStates.Attack);
-                /*else
+                 /*else
                  *  Compute new position based on wandering
                  */
             }

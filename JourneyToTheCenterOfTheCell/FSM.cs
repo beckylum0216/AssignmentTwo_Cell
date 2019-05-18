@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using Microsoft.Xna.Framework;
 
 namespace JourneyToTheCenterOfTheCell
 {
@@ -61,5 +62,43 @@ namespace JourneyToTheCenterOfTheCell
                 method.Invoke(this, null /*change to player position when ready*/);
             }
         }
+
+        /*
+        bool moveTo(Vector3 currentPos, Vector3 targetPos, Vector3 currentVel, double timeElapsed, double offset)
+        {
+            Vector3 toTarget = targetPos - currentPos;
+            toTarget.Normalize();
+            if(toTarget == Vector3.Zero)
+            {
+                return true;
+            }
+
+            currentVel = toTarget * currentVel.Length();
+            Vector3 displacement = currentVel * (float)timeElapsed;
+            Vector3 newPos = currentPos + displacement;
+
+            Vector3 realTargetPosition = targetPos - toTarget * (float)offset;
+
+            Vector3 toRealTarget = realTargetPosition - newPos;
+            toRealTarget.Normalize();
+            if(toRealTarget == Vector3.Zero)
+            {
+                currentPos = realTargetPosition;
+                return true;
+            }
+
+            float dp = Vector3.Dot(toRealTarget, toTarget);
+            if(dp<0.0)//enemy has passed the player
+            {
+                currentPos = realTargetPosition;
+                return true;
+            }
+
+            currentPos = newPos;
+            return false;
+        }
+        */
+
+        
     }
 }
