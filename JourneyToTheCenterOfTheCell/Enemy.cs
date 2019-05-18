@@ -12,6 +12,8 @@ namespace JourneyToTheCenterOfTheCell
     class Enemy : Actor
     {
 
+        EFSM EnemyFSM = new EFSM();
+
         //FINITE STATE MACHINE YET TO BE ADDED - CODING IN PROGRESS
         int ID;
 
@@ -30,6 +32,8 @@ namespace JourneyToTheCenterOfTheCell
             this.maxPoint = this.actorPosition + this.AABBOffset;
             this.minPoint = this.actorPosition - this.AABBOffset;
             this.ID = id;
+
+            SetPosition(inputPosition);
         }
 
         //Positions=====================================
@@ -40,6 +44,8 @@ namespace JourneyToTheCenterOfTheCell
             /**
              * //Build movement vector in state machine
              */ //pass vector into ActorUpdate...
+
+            EnemyFSM.Update();
             this.ActorUpdate(actorPosition);
              
         }

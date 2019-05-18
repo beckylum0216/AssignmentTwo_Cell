@@ -44,9 +44,14 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Actor.cs" />
+    <Compile Include="EFSM.cs" />
     <Compile Include="Enemy.cs" />
+    <Compile Include="FSM.cs" />
     <Compile Include="Items.cs" />
     <Compile Include="CodexManager.cs" />
     <Compile Include="CodexView.cs" />
