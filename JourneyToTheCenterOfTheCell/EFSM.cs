@@ -11,25 +11,25 @@ namespace JourneyToTheCenterOfTheCell
     {
         public EFSM() : base(EnemyStates.Wander) { }
 
-            void WanderState()
+            void WanderState(/*give player and this enemies positions*/)
             {
                 Console.Out.WriteLine("Wandering... \n");
-                if (true /*Enemy Position is near player, switch to attack*/)
+                if (true /*  Vector3.Distance(enemyPosition, playerPosition) < 50.0f  */)
                     Transition(EnemyStates.Attack);
-                 /*else
-                 *  Compute new position based on wandering
-                 */
+                /*else
+                    *  Compute new position based on wandering
+                    */
             }
             
-            void AttackState()
+            void AttackState(/*give player and this enemies positions*/)
             {
                 Console.Out.WriteLine("Attacking...\n");
-                if (true/*Player is out of range, switch to wander*/)
+                if (true/*  Vector3.Distance(enemyPosition, playerPosition) > 50.0f */)
                     Transition(EnemyStates.Wander);
                 /*else
-                *  Compute new position based on attacking
-                */
-
+                    *  Compute new position based on attacking
+                    */
+                    /*test*/
         }
 
 
