@@ -5,9 +5,11 @@ using GeonBit.UI;
 using GeonBit.UI.Entities;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using GeonBit.UI.Animators;
+
 namespace JourneyToTheCenterOfTheCell
 {
-    public class CodexManager
+    public class CodexHandler
     {
         SpriteBatch spritebatch;
         ContentManager content;
@@ -54,6 +56,11 @@ namespace JourneyToTheCenterOfTheCell
         bool active9 = false;
 
 
+        public CodexHandler()
+        {
+           
+        }
+
         public void Initialize(GraphicsDeviceManager g, ContentManager Content)
         {
             content = Content;
@@ -72,12 +79,10 @@ namespace JourneyToTheCenterOfTheCell
             UserInterface.Active.AddEntity(test);
             
         }
-
         public void Activate()
         {
             codexActivate = true;//sets the boolean for wether the codex panel has been opened/activated 
         }
-
         public void Activate1()
         {
             if (codexActivate)//only activate info panels if the codex is already open
@@ -146,49 +151,34 @@ namespace JourneyToTheCenterOfTheCell
             //draws the panels stored in active ui
             UserInterface.Active.Draw(spritebatch);                 
         }
-
-        private void CodexDown(bool inputActivation)
+        public void Update(GameTime gameTime, InputHandler.keyStates keyboardInput)
         {
-            if (inputActivation)// if the codex has been activated
+            if (codexActivate)// if the codex has been activated
             {
 
-                if (test.Offset != new Vector2(0, 0))//and the panel has not reached the desired offset
-                { test.Offset = new Vector2(0, test.Offset.Y + 10); }//increment the offset each update
+                //FloatUpDownAnimator downAnimate = new FloatUpDownAnimator();
+                //downAnimate.FloatingDistance = 20;
+                //downAnimate.SpeedFactor = 5f;
+                //test.AttachAnimator(downAnimate);
+                
+                if(test.Offset != new Vector2(0, 0))//and the panel has not reached the desired offset
+                {
+                    test.Offset = new Vector2(0, test.Offset.Y + 10);
+                }//increment the offset each update
 
             }
-        }
-
-        private void CodexUp(bool inputActivation)
-        {
-            if(inputActivation==false)
+            if (!codexActivate)//if the codex has been deactivated
             {
                 UserInterface.Active.RemoveEntity(test);//remove whatever panel was last stored 
-
+                
                 test = cgui.GetPanel(content);//reset panel to content start page
-
+                
                 UserInterface.Active.AddEntity(test);//send the panel to ui
                 test.Offset = new Vector2(0, -540);//initial ofset variable
                 if (test.Offset != new Vector2(0, -540))//if the panel has not reached the deactive position
-                { test.Offset = new Vector2(0, test.Offset.Y - 10); }//increment till we reach that position , this animation of the panel returning no longer works because we need to clear the old panels every cycle or the program locks up
+                    { test.Offset = new Vector2(0, test.Offset.Y - 10); }//increment till we reach that position , this animation of the panel returning no longer works because we need to clear the old panels every cycle or the program locks up
+               
             }
-        }
-
-        public void Update(GameTime gameTime, InputHandler.keyStates inputState)
-        {
-            if (inputState == InputHandler.keyStates.CodexDown)// if the codex has been activated
-            {
-                Activate();
-            }
-
-            CodexDown(codexActivate);
-
-            if (inputState == InputHandler.keyStates.CodexUp)//if the codex has been deactivated
-            {
-                Deactivate();
-            }
-
-            CodexUp(codexActivate);
-
             if (active1)//if panel 1 active
             {
                 
