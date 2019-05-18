@@ -36,6 +36,12 @@ namespace JourneyToTheCenterOfTheCell
         public void SetPosition(Vector3 inputPosition)
         {
             this.actorPosition = inputPosition;
+
+            /**
+             * //Build movement vector in state machine
+             */ //pass vector into ActorUpdate...
+            this.ActorUpdate(actorPosition);
+             
         }
 
         public Vector3 GetPosition()
