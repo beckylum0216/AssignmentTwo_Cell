@@ -2,6 +2,7 @@
 using GeonBit.UI.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -28,7 +29,6 @@ namespace JourneyToTheCenterOfTheCell
         private int screenX;
         private int screenY;
         private int gameLevel;
- 
         
 
 
@@ -118,7 +118,8 @@ namespace JourneyToTheCenterOfTheCell
         public override void Initialise(GameContext gameCtx)
         {
             
-           
+            
+            
         }
 
 
@@ -151,6 +152,7 @@ namespace JourneyToTheCenterOfTheCell
             //this update animates the codex drop down
             CodexManager.GetCodexInstance().Update(gameCtx.GetGameTime(), keyboardInput, camera.GetCodexHash());
             
+
         }
 
         public override void Draw(GameContext gameCtx)
@@ -169,6 +171,7 @@ namespace JourneyToTheCenterOfTheCell
             //draw the codex (should be drawn in deactivated state i.e. top of the screen)
             CodexManager.GetCodexInstance().Draw();
             
+
         }
     }
 }

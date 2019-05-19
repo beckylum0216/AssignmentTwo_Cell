@@ -78,7 +78,7 @@
     <Compile Include="Subject.cs" />
     <Compile Include="MenuView.cs" />
     <Compile Include="Test\testGame.cs" />
-    <Compile Include="TextBox.cs" />
+    <Compile Include="Text.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DataTypes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

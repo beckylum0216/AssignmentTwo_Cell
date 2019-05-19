@@ -10,12 +10,11 @@ namespace JourneyToTheCenterOfTheCell
 {
     class QuizManager:GameState
     {
-        //private int screenX;
-        //private int screenY;
-        int numOfQuestions = 8;
+        
+        //int numOfQuestions = 8;
         int totalCorrect;
         int currentQuestionNumber;
-        double finalPercentage = 0.00;
+        //double finalPercentage = 0.00;
         bool questionComplete = false;
         QuizAnswers questions = new QuizAnswers();
         QuizFinishedView final = new QuizFinishedView(); 
@@ -25,14 +24,8 @@ namespace JourneyToTheCenterOfTheCell
         {
             questionComplete = true;
         }
-        public void CalculateQuizResult()
-        {
-            finalPercentage = totalCorrect / numOfQuestions;
-        }
-        public void DisplayQuizResult()
-        {
-            //need to make a quizFinalView to load a panel showing quiz stats after completion
-        }
+        
+       
         //probably need a saveQuizResultToFile function if we have time so players can check their scores from a panel in menu
         public void AddToQuestionNumber()
         {
@@ -50,6 +43,7 @@ namespace JourneyToTheCenterOfTheCell
 
         public override void Initialise(GameContext gameCtx)
         {
+
             
             questions.Init(gameCtx,this);
             totalCorrect = 0;
@@ -141,7 +135,7 @@ namespace JourneyToTheCenterOfTheCell
             if (currentQuestionNumber == 9 & questionComplete == true)
             {
                 UserInterface.Active.RemoveEntity(testPanel);
-                testPanel = final.GetPanel(gameCtx.GetGameInstance().Content, (currentQuestionNumber-1),totalCorrect);
+                testPanel = final.GetPanel(gameCtx, (currentQuestionNumber-1),totalCorrect);
                 UserInterface.Active.AddEntity(testPanel);
                 questionComplete = false;
             }
