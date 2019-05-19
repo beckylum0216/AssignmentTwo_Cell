@@ -129,8 +129,9 @@ namespace JourneyToTheCenterOfTheCell
                         {
                             int randomItem = randomNum.Next(9);
 
-                            string modelPath = "Models/city_residential_03";
-                            string texturePath = "Textures/city_residential_03_dif";
+                            string modelPath = "Models/mitochondria";
+                            string texturePath = "Textures/Mitochondrion_AlbedoTransparency";
+                            //string texturePath = "Textures/Mitochondrion_Normal";
                             float mapScale = 1.0f;
                             Vector3 buildingRotation = new Vector3(0, 0, 0);
                             int modelLevel = 1;
