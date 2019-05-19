@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace JourneyToTheCenterOfTheCell
 {
-    class GameContext
+    public class GameContext
     {
         private Game gameInstance;
         private GameState gameState;
@@ -21,7 +21,7 @@ namespace JourneyToTheCenterOfTheCell
             this.gameInstance = inputGame;
             this.graphics = inputGraphics;
             this.spriteBatch = inputSpriteBatch;
-            gameState = new GameManager();
+            gameState = new GameOneManager();
 
         }
 

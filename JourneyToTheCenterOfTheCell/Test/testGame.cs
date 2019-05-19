@@ -19,7 +19,7 @@ namespace JourneyToTheCenterOfTheCell.Test
 
             gameContext.GetGameInstance();
 
-            GameManager testNewGame = new GameManager(gameContext);
+            GameOneManager testNewGame = new GameOneManager(gameContext);
 
             InputHandler testHandler = new InputHandler(testNewGame.GetScreenX(), testNewGame.GetScreenY());
 

@@ -13,7 +13,7 @@ namespace JourneyToTheCenterOfTheCell
     {
         private SpriteBatch spritebatch;
         private ContentManager content;
-        private Panel test;
+        private Panel blah;
         private CodexView codexGui;
         private InfoView infoGui;
         private bool codexActivate = false;
@@ -23,12 +23,22 @@ namespace JourneyToTheCenterOfTheCell
         private List<Anchor> anchorList;
         private List<string> titleList;
         private List<Codex> codexList;
-        
+
+        private static CodexManager codexInstance = new CodexManager();
+
+        private CodexManager() { }
+
+        public static CodexManager GetCodexInstance()
+        {
+            return codexInstance;
+        }
+
 
         public void Initialize(GraphicsDeviceManager g, ContentManager Content, Dictionary<InputHandler.keyStates, Item> activeState)
         {
             content = Content;
             spritebatch = new SpriteBatch(g.GraphicsDevice);
+            
             UserInterface.Initialize(content, BuiltinThemes.hd);
 
             // could be better - but this is slightly more maintainable
@@ -96,16 +106,16 @@ namespace JourneyToTheCenterOfTheCell
 
             codexGui = new CodexView(codexList);
             infoGui = new InfoView();
-            test = new Panel();
+            blah = new Panel();
 
             codexGui.SetPanel(content, activeState);
-            test = codexGui.GetPanel();
+            blah = codexGui.GetPanel();
             
-            test.Draggable = false;
+            blah.Draggable = false;
 
            
            
-            UserInterface.Active.AddEntity(test);
+            UserInterface.Active.AddEntity(blah);
             
         }
 
@@ -149,10 +159,10 @@ namespace JourneyToTheCenterOfTheCell
             if (inputActivation)
             {
                 //and the panel has not reached the desired offset
-                if (test.Offset != new Vector2(0, 0))
+                if (blah.Offset != new Vector2(0, 0))
                 {
                     //increment the offset each update
-                    test.Offset = new Vector2(0, test.Offset.Y + 10);
+                    blah.Offset = new Vector2(0, blah.Offset.Y + 10);
                 }
 
             }
@@ -164,21 +174,21 @@ namespace JourneyToTheCenterOfTheCell
             if(inputActivation==false)
             {
                 //remove whatever panel was last stored 
-                UserInterface.Active.RemoveEntity(test);
+                UserInterface.Active.RemoveEntity(blah);
                 
                 //reset panel to content start page
-                test = codexGui.GetPanel();
+                blah = codexGui.GetPanel();
                 //send the panel to ui
-                UserInterface.Active.AddEntity(test);
+                UserInterface.Active.AddEntity(blah);
                 //initial ofset variable
-                test.Offset = new Vector2(0, -540);
+                blah.Offset = new Vector2(0, -540);
                 //if the panel has not reached the deactive position
-                if (test.Offset != new Vector2(0, -540))
+                if (blah.Offset != new Vector2(0, -540))
                 {
                     //increment till we reach that position , 
                     //this animation of the panel returning no longer works 
                     //because we need to clear the old panels every cycle or the program locks up
-                    test.Offset = new Vector2(0, test.Offset.Y - 10);
+                    blah.Offset = new Vector2(0, blah.Offset.Y - 10);
                 }
             }
         }
@@ -209,10 +219,10 @@ namespace JourneyToTheCenterOfTheCell
                 {
                     if(codexActivate)
                     {
-                        UserInterface.Active.RemoveEntity(test);
+                        UserInterface.Active.RemoveEntity(blah);
                         infoGui.SetPanel(content, codexList[ii].GetItemTitle(), codexList[ii].GetItemInfo(), codexList[ii].GetFinalTexture());
-                        test = infoGui.GetPanel();
-                        UserInterface.Active.AddEntity(test);
+                        blah = infoGui.GetPanel();
+                        UserInterface.Active.AddEntity(blah);
                     }
                 }
                 codexList[ii].SetItemActive(false);

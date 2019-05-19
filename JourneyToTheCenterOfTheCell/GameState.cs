@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JourneyToTheCenterOfTheCell
 {
-    abstract class GameState
+    public abstract class GameState
     {
         public abstract void Initialise(GameContext gameCtx);
         public abstract void Update(GameContext gameCtx);

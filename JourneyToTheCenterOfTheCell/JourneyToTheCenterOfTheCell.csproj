@@ -50,7 +50,8 @@
     <Compile Include="CodexManager.cs" />
     <Compile Include="CodexView.cs" />
     <Compile Include="GameContext.cs" />
-    <Compile Include="GameManager.cs" />
+    <Compile Include="GameTwoManager.cs" />
+    <Compile Include="GameOneManager.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="InfoView.cs" />
     <Compile Include="IntroView.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="QuizFinishedView.cs" />
     <Compile Include="QuizManager.cs" />
     <Compile Include="QuizView.cs" />
+    <Compile Include="StarNode.cs" />
     <Compile Include="Structure.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -99,7 +99,7 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre 
         *	@post 
         */
-        public abstract Matrix SubjectUpdate(Vector3 inputVector, float deltaTime, float fps);
+        public abstract Matrix SubjectUpdate(GameContext gameCtx, Vector3 inputVector, float deltaTime, float fps);
 
         /** 
         *   @brief function subscribes observers to the subject. implementation of the observer pattern 

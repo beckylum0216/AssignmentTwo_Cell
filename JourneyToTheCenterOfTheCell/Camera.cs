@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -19,10 +20,12 @@ namespace JourneyToTheCenterOfTheCell
         private Quaternion deltaQuaternion;
         private ModelHandler itemHandler;
         private Dictionary<InputHandler.keyStates, Item> codexHash;
+        private SoundEffect itemSound;
+        
 
         public Camera(){ }
 
-        public Camera(Matrix inputCamera, Vector3 initPosition, Vector3 eyePosition, Vector3 deltaVector, Vector3 inputOffset, ModelHandler inputHandler)
+        public Camera(ContentManager Content, Matrix inputCamera, Vector3 initPosition, Vector3 eyePosition, Vector3 deltaVector, Vector3 inputOffset, ModelHandler inputHandler)
         {
             this.theCamera = inputCamera;
             this.futurePosition = initPosition;
@@ -36,6 +39,7 @@ namespace JourneyToTheCenterOfTheCell
             zoomVector = new Vector3(0, 0, 0);
             this.itemHandler = inputHandler;
             this.codexHash = new Dictionary<InputHandler.keyStates, Item>();
+            itemSound = Content.Load<SoundEffect>("Sound/Power_Up_Ray-Mike_Koenig-800933783");
         }
 
         public Camera(ContentManager Content, String modelFile, String textureFile, Vector3 predictedPosition, Vector3 inputPosition, 
@@ -54,6 +58,7 @@ namespace JourneyToTheCenterOfTheCell
             this.minPoint = this.subjectPosition - this.AABBOffset;
             this.itemHandler = inputHandler;
             this.codexHash = new Dictionary<InputHandler.keyStates, Item>();
+            itemSound = Content.Load<SoundEffect>("Sound/Power_Up_Ray-Mike_Koenig-800933783");
         }
 
         /** 
@@ -65,7 +70,7 @@ namespace JourneyToTheCenterOfTheCell
          *	@pre 
          *	@post position update of the camera object
          */
-        public override Matrix SubjectUpdate(Vector3 inputVector, float deltaTime, float fps)
+        public override Matrix SubjectUpdate(GameContext gameCtx, Vector3 inputVector, float deltaTime, float fps)
         {
             /// calculate pitch axis for rotating, therefore the orthogonal between the forward and up 
             /// assuming righthandedness
@@ -96,13 +101,24 @@ namespace JourneyToTheCenterOfTheCell
                 if(this.GetItems()[ii].AABBtoAABB(this))
                 {
                     Debug.WriteLine("collided ID:" + this.GetItems()[ii].GetItemID());
-                    
-                    this.itemHandler.RemoveItemHash(this.GetItems()[ii].GetItemID());
-                    this.GetItems().Remove(this.GetItems()[ii]);
-                    if(!this.codexHash.ContainsKey(this.GetItems()[ii].GetCodexType()))
+                    itemSound.Play();
+                    if (!this.codexHash.ContainsKey(this.GetItems()[ii].GetCodexType()))
                     {
                         this.codexHash.Add(this.GetItems()[ii].GetCodexType(), this.GetItems()[ii]);
                     }
+                    this.itemHandler.RemoveItemHash(this.GetItems()[ii].GetItemID());
+
+                    if(this.GetItems()[ii].GetCodexType() == InputHandler.keyStates.Cell)
+                    {
+                        this.GetItems().Remove(this.GetItems()[ii]);
+                        GameTwoManager newGame = new GameTwoManager(gameCtx);
+                        gameCtx.SetGameState(newGame);
+                    }
+                    else
+                    {
+                        this.GetItems().Remove(this.GetItems()[ii]);
+                    }
+                    
                     
                 }
             }

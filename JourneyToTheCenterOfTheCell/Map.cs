@@ -30,6 +30,8 @@ namespace JourneyToTheCenterOfTheCell
         private String modelPath;
         private String texturePath;
 
+        private int modelLevel;
+
         /**
 	    *	@brief default constructor to the block object
 	    *	@param 
@@ -51,7 +53,8 @@ namespace JourneyToTheCenterOfTheCell
 	    *	@post Map will exist
 	    */
         public Map(Vector3 gridPosition, buildType gridType, string modelFile, 
-                        string textureFile, float gridScale, Vector3 gridRotation, InputHandler.keyStates codexInput)
+                        string textureFile, float gridScale, Vector3 gridRotation, 
+                        InputHandler.keyStates codexInput, int inputLevel)
         {
             this.positionMap = gridPosition;
             this.blockType = gridType;
@@ -60,6 +63,7 @@ namespace JourneyToTheCenterOfTheCell
             this.blockScale = gridScale;
             this.blockRotation = gridRotation;
             this.codexType = codexInput;
+            this.modelLevel = inputLevel;
         }
 
         public void SetPositionMap(Vector3 inputPosition)

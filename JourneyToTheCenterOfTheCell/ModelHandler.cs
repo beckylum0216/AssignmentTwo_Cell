@@ -25,6 +25,7 @@ namespace JourneyToTheCenterOfTheCell
         private int sizeY;
         private int sizeZ;
         private float plotScale;
+        private int gameLevel;
 
 
         //=======Not needed once Models are added that hold textures
@@ -51,7 +52,7 @@ namespace JourneyToTheCenterOfTheCell
 	    *	@pre 
 	    *	@post Camera will exist
 	    */
-        public ModelHandler(ContentManager inputContent,  int inputX, int inputY, int inputZ, float inputScale)
+        public ModelHandler(ContentManager inputContent,  int inputX, int inputY, int inputZ, float inputScale, int inputLevel)
         {
             Content = inputContent;
             sizeX = inputX;
@@ -73,6 +74,8 @@ namespace JourneyToTheCenterOfTheCell
 
             gridMap = mapCreate.GetGridMap();
             itemMap = mapCreate.GetItemMap();
+
+            this.gameLevel = inputLevel;
         }
 
         /** 
@@ -171,6 +174,15 @@ namespace JourneyToTheCenterOfTheCell
             return itemHash;
         }
 
+        public void SetGameLevel(int inputLevel)
+        {
+            this.gameLevel = inputLevel;
+        }
+
+        public int GetGameLevel()
+        {
+            return this.gameLevel;
+        }
 
         /** 
         *   @brief function creates all the prototypes for the game. not used as  
@@ -208,19 +220,37 @@ namespace JourneyToTheCenterOfTheCell
         }
 
         // bad bad code 
-        public void SetPlotList()
+        public void SetPlotList(int gameLevel)
         {
-            string modelFile = "Models/skybox_cube";
-            string textureFile = "Textures/InnerBody2";
-            // move the centre of the skybox to the centre of the "city"
-            float centerOrigin = 1;
-            Vector3 positionSkyBox = new Vector3(centerOrigin, 0f, centerOrigin);
-            Vector3 rotationSkyBox = new Vector3(0, 0, 0);
-            Vector3 AABBOffset = new Vector3(0, 0, 0);
-            float scaleSkyBox = 100f;
-            //Actor plotSkyBox = landPlots["SkyBox"].ActorClone(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
-            SkyBox skyBoxObj = new SkyBox(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
-            plotList.Add(skyBoxObj);
+            if(gameLevel == 0)
+            {
+                string modelFile = "Models/skybox_cube";
+                string textureFile = "Textures/InnerBody2";
+                // move the centre of the skybox to the centre of the "city"
+                float centerOrigin = 1;
+                Vector3 positionSkyBox = new Vector3(centerOrigin, 0f, centerOrigin);
+                Vector3 rotationSkyBox = new Vector3(0, 0, 0);
+                Vector3 AABBOffset = new Vector3(0, 0, 0);
+                float scaleSkyBox = 100f;
+                //Actor plotSkyBox = landPlots["SkyBox"].ActorClone(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
+                SkyBox skyBoxObj = new SkyBox(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
+                plotList.Add(skyBoxObj);
+            }
+            else
+            {
+                string modelFile = "Models/skybox_cube";
+                string textureFile = "Textures/skybox_diffuse";
+                // move the centre of the skybox to the centre of the "city"
+                float centerOrigin = 1;
+                Vector3 positionSkyBox = new Vector3(centerOrigin, 0f, centerOrigin);
+                Vector3 rotationSkyBox = new Vector3(0, 0, 0);
+                Vector3 AABBOffset = new Vector3(0, 0, 0);
+                float scaleSkyBox = 100f;
+                //Actor plotSkyBox = landPlots["SkyBox"].ActorClone(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
+                SkyBox skyBoxObj = new SkyBox(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
+                plotList.Add(skyBoxObj);
+            }
+            
 
             Debug.WriteLine("list size:" + plotList.Count);
             //adds to the list the land and road tiles

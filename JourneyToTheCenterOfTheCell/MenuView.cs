@@ -51,6 +51,8 @@ namespace JourneyToTheCenterOfTheCell
             {
                 Button newButton = new Button(buttonName[ii], ButtonSkin.Default, Anchor.AutoCenter);
                 newButton.Identifier = buttonName[ii];
+                Vector2 buttonSize = new Vector2(500, 50);
+                newButton.MaxSize = buttonSize;
                 newButton.OnClick = (Entity btn) => MenuEvent(newButton);
                 newPanel.AddChild(newButton);
             }
@@ -70,7 +72,7 @@ namespace JourneyToTheCenterOfTheCell
             switch (btn.Identifier)
             {
                 case "New Game":
-                    GameManager newGame = new GameManager(gameContext);
+                    GameOneManager newGame = new GameOneManager(gameContext);
                     gameContext.SetGameState(newGame);
                     break;
                 case "Save Game":

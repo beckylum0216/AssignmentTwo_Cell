@@ -5003,6 +5003,12 @@
 /processorParam:TextureFormat=Color
 /build:Pics/Seleno.png
 
+#begin Sound/Power_Up_Ray-Mike_Koenig-800933783.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/Power_Up_Ray-Mike_Koenig-800933783.mp3
+
 #begin Textures/city_residential_03_dif.png
 /importer:TextureImporter
 /processor:TextureProcessor

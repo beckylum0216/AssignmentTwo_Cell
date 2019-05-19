@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace JourneyToTheCenterOfTheCell
 {
-    class GameManager:GameState
+    class GameTwoManager:GameState
     {
         private Matrix theWorld;
         private Matrix theCamera;
@@ -27,18 +27,18 @@ namespace JourneyToTheCenterOfTheCell
         private GamePadState gamePadInput;
         private int screenX;
         private int screenY;
- 
-        //the codex class
-        CodexManager codex;
+
+        private int gameLevel;
 
 
-        public GameManager()
+        public GameTwoManager()
         {
 
         }
 
-        public GameManager(GameContext gameCtx)
+        public GameTwoManager(GameContext gameCtx)
         {
+            Debug.WriteLine("Level 2 Initialised!!!");
             theWorld = Matrix.CreateTranslation(new Vector3(0, 0, 0));
             screenX = gameCtx.GetGraphics().GraphicsDevice.Viewport.Width;
             screenY = gameCtx.GetGraphics().GraphicsDevice.Viewport.Height;
@@ -51,9 +51,10 @@ namespace JourneyToTheCenterOfTheCell
             Mouse.SetPosition((int)centerX, (int)centerY);
             gamePadInput = GamePad.GetState(PlayerIndex.One);
 
-            mapClient = new ModelHandler(gameCtx.GetGameInstance().Content, 20, 20, 20, 1.0f);
+            gameLevel = 1;
+            mapClient = new ModelHandler(gameCtx.GetGameInstance().Content, 20, 20, 20, 1.0f, gameLevel);
             mapClient.SetPlotDictionary();
-            mapClient.SetPlotList();
+            mapClient.SetPlotList(gameLevel);
             mapClient.PrintPlotList();
 
             mapClient.SetItemHash();
@@ -65,13 +66,13 @@ namespace JourneyToTheCenterOfTheCell
             Vector3 camPositionVector = Vector3.Add(new Vector3(0, 0, 0), new Vector3(0, 1.6f, 0));
             Vector3 deltaVector = new Vector3(0, 0, 0.001f);
             Vector3 AABBOffsetCamera = new Vector3(0.5f, 0.25f, 0.5f);
-            camera = new Camera(theCamera, camPositionVector, camEyeVector, deltaVector, AABBOffsetCamera, mapClient);
+            camera = new Camera( gameCtx.GetGameInstance().Content, theCamera, camPositionVector, camEyeVector, deltaVector, AABBOffsetCamera, mapClient);
             cameraSpeed = 3f;
             fps = 60f;
 
-            codex = new CodexManager();
+            
             //initialize the basic codex(no samples taken)
-            codex.Initialize(gameCtx.GetGraphics(), gameCtx.GetGameInstance().Content, camera.GetCodexHash());
+            CodexManager.GetCodexInstance().Initialize(gameCtx.GetGraphics(), gameCtx.GetGameInstance().Content, camera.GetCodexHash());
 
             for (int ii = 0; ii < mapClient.GetPlotList().Count; ii += 1)
             {
@@ -146,9 +147,9 @@ namespace JourneyToTheCenterOfTheCell
             camera.SubjectMove(keyboardInput, cameraSpeed, deltaTime, fps);
             //setting up collisions
 
-            theCamera = camera.SubjectUpdate(mouseInputDelta, deltaTime, fps);
+            theCamera = camera.SubjectUpdate(gameCtx, mouseInputDelta, deltaTime, fps);
             //this update animates the codex drop down
-            codex.Update(gameCtx.GetGameTime(), keyboardInput, camera.GetCodexHash());
+            CodexManager.GetCodexInstance().Update(gameCtx.GetGameTime(), keyboardInput, camera.GetCodexHash());
             
         }
 
@@ -166,7 +167,7 @@ namespace JourneyToTheCenterOfTheCell
 
             mapClient.DrawModel(theCamera, projection);
             //draw the codex (should be drawn in deactivated state i.e. top of the screen)
-            codex.Draw();
+            CodexManager.GetCodexInstance().Draw();
             
         }
     }

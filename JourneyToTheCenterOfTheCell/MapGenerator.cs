@@ -16,6 +16,7 @@ namespace JourneyToTheCenterOfTheCell
         private Map[,] gridMap;
         private Map[,] itemMap;
         private List<Vector3> randomList;
+        int itemSize;
 
         /**
 	    *	@brief parameterised constructor for the MapGenerator object. Create a complete MapGenerator object.
@@ -33,6 +34,7 @@ namespace JourneyToTheCenterOfTheCell
             gridMap = new Map[sizeX, sizeZ];
             itemMap = new Map[sizeX, sizeZ];
             randomList = new List<Vector3>();
+            itemSize = 200;
         }
 
         /** 
@@ -77,7 +79,8 @@ namespace JourneyToTheCenterOfTheCell
                             string texturePath = "Textures/Skin1";
                             float mapScale = 1.0f;
                             Vector3 buildingRotation = new Vector3(0, 0, 0);
-                            Map tempMap = new Map(randomList[aa], Map.buildType.Building, modelPath, texturePath, mapScale, buildingRotation, InputHandler.keyStates.NULL);
+                            int modelLevel = 1;
+                            Map tempMap = new Map(randomList[aa], Map.buildType.Building, modelPath, texturePath, mapScale, buildingRotation, InputHandler.keyStates.NULL, modelLevel);
                             gridMap[ii, jj] = tempMap;
                         }
                     }
@@ -87,7 +90,7 @@ namespace JourneyToTheCenterOfTheCell
         }
 
         /** 
-        *   @brief generates the map based on a typical chequerboard pattern
+        *   @brief randomly places items in a 3d space
         *   @see 
         *	@param 
         *	@param 
@@ -103,21 +106,20 @@ namespace JourneyToTheCenterOfTheCell
         public void SetItemMap()
         {
 
-
             // sets the initial "Map consisting of building and adjacent road
             Random randomNum = new Random();
             List<Vector3> randomItemList = new List<Vector3>();
-            for (int ii = 0; ii < 100; ii += 1)
+            for (int ii = 0; ii < itemSize; ii += 1)
             {
-                int randomX = randomNum.Next(100);
-                int randomY = randomNum.Next(100);
-                int randomZ = randomNum.Next(100);
+                int randomX = randomNum.Next(10);
+                int randomY = randomNum.Next(10);
+                int randomZ = randomNum.Next(10);
 
                 Vector3 newPosition = new Vector3(randomX, randomY, randomZ);
                 randomItemList.Add(newPosition);
             }
 
-            for (int aa = 0; aa < 100; aa += 1)
+            for (int aa = 0; aa < itemSize; aa += 1)
             {
                 for (int ii = 0; ii < this.sizeX; ii += 1)
                 {
@@ -125,11 +127,14 @@ namespace JourneyToTheCenterOfTheCell
                     {
                         if ((ii == randomItemList[aa].X) && (jj == randomItemList[aa].Z))
                         {
+                            int randomItem = randomNum.Next(9);
+
                             string modelPath = "Models/city_residential_03";
                             string texturePath = "Textures/city_residential_03_dif";
                             float mapScale = 1.0f;
                             Vector3 buildingRotation = new Vector3(0, 0, 0);
-                            Map tempMap = new Map(randomItemList[aa], Map.buildType.Building, modelPath, texturePath, mapScale, buildingRotation, InputHandler.keyStates.Mitochondria);
+                            int modelLevel = 1;
+                            Map tempMap = new Map(randomItemList[aa], Map.buildType.Building, modelPath, texturePath, mapScale, buildingRotation, FindCodexType(randomItem), modelLevel);
                             itemMap[ii, jj] = tempMap;
                         }
                     }
@@ -252,7 +257,7 @@ namespace JourneyToTheCenterOfTheCell
         */
         public void SetItemCoords()
         {
-            for (int aa = 0; aa < 100; aa += 1)
+            for (int aa = 0; aa < itemSize; aa += 1)
             {
                 for (int ii = 0; ii < sizeX; ii++)
                 {
@@ -260,9 +265,9 @@ namespace JourneyToTheCenterOfTheCell
                     {
                         if (!(itemMap[ii, jj] == null))
                         {
-                            float tempX = itemMap[ii, jj].GetPositionMap().X * 22;
-                            float tempY = itemMap[ii, jj].GetPositionMap().Y * 22;
-                            float tempZ = itemMap[ii, jj].GetPositionMap().Z * 22;
+                            float tempX = itemMap[ii, jj].GetPositionMap().X * 20;
+                            float tempY = itemMap[ii, jj].GetPositionMap().Y * 20;
+                            float tempZ = itemMap[ii, jj].GetPositionMap().Z * 20;
 
                             itemMap[ii, jj].SetCoordX(tempX);
                             itemMap[ii, jj].SetCoordZ(tempZ);
