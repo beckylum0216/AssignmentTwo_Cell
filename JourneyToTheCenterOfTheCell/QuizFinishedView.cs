@@ -12,8 +12,11 @@ namespace JourneyToTheCenterOfTheCell
 
     class QuizFinishedView
     {
-        public Panel GetPanel(ContentManager Content, int totalQuestion, int totalCorrect)
+        GameContext newGame;
+
+        public Panel GetPanel(GameContext gTX, int totalQuestion, int totalCorrect)
         {
+            newGame = gTX;
             Panel newPanel = new Panel();
             Header pageHead = new Header("Quiz Finished", Anchor.TopCenter, new Vector2(0, -18));
             pageHead.AddChild(new HorizontalLine(Anchor.BottomCenter));
@@ -21,8 +24,18 @@ namespace JourneyToTheCenterOfTheCell
             newPanel.AddChild(pageHead);
             Paragraph finishedText = new Paragraph("You completed the quiz "+Environment.NewLine+"You got " + totalCorrect + " out of " + totalQuestion + " questions correct");
             newPanel.AddChild(finishedText);
-
+            Button returnToMenuButton = new Button("Return To Main Menu", ButtonSkin.Default, Anchor.BottomCenter);
+            returnToMenuButton.OnClick = (Entity btn) => QuizFinishedEvent(returnToMenuButton);
+            newPanel.AddChild(returnToMenuButton);
             return newPanel;
+        }
+        public void QuizFinishedEvent(Entity btn)
+        {
+            MenuManager menuManager = new MenuManager();
+            newGame = new GameContext(newGame.GetGameInstance(), newGame.GetGraphics(), newGame.GetSpriteBatch());
+            newGame.SetGameState(menuManager);
+            newGame.Initialise();
+
         }
 
     }

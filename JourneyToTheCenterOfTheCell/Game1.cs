@@ -23,7 +23,7 @@ namespace JourneyToTheCenterOfTheCell
         public SpriteBatch spriteBatch;
         GameContext newGame;
         
-        TextBox t = new TextBox();
+        Text t = new Text();
         
         public Game1()
         {
