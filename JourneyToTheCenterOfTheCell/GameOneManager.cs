@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace JourneyToTheCenterOfTheCell
 {
@@ -29,8 +30,16 @@ namespace JourneyToTheCenterOfTheCell
         private int screenX;
         private int screenY;
         private int gameLevel;
+        private SpriteFont font;
+        private Text text = new Text();
+        private int seconds = 0;
+        private int minutes = 0;
+        Stopwatch stopWatch = new Stopwatch();
+        TimeSpan ts = new TimeSpan();
         
-
+        
+        
+        
 
         public GameOneManager()
         {
@@ -83,8 +92,12 @@ namespace JourneyToTheCenterOfTheCell
             {
                 camera.SetItems(item.Value);
             }
+            //initialise font for timer display
+            font = gameCtx.GetGameInstance().Content.Load<SpriteFont>("Fonts/arialFont");
+            text.Initialise(font);
+            text.SetPosition(new Vector2((this.GetScreenX()/2)-30,10));
+            stopWatch.Start();
 
-            
 
         }
         
@@ -152,11 +165,23 @@ namespace JourneyToTheCenterOfTheCell
             //this update animates the codex drop down
             CodexManager.GetCodexInstance().Update(gameCtx.GetGameTime(), keyboardInput, camera.GetCodexHash());
             
+            
+            stopWatch.Stop();
+            ts = stopWatch.Elapsed;
+
+
+
+            seconds = ts.Seconds;
+            minutes = ts.Minutes;
+            
+            text.SetString("Time : "+ minutes+":"+seconds+"");
+            stopWatch.Start();
 
         }
 
         public override void Draw(GameContext gameCtx)
         {
+            
             for (int ii = 0; ii < mapClient.GetPlotList().Count; ii++)
             {
                 mapClient.GetPlotList()[ii].ActorDraw(theWorld, theCamera, projection);
@@ -170,7 +195,12 @@ namespace JourneyToTheCenterOfTheCell
             mapClient.DrawModel(theCamera, projection);
             //draw the codex (should be drawn in deactivated state i.e. top of the screen)
             CodexManager.GetCodexInstance().Draw();
-            
+            //gameCtx.GetSpriteBatch().Begin();
+
+            //gameCtx.GetSpriteBatch().DrawString(font, "Score", new Vector2(100, 100), Color.White);
+
+            //gameCtx.GetSpriteBatch().End();
+            text.Draw(gameCtx.GetSpriteBatch(),gameCtx.GetGraphics());
 
         }
     }

@@ -20,14 +20,14 @@ namespace JourneyToTheCenterOfTheCell
         {
             theString = s;
         }
-        public void DisplayFont()//sets the boolean to true so the textbox is drawn 
-        {
-            drawnow = true;
-        }
-        public void RemoveDisplayFont()//sets the boolean to false to not fraw the set textbox
-        {
-            drawnow = false;
-        }
+        //public void DisplayFont()//sets the boolean to true so the textbox is drawn 
+        //{
+        //    drawnow = true;
+        //}
+       // public void RemoveDisplayFont()//sets the boolean to false to not fraw the set textbox
+       // {
+       //     drawnow = false;
+       // }
 
         public string GetString()//method for determining contents of string for a textbox
         {
@@ -48,23 +48,26 @@ namespace JourneyToTheCenterOfTheCell
         }
         public void Draw(SpriteBatch spriteBatch,GraphicsDeviceManager g)//draw method for the textbox only draws if the texboxes boolean for displaying is set to true
         {
-            if (drawnow == true)
-            {
-                //uses spritebatch variable from game1
-                spriteBatch.Begin();
-
-                SpriteEffects ef=new SpriteEffects();
-                //draw the text at the required positionx
-                spriteBatch.DrawString(arial, theString, screenPosition, Color.White,0.0f,new Vector2(0,0),scale,ef,0.0f );
-
-
-                spriteBatch.End();
-            }
-        }
-        public void Update(SpriteBatch spriteBatch, GraphicsDeviceManager  GDM)
-        {
-             this.Draw(spriteBatch,GDM); 
             
+            //uses spritebatch variable from game1
+            spriteBatch.Begin();
+
+
+            //draw the text at the required positionx
+            spriteBatch.DrawString(arial, theString, screenPosition, Color.White);
+
+
+            spriteBatch.End();
+           
+
+            
+
+            
+        }
+        public void Update()
+        {
+            
+
         }
     }
 }
