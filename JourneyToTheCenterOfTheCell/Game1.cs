@@ -17,13 +17,13 @@ namespace JourneyToTheCenterOfTheCell
     /// </summary>
     public class Game1 : Game
     {
-        private SpriteFont arial24;
+        
 
         public GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
         GameContext newGame;
         
-        Text t = new Text();
+       
         
         public Game1()
         {
@@ -75,8 +75,8 @@ namespace JourneyToTheCenterOfTheCell
             spriteBatch = new SpriteBatch(GraphicsDevice);
             newGame.SetSpriteBatch(spriteBatch);
 
-            arial24 = this.Content.Load<SpriteFont>("Fonts/arialFont");
-            t.Initialise(arial24);
+            
+           
 
             
             // TODO: use this.Content to load your game content here
@@ -123,7 +123,7 @@ namespace JourneyToTheCenterOfTheCell
 
             
 
-            t.DisplayFont();//display
+            
             // out textbox is ready to draw at all times will only actually draw if its boolean is set to true using textboxvariable.DisplayFont() method 
             //this way triggers or events that need a textbox can set the texbox parameters and switch the textbox to display for duration of event
             

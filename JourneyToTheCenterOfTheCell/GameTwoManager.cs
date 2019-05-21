@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Microsoft.Xna.Framework.Graphics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +30,12 @@ namespace JourneyToTheCenterOfTheCell
         private int screenY;
 
         private int gameLevel;
-
+        private SpriteFont font;
+        private Text text = new Text();
+        private int seconds = 0;
+        private int minutes = 0;
+        Stopwatch stopWatch = new Stopwatch();
+        TimeSpan ts = new TimeSpan();
 
         public GameTwoManager()
         {
@@ -84,7 +90,11 @@ namespace JourneyToTheCenterOfTheCell
                 camera.SetItems(item.Value);
             }
 
-            
+            //initialise font for timer display
+            font = gameCtx.GetGameInstance().Content.Load<SpriteFont>("Fonts/arialFont");
+            text.Initialise(font);
+            text.SetPosition(new Vector2((this.GetScreenX() / 2) - 30, 10));
+            stopWatch.Start();
 
         }
         
@@ -150,7 +160,18 @@ namespace JourneyToTheCenterOfTheCell
             theCamera = camera.SubjectUpdate(gameCtx, mouseInputDelta, deltaTime, fps);
             //this update animates the codex drop down
             CodexManager.GetCodexInstance().Update(gameCtx.GetGameTime(), keyboardInput, camera.GetCodexHash());
-            
+
+            stopWatch.Stop();
+            ts = stopWatch.Elapsed;
+
+
+
+            seconds = ts.Seconds;
+            minutes = ts.Minutes;
+
+            text.SetString("Time : " + minutes + ":" + seconds + "");
+            stopWatch.Start();
+
         }
 
         public override void Draw(GameContext gameCtx)
@@ -168,7 +189,8 @@ namespace JourneyToTheCenterOfTheCell
             mapClient.DrawModel(theCamera, projection);
             //draw the codex (should be drawn in deactivated state i.e. top of the screen)
             CodexManager.GetCodexInstance().Draw();
-            
+
+            text.Draw(gameCtx.GetSpriteBatch(), gameCtx.GetGraphics());
         }
     }
 }
