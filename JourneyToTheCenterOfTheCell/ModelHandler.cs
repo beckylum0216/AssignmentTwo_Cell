@@ -290,7 +290,7 @@ namespace JourneyToTheCenterOfTheCell
                         Vector3 tempOffset = new Vector3(20, 10, 20);
                         
                         int tempID = (int) Math.Round( (itemMap[ii, jj].GetCoordX() * itemMap[ii, jj].GetCoordY() * itemMap[ii, jj].GetCoordZ())) ;
-                        Item tempPlot = new Item(Content, tempID,itemMap[ii, jj].GetModelPath(), itemMap[ii, jj].GetTexturePath(), tempPosition, itemMap[ii, jj].GetMapRotation(),itemMap[ii, jj].GetMapScale(), tempOffset, itemMap[ii,jj].GetCodexType());
+                        Item tempPlot = new Item(Content, tempID, itemMap[ii, jj].GetModelPath(), itemMap[ii, jj].GetTexturePath(), tempPosition, itemMap[ii, jj].GetMapRotation(),itemMap[ii, jj].GetMapScale(), tempOffset, itemMap[ii,jj].GetCodexType());
                         if(!itemHash.ContainsKey(tempPlot.GetItemID()))
                         {
                             itemHash.Add(tempPlot.GetItemID(), tempPlot);

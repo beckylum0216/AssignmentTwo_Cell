@@ -13,8 +13,23 @@ namespace JourneyToTheCenterOfTheCell
     {
         List<Vector3> npcWaypoints;
 
-        NPC(ContentManager content, Actor inputActor, List<Vector3> inputWaypoints)
+        NPC(ContentManager Content, String modelFile, String textureFile,
+                        Vector3 inputPosition, Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset,
+                        List<Vector3> inputWaypoints)
         {
+
+            this.modelPath = modelFile;
+            this.texturePath = textureFile;
+            this.actorModel = Content.Load<Model>(modelPath);
+            this.actorTexture = Content.Load<Texture2D>(texturePath);
+            this.futurePosition = inputPosition;
+            this.actorPosition = inputPosition;
+            this.actorRotation = inputRotation;
+            this.actorScale = inputScale;
+            this.AABBOffset = inputAABBOffset;
+            this.maxPoint = this.actorPosition + this.AABBOffset;
+            this.minPoint = this.actorPosition - this.AABBOffset;
+
             this.npcWaypoints = inputWaypoints;
         }
 

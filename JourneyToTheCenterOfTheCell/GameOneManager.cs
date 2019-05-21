@@ -37,9 +37,7 @@ namespace JourneyToTheCenterOfTheCell
         Stopwatch stopWatch = new Stopwatch();
         TimeSpan ts = new TimeSpan();
         
-        
-        
-        
+
 
         public GameOneManager()
         {

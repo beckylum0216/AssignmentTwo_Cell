@@ -15,9 +15,11 @@ namespace JourneyToTheCenterOfTheCell
         private int sizeZ = 0;
         private Map[,] gridMap;
         private Map[,] itemMap;
+        private Map[,] npcMap;
         private List<Vector3> randomList;
         int itemSize;
         int structureSize;
+        int npcSize;
 
         /**
 	    *	@brief parameterised constructor for the MapGenerator object. Create a complete MapGenerator object.
@@ -34,9 +36,11 @@ namespace JourneyToTheCenterOfTheCell
             sizeZ = inputZ;
             gridMap = new Map[sizeX, sizeZ];
             itemMap = new Map[sizeX, sizeZ];
+            npcMap = new Map[sizeX, sizeZ];
             randomList = new List<Vector3>();
             structureSize = 200;
             itemSize = 200;
+            npcSize = 200;
         }
 
         /** 
@@ -130,8 +134,77 @@ namespace JourneyToTheCenterOfTheCell
                         {
                             int randomItem = randomNum.Next(9);
 
-                            string modelPath = "Models/mitochondria";
-                            string texturePath = "Textures/Mitochondrion_AlbedoTransparency";
+                            //string modelPath = "Models/mitochondria";
+                            //string texturePath = "Textures/Mitochondrion_AlbedoTransparency";
+                            //string texturePath = "Textures/Mitochondrion_Normal";
+                            //string modelPath = "Models/cell_obj";
+                            //string texturePath = "Textures/cellwall_diff";
+                            //string modelPath = "Models/Leukoplast";
+                            //string texturePath = "Textures/Leukoplast_AlbedoTransparency";
+                            //string modelPath = "Models/Lysosome";
+                            //string texturePath = "Textures/Lysosome_AlbedoTransparency";
+                            //string modelPath = "Models/nucleus";
+                            //string texturePath = "Textures/NuclearEnvelope_AlbedoTransparency";
+                            //string modelPath = "Models/Reticulum";
+                            //string texturePath = "Textures/Reticulum_AlbedoTransparency";
+
+                            string modelPath = "Models/IncorporationOf_type00";
+                            string texturePath = "Textures/InclusionOf_AlbedoTransparency";
+
+                            float mapScale = 11f;
+                            Vector3 buildingRotation = new Vector3(0, 0, 0);
+                            int modelLevel = 1;
+                            Map tempMap = new Map(randomItemList[aa], Map.buildType.Building, modelPath, texturePath, mapScale, buildingRotation, FindCodexType(randomItem), modelLevel);
+                            itemMap[ii, jj] = tempMap;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        /** 
+        *   @brief randomly places items in a 3d space
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
+        public void SetNPCMap()
+        {
+
+            // sets the initial "Map consisting of building and adjacent road
+            Random randomNum = new Random();
+            List<Vector3> randomItemList = new List<Vector3>();
+            for (int ii = 0; ii < itemSize; ii += 1)
+            {
+                int randomX = randomNum.Next(itemSize);
+                int randomY = randomNum.Next(itemSize);
+                int randomZ = randomNum.Next(itemSize);
+
+                Vector3 newPosition = new Vector3(randomX, randomY, randomZ);
+                randomItemList.Add(newPosition);
+            }
+
+            for (int aa = 0; aa < itemSize; aa += 1)
+            {
+                for (int ii = 0; ii < this.sizeX; ii += 1)
+                {
+                    for (int jj = 0; jj < this.sizeZ; jj += 1)
+                    {
+                        if ((ii == randomItemList[aa].X) && (jj == randomItemList[aa].Z))
+                        {
+                            int randomItem = randomNum.Next(2);
+
+                            string modelPath = "Models/bloodcell";
+                            string texturePath = "Textures/bloodcell_diff";
                             //string texturePath = "Textures/Mitochondrion_Normal";
                             float mapScale = 1.0f;
                             Vector3 buildingRotation = new Vector3(0, 0, 0);

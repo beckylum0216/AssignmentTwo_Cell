@@ -193,7 +193,7 @@ namespace JourneyToTheCenterOfTheCell
         public Vector3 CameraUpdate(Vector3 deltaVector, Vector3 targetAxis, float inputDegrees, Vector3 inputVector)
         {
 
-            if (inputVector.Length() != 0)
+            if (inputVector.Length() > 0)
             {
                 float radianInput = SubjectRadians(inputDegrees);
                
