@@ -17,6 +17,7 @@ namespace JourneyToTheCenterOfTheCell
         private Map[,] itemMap;
         private List<Vector3> randomList;
         int itemSize;
+        int structureSize;
 
         /**
 	    *	@brief parameterised constructor for the MapGenerator object. Create a complete MapGenerator object.
@@ -34,6 +35,7 @@ namespace JourneyToTheCenterOfTheCell
             gridMap = new Map[sizeX, sizeZ];
             itemMap = new Map[sizeX, sizeZ];
             randomList = new List<Vector3>();
+            structureSize = 200;
             itemSize = 200;
         }
 
@@ -54,20 +56,19 @@ namespace JourneyToTheCenterOfTheCell
         public void SetStructureMap()
         {
 
-            
             // sets the initial "Map consisting of building and adjacent road
             Random randomNum = new Random();
-            for(int ii = 0; ii < 100; ii += 1)
+            for(int ii = 0; ii < structureSize; ii += 1)
             {
-                int randomX = randomNum.Next(100);
-                int randomY = randomNum.Next(100);
-                int randomZ = randomNum.Next(100);
+                int randomX = randomNum.Next(structureSize);
+                int randomY = randomNum.Next(structureSize);
+                int randomZ = randomNum.Next(structureSize);
 
                 Vector3 newPosition = new Vector3(randomX, randomY, randomZ);
                 randomList.Add(newPosition);
             }
 
-            for(int aa = 0; aa < 100; aa += 1)
+            for(int aa = 0; aa < structureSize; aa += 1)
             {
                 for (int ii = 0; ii < this.sizeX; ii += 1)
                 {
@@ -111,9 +112,9 @@ namespace JourneyToTheCenterOfTheCell
             List<Vector3> randomItemList = new List<Vector3>();
             for (int ii = 0; ii < itemSize; ii += 1)
             {
-                int randomX = randomNum.Next(10);
-                int randomY = randomNum.Next(10);
-                int randomZ = randomNum.Next(10);
+                int randomX = randomNum.Next(itemSize);
+                int randomY = randomNum.Next(itemSize);
+                int randomZ = randomNum.Next(itemSize);
 
                 Vector3 newPosition = new Vector3(randomX, randomY, randomZ);
                 randomItemList.Add(newPosition);
@@ -217,7 +218,7 @@ namespace JourneyToTheCenterOfTheCell
         */
         public void SetStructureCoords()
         {
-            for(int aa = 0; aa < 100; aa += 1)
+            for(int aa = 0; aa < structureSize; aa += 1)
             {
                 for (int ii = 0; ii < sizeX; ii++)
                 {
@@ -325,7 +326,7 @@ namespace JourneyToTheCenterOfTheCell
         // output function for debugging
         public void PrintGrid()
         {
-            for(int aa = 0; aa < 100; aa += 1)
+            for(int aa = 0; aa < structureSize; aa += 1)
             {
                 for (int ii = 0; ii < sizeX; ii++)
                 {
@@ -361,7 +362,7 @@ namespace JourneyToTheCenterOfTheCell
         */
         public void PrintCoords()
         {
-            for(int aa = 0; aa < 100; aa += 1)
+            for(int aa = 0; aa < structureSize; aa += 1)
             {
                 for (int ii = 0; ii < sizeX; ii++)
                 {
@@ -377,10 +378,10 @@ namespace JourneyToTheCenterOfTheCell
             }
             
         }
+        
+
 
 
 
     }
-
-    
 }

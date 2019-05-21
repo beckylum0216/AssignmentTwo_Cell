@@ -52,7 +52,7 @@ namespace JourneyToTheCenterOfTheCell
             gamePadInput = GamePad.GetState(PlayerIndex.One);
 
             gameLevel = 0;
-            mapClient = new ModelHandler(gameCtx.GetGameInstance().Content, 20, 20, 20, 1.0f, gameLevel);
+            mapClient = new ModelHandler(gameCtx.GetGameInstance().Content, 100, 100, 100, 1.0f, gameLevel);
             mapClient.SetPlotDictionary();
             mapClient.SetPlotList(gameLevel);
             mapClient.PrintPlotList();

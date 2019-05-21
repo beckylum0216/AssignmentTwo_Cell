@@ -19,5 +19,8 @@ namespace JourneyToTheCenterOfTheCell
         {
             this.obstacleList.Add(inputNode);
         }
+
+
+
     }
 }

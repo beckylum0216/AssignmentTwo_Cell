@@ -67,12 +67,12 @@
     <Compile Include="ModelHandler.cs" />
     <Compile Include="NavManager.cs" />
     <Compile Include="NavNode.cs" />
+    <Compile Include="NPC.cs" />
     <Compile Include="Quiz.cs" />
     <Compile Include="QuizAnswers.cs" />
     <Compile Include="QuizFinishedView.cs" />
     <Compile Include="QuizManager.cs" />
     <Compile Include="QuizView.cs" />
-    <Compile Include="StarNode.cs" />
     <Compile Include="Structure.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

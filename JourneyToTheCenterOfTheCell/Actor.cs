@@ -29,6 +29,8 @@ namespace JourneyToTheCenterOfTheCell
         public Vector3 maxPoint;
         public Vector3 AABBOffset;
         
+        
+
 
         /** 
         *   @brief mutator to the actor position 

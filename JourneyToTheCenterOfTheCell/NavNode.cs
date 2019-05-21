@@ -9,11 +9,17 @@ namespace JourneyToTheCenterOfTheCell
 {
     class NavNode
     {
-        Vector3 currentPosition;
+        public Vector3 currentPosition;
+        public float fScore;
+        public float gScore;
+        public float hScore;
 
-        NavNode(Vector3 inputPosition)
+        public NavNode(Vector3 inputPosition, float inputGScore, float inputHScore)
         {
             this.currentPosition = inputPosition;
+            this.gScore = inputGScore;
+            this.hScore = inputHScore;
+            this.fScore = gScore + hScore;
         }
 
     }
