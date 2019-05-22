@@ -74,6 +74,7 @@
     <Compile Include="QuizFinishedView.cs" />
     <Compile Include="QuizManager.cs" />
     <Compile Include="QuizView.cs" />
+    <Compile Include="StoryView.cs" />
     <Compile Include="Structure.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -17,15 +17,21 @@ namespace JourneyToTheCenterOfTheCell
         public enum GameState {Menu, Game, Save, Load, Quiz, Statistics, Exit}
         private List<String> buttonName;
         private GameContext gameContext;
+        UserInterface m_interface;
+        StoryView gui= new StoryView();
+        int x;
+        int y;
 
         public MenuView(GameContext gameCtx)
         {
             this.gameContext = gameCtx;
         }
 
-        public Panel GetPanel(int inputX, int inputY)
+        public Panel GetPanel(int inputX, int inputY,UserInterface a)
         {
-
+            x = inputX;
+            y = inputY;
+            m_interface = a;
             List<Button> buttonList = new List<Button>();
             buttonName = new List<string>();
 
@@ -72,8 +78,11 @@ namespace JourneyToTheCenterOfTheCell
             switch (btn.Identifier)
             {
                 case "New Game":
-                    GameOneManager newGame = new GameOneManager(gameContext);
-                    gameContext.SetGameState(newGame);
+                    m_interface.Clear();//clear the menu panel from the user interface
+                    Panel test = gui.GetPanel(gameContext,x, y);//load the story panel in the interface
+                    m_interface.AddEntity(test);
+                    //GameOneManager newGame = new GameOneManager(gameContext);need this code to execute on begin game of my new view class
+                    //gameContext.SetGameState(newGame);
                     break;
                 case "Save Game":
 
