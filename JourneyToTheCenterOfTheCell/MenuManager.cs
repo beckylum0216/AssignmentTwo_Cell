@@ -44,6 +44,9 @@ namespace JourneyToTheCenterOfTheCell
 
         public override void Draw(GameContext gameCtx)
         {
+            // draw cursor outside the render target
+            UserInterface.Active.IncludeCursorInRenderTarget = true;
+
             UserInterface.Active.Draw(gameCtx.GetSpriteBatch());
             if (titleCount < 300)
             {
