@@ -15,8 +15,10 @@ namespace JourneyToTheCenterOfTheCell
     {
         private List<Actor> itemList = new List<Actor>();
         private List <Actor> plotList = new List<Actor>();
-        private Dictionary<int, Item> itemHash; 
+        private Dictionary<int, Item> itemHash;
+        private Dictionary<int, NPC> npcHash;
         private Dictionary<string, Actor> landPlots = new Dictionary<string, Actor>();
+        private Map[,] npcMap;
         private Map[,] itemMap;
         private Map[,] gridMap;
         private MapGenerator mapCreate;
@@ -27,19 +29,6 @@ namespace JourneyToTheCenterOfTheCell
         private float plotScale;
         private int gameLevel;
 
-
-        //=======Not needed once Models are added that hold textures
-        private const int NumOfModels = 3;
-        string[] ModelNameMatrix = new string[NumOfModels] { "Models/Cube", "Models/Cubic", "Models/Cube" };
-        Vector3[] ModelTranslations = new Vector3[NumOfModels]
-        {
-            new Vector3(100, 200, 100),
-            new Vector3(50, 50, 50),
-            new Vector3(100, 50, 100)
-        };
-        private float[] ModelRotations = new float[NumOfModels] { 0.0f, 0.75f, 0.0f };
-
-        Model[] Models = new Model[NumOfModels]; //Not needed once PlotList is working
 
 
         /**
@@ -61,6 +50,8 @@ namespace JourneyToTheCenterOfTheCell
             this.plotScale = inputScale;
 
             itemHash = new Dictionary<int, Item>();
+            npcHash = new Dictionary<int, NPC>();
+
             // initialise map
             mapCreate = new MapGenerator(sizeX, sizeY, sizeZ);
             mapCreate.SetStructureMap();
@@ -72,8 +63,12 @@ namespace JourneyToTheCenterOfTheCell
             mapCreate.SetItemMap();
             mapCreate.SetItemCoords();
 
+            mapCreate.SetNPCMap();
+            mapCreate.SetNPCCoords();
+
             gridMap = mapCreate.GetGridMap();
             itemMap = mapCreate.GetItemMap();
+            npcMap = mapCreate.GetNPCMap();
 
             this.gameLevel = inputLevel;
         }
@@ -174,6 +169,22 @@ namespace JourneyToTheCenterOfTheCell
             return itemHash;
         }
 
+        /** 
+        *   @brief accessor to the plot list. 
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return plotList the whole list
+        *	@pre 
+        *	@post 
+        */
+        public Dictionary<int, NPC> GetNPCHash()
+        {
+            return npcHash;
+        }
+
         public void SetGameLevel(int inputLevel)
         {
             this.gameLevel = inputLevel;
@@ -206,15 +217,6 @@ namespace JourneyToTheCenterOfTheCell
             float scaleSkyBox = 15f;
             SkyBox plotSkyBox = new SkyBox(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
             landPlots.Add(Map.buildType.SkyBox.ToString(), plotSkyBox);
-
-            //Ben's Code
-            for (int i = 0; i < NumOfModels; i++)
-            {
-                Models[i] = Content.Load<Model>(ModelNameMatrix[i]);
-                //Structure plotModel = new Structure()
-
-                //Add dictionary element to landPlots
-            }
 
             
         }
@@ -308,6 +310,35 @@ namespace JourneyToTheCenterOfTheCell
             itemHash.Remove(targetID);
         }
 
+        public void SetNPCHash()
+        {
+
+            Debug.WriteLine("list size:" + plotList.Count);
+            //adds to the list the land and road tiles
+            for (int ii = 0; ii < sizeX; ii++)
+            {
+                for (int jj = 0; jj < sizeY; jj++)
+                {
+                    if (!(itemMap[ii, jj] == null))
+                    {
+                        Vector3 tempPosition = new Vector3(npcMap[ii, jj].GetCoordX(), npcMap[ii, jj].GetCoordY(), npcMap[ii, jj].GetCoordZ());
+                        Vector3 tempOffset = new Vector3(20, 10, 20);
+
+                        int tempID = (int)Math.Round((npcMap[ii, jj].GetCoordX() * npcMap[ii, jj].GetCoordY() * npcMap[ii, jj].GetCoordZ()));
+                        List<Vector3> newWayPoints = new List<Vector3>();
+                        NPC tempPlot = new NPC(Content, tempID, npcMap[ii, jj].GetModelPath(), npcMap[ii, jj].GetTexturePath(), tempPosition, npcMap[ii, jj].GetMapRotation(), npcMap[ii, jj].GetMapScale(), tempOffset, newWayPoints);
+                        if (!npcHash.ContainsKey(tempPlot.GetNPCID()))
+                        {
+                            npcHash.Add(tempPlot.GetNPCID(), tempPlot);
+                        }
+                    }
+
+                }
+            }
+            Debug.WriteLine("list size:" + plotList.Count);
+
+        }
+
         /** 
         *   @brief Utilty function to print the plot list for debugging
         *   @see
@@ -346,30 +377,7 @@ namespace JourneyToTheCenterOfTheCell
             }
         }
 
-        // Ben's Code
-        public void DrawModel(Matrix view, Matrix projection)
-        {
-            for (int i = 0; i < NumOfModels; i++)
-            {
-                Model model = Models[i];
-                Matrix[] transforms = new Matrix[model.Bones.Count];
-                model.CopyAbsoluteBoneTransformsTo(transforms);
-
-                foreach (ModelMesh mesh in model.Meshes) //for each mesh in the model
-                {
-                    foreach (BasicEffect effect in mesh.Effects) //and for each effect in the model
-                    {
-                        effect.EnableDefaultLighting();
-                        effect.World = transforms[mesh.ParentBone.Index] * Matrix.CreateRotationY(ModelRotations[i]) * Matrix.CreateTranslation(ModelTranslations[i]);
-                        effect.View = view;
-                        effect.Projection = projection;
-                    }
-
-                    mesh.Draw(); //draw the model
-
-                }
-            }
-        }
+        
 
 
 

@@ -9,11 +9,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace JourneyToTheCenterOfTheCell
 {
-    class NPC : Actor
+    public class NPC : Actor
     {
         List<Vector3> npcWaypoints;
+        private int npcID;
 
-        NPC(ContentManager Content, String modelFile, String textureFile,
+        public NPC(ContentManager Content, int inputID , String modelFile, String textureFile,
                         Vector3 inputPosition, Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset,
                         List<Vector3> inputWaypoints)
         {
@@ -30,6 +31,7 @@ namespace JourneyToTheCenterOfTheCell
             this.maxPoint = this.actorPosition + this.AABBOffset;
             this.minPoint = this.actorPosition - this.AABBOffset;
 
+            this.npcID = inputID;
             this.npcWaypoints = inputWaypoints;
         }
 
@@ -38,9 +40,23 @@ namespace JourneyToTheCenterOfTheCell
             return this.MemberwiseClone() as Actor;
         }
 
-        public override Matrix ActorUpdate(Vector3 inputVector)
+        public override void ActorUpdate(Vector3 inputVector, float deltaTime, float fps)
         {
-            throw new NotImplementedException();
+            this.actorPosition += AnimateNPC(deltaTime, fps);
+        }
+
+        public Vector3 AnimateNPC(float deltaTime, float fps)
+        {
+            Vector3 tempDirection = this.actorPosition - new Vector3(1, 1, 1);
+            tempDirection.Normalize();
+            Vector3 resultVector = tempDirection * this.actorSpeed * deltaTime * fps;
+
+            return resultVector;
+        }
+
+        public int GetNPCID()
+        {
+            return this.npcID;
         }
     }
 }

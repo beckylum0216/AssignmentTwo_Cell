@@ -186,7 +186,6 @@ namespace JourneyToTheCenterOfTheCell
                 index.ActorDraw(theWorld, theCamera, projection);
             }
 
-            mapClient.DrawModel(theCamera, projection);
             //draw the codex (should be drawn in deactivated state i.e. top of the screen)
             CodexManager.GetCodexInstance().Draw();
 

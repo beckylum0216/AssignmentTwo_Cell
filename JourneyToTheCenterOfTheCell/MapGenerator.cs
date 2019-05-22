@@ -203,14 +203,14 @@ namespace JourneyToTheCenterOfTheCell
                         {
                             int randomItem = randomNum.Next(2);
 
-                            string modelPath = "Models/bloodcell";
-                            string texturePath = "Textures/bloodcell_diff";
+                            string modelPath = "Models/Lysosome";
+                            string texturePath = "Textures/Lysosome_AlbedoTransparency";
                             //string texturePath = "Textures/Mitochondrion_Normal";
-                            float mapScale = 1.0f;
+                            float mapScale = 11.0f;
                             Vector3 buildingRotation = new Vector3(0, 0, 0);
                             int modelLevel = 1;
                             Map tempMap = new Map(randomItemList[aa], Map.buildType.Building, modelPath, texturePath, mapScale, buildingRotation, FindCodexType(randomItem), modelLevel);
-                            itemMap[ii, jj] = tempMap;
+                            npcMap[ii, jj] = tempMap;
                         }
                     }
                 }
@@ -357,6 +357,47 @@ namespace JourneyToTheCenterOfTheCell
         }
 
         /** 
+        *   @brief mutator to set the exact coordinates of the model assets
+        *   @brief 
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
+        public void SetNPCCoords()
+        {
+            for (int aa = 0; aa < npcSize; aa += 1)
+            {
+                for (int ii = 0; ii < sizeX; ii++)
+                {
+                    for (int jj = 0; jj < sizeZ; jj++)
+                    {
+                        if (!(npcMap[ii, jj] == null))
+                        {
+                            float tempX = npcMap[ii, jj].GetPositionMap().X * 20;
+                            float tempY = npcMap[ii, jj].GetPositionMap().Y * 20;
+                            float tempZ = npcMap[ii, jj].GetPositionMap().Z * 20;
+
+                            npcMap[ii, jj].SetCoordX(tempX);
+                            npcMap[ii, jj].SetCoordZ(tempZ);
+                            npcMap[ii, jj].SetCoordY(tempY);
+
+                        }
+
+                    }
+                }
+            }
+
+        }
+
+        /** 
         *   @brief accessor to the exact coordinates of the model assets
         *   @brief 
         *   @see 
@@ -394,6 +435,26 @@ namespace JourneyToTheCenterOfTheCell
         public Map[,] GetItemMap()
         {
             return itemMap;
+        }
+
+        /** 
+        *   @brief accessor to the exact coordinates of the model assets
+        *   @brief 
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
+        public Map[,] GetNPCMap()
+        {
+            return npcMap;
         }
 
         // output function for debugging
