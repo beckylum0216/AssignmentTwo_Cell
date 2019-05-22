@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Content;
 
 
 //author: Bruno Neto
-//hud clas holder for two text objects and our hud image for hud
+//hud class holder for two text objects and our hud texture for hud
 namespace JourneyToTheCenterOfTheCell
 {
     class HUD

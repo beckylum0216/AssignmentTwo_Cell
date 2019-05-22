@@ -27,7 +27,7 @@ namespace JourneyToTheCenterOfTheCell
             
             UserInterface.Initialize(gameCtx.GetGameInstance().Content, BuiltinThemes.hd);
             MenuView gui = new MenuView(gameCtx);
-            Panel testPanel = gui.GetPanel(screenX, screenY);
+            Panel testPanel = gui.GetPanel(screenX, screenY, UserInterface.Active);
 
 
             UserInterface.Active.AddEntity(testPanel);
