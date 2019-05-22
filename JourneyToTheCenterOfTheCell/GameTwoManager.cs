@@ -36,7 +36,7 @@ namespace JourneyToTheCenterOfTheCell
         private int minutes = 0;
         Stopwatch stopWatch = new Stopwatch();
         TimeSpan ts = new TimeSpan();
-
+        HUD hud = new HUD(); 
         public GameTwoManager()
         {
 
@@ -95,7 +95,7 @@ namespace JourneyToTheCenterOfTheCell
             text.Initialise(font);
             text.SetPosition(new Vector2((this.GetScreenX() / 2) - 30, 10));
             stopWatch.Start();
-
+            hud.Initialise(gameCtx,screenX,screenY);
         }
         
         public int GetScreenX()
@@ -171,7 +171,7 @@ namespace JourneyToTheCenterOfTheCell
 
             text.SetString("Time : " + minutes + ":" + seconds + "");
             stopWatch.Start();
-
+            hud.Update();
         }
 
         public override void Draw(GameContext gameCtx)
@@ -186,10 +186,12 @@ namespace JourneyToTheCenterOfTheCell
                 index.ActorDraw(theWorld, theCamera, projection);
             }
 
+           
             //draw the codex (should be drawn in deactivated state i.e. top of the screen)
             CodexManager.GetCodexInstance().Draw();
 
             text.Draw(gameCtx.GetSpriteBatch(), gameCtx.GetGraphics());
+            hud.Draw(gameCtx.GetSpriteBatch(), gameCtx.GetGraphics());
         }
     }
 }

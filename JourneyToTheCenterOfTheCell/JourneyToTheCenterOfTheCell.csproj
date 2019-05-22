@@ -53,6 +53,7 @@
     <Compile Include="GameTwoManager.cs" />
     <Compile Include="GameOneManager.cs" />
     <Compile Include="GameState.cs" />
+    <Compile Include="HUD.cs" />
     <Compile Include="InfoView.cs" />
     <Compile Include="IntroView.cs" />
     <Compile Include="Codex.cs" />
