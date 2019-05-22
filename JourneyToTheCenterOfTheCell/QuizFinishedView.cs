@@ -32,9 +32,9 @@ namespace JourneyToTheCenterOfTheCell
         public void QuizFinishedEvent(Entity btn)
         {
             MenuManager menuManager = new MenuManager();
-            newGame = new GameContext(newGame.GetGameInstance(), newGame.GetGraphics(), newGame.GetSpriteBatch());
+            menuManager.Initialise(newGame);
             newGame.SetGameState(menuManager);
-            newGame.Initialise();
+            
 
         }
 
