@@ -147,9 +147,10 @@ namespace JourneyToTheCenterOfTheCell
                             //string texturePath = "Textures/NuclearEnvelope_AlbedoTransparency";
                             //string modelPath = "Models/Reticulum";
                             //string texturePath = "Textures/Reticulum_AlbedoTransparency";
-
-                            string modelPath = "Models/IncorporationOf_type00";
-                            string texturePath = "Textures/InclusionOf_AlbedoTransparency";
+                            //string modelPath = "Models/IncorporationOf_type00";
+                            //string texturePath = "Textures/InclusionOf_AlbedoTransparency";
+                            string modelPath = "Models/golgi";
+                            string texturePath = "Textures/golgi_diff";
 
                             float mapScale = 11f;
                             Vector3 buildingRotation = new Vector3(0, 0, 0);

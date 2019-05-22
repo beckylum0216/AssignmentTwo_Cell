@@ -24,7 +24,6 @@ namespace JourneyToTheCenterOfTheCell
         private ModelHandler mapClient;
         private Vector3 mouseInputDelta;
         private InputHandler inputHandlers;
-        
         private InputHandler.keyStates keyboardInput;
         private GamePadState gamePadInput;
         private int screenX;
@@ -65,12 +64,14 @@ namespace JourneyToTheCenterOfTheCell
             mapClient.PrintPlotList();
 
             mapClient.SetItemHash();
+            mapClient.SetNPCHash();
             //mapClient.PrintItemList();
 
             
 
             Vector3 camEyeVector = new Vector3(0, 0, 0);
             Vector3 camPositionVector = Vector3.Add(new Vector3(0, 0, 0), new Vector3(0, 1.6f, 0));
+            //initial "front" vector
             Vector3 deltaVector = new Vector3(0, 0, 0.001f);
             Vector3 AABBOffsetCamera = new Vector3(0.5f, 0.25f, 0.5f);
             camera = new Camera( gameCtx.GetGameInstance().Content, theCamera, camPositionVector, camEyeVector, deltaVector, AABBOffsetCamera, mapClient);
@@ -157,17 +158,23 @@ namespace JourneyToTheCenterOfTheCell
 
 
             camera.SubjectMove(keyboardInput, cameraSpeed, deltaTime, fps);
-            //setting up collisions
-
             theCamera = camera.SubjectUpdate(gameCtx, mouseInputDelta, deltaTime, fps);
+
+            foreach (Actor index in mapClient.GetNPCHash().Values)
+            {
+                index.ActorUpdate(deltaTime, fps);
+            }
+
+
             //this update animates the codex drop down
             CodexManager.GetCodexInstance().Update(gameCtx.GetGameTime(), keyboardInput, camera.GetCodexHash());
             
             
+
+
+
             stopWatch.Stop();
             ts = stopWatch.Elapsed;
-
-
 
             seconds = ts.Seconds;
             minutes = ts.Minutes;
@@ -190,7 +197,11 @@ namespace JourneyToTheCenterOfTheCell
                 index.ActorDraw(theWorld, theCamera, projection);
             }
 
-            
+            foreach (Actor index in mapClient.GetNPCHash().Values)
+            {
+                index.ActorDraw(theWorld, theCamera, projection);
+            }
+
             CodexManager.GetCodexInstance().Draw();
             
             text.Draw(gameCtx.GetSpriteBatch(),gameCtx.GetGraphics());

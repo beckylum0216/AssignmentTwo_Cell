@@ -313,20 +313,20 @@ namespace JourneyToTheCenterOfTheCell
         public void SetNPCHash()
         {
 
-            Debug.WriteLine("list size:" + plotList.Count);
+           
             //adds to the list the land and road tiles
             for (int ii = 0; ii < sizeX; ii++)
             {
                 for (int jj = 0; jj < sizeY; jj++)
                 {
-                    if (!(itemMap[ii, jj] == null))
+                    if (!(npcMap[ii, jj] == null))
                     {
                         Vector3 tempPosition = new Vector3(npcMap[ii, jj].GetCoordX(), npcMap[ii, jj].GetCoordY(), npcMap[ii, jj].GetCoordZ());
                         Vector3 tempOffset = new Vector3(20, 10, 20);
-
+                        float tempSpeed = 1;
                         int tempID = (int)Math.Round((npcMap[ii, jj].GetCoordX() * npcMap[ii, jj].GetCoordY() * npcMap[ii, jj].GetCoordZ()));
                         List<Vector3> newWayPoints = new List<Vector3>();
-                        NPC tempPlot = new NPC(Content, tempID, npcMap[ii, jj].GetModelPath(), npcMap[ii, jj].GetTexturePath(), tempPosition, npcMap[ii, jj].GetMapRotation(), npcMap[ii, jj].GetMapScale(), tempOffset, newWayPoints);
+                        NPC tempPlot = new NPC(Content, tempID, npcMap[ii, jj].GetModelPath(), npcMap[ii, jj].GetTexturePath(), tempPosition, npcMap[ii, jj].GetMapRotation(), npcMap[ii, jj].GetMapScale(), tempOffset, tempSpeed, newWayPoints);
                         if (!npcHash.ContainsKey(tempPlot.GetNPCID()))
                         {
                             npcHash.Add(tempPlot.GetNPCID(), tempPlot);
@@ -335,7 +335,7 @@ namespace JourneyToTheCenterOfTheCell
 
                 }
             }
-            Debug.WriteLine("list size:" + plotList.Count);
+            Debug.WriteLine("npc size:" + npcHash.Count);
 
         }
 

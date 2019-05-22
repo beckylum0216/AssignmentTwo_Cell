@@ -55,7 +55,7 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre 
         *	@post 
         */
-        public override void ActorUpdate(Vector3 inputVector, float deltaTime, float fps)
+        public override void ActorUpdate(float deltaTime, float fps)
         {
             throw new NotImplementedException();
         }

@@ -211,9 +211,10 @@ namespace JourneyToTheCenterOfTheCell
             else
             {
 
-                return deltaVector;
+                return subjectRotation;
 
             }
+            
             
         }
 

@@ -196,7 +196,7 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre 
         *	@post 
         */
-        public abstract void ActorUpdate(Vector3 inputVector, float deltaTime, float fps);
+        public abstract void ActorUpdate(float deltaTime, float fps);
 
         /** 
         *   @brief This function converts degrees to radians. It a convenience function should use math.
