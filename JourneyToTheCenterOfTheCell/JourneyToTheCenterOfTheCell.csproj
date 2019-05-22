@@ -66,8 +66,6 @@
     <Compile Include="MapGenerator.cs" />
     <Compile Include="MenuManager.cs" />
     <Compile Include="ModelHandler.cs" />
-    <Compile Include="NavManager.cs" />
-    <Compile Include="NavNode.cs" />
     <Compile Include="NPC.cs" />
     <Compile Include="Quiz.cs" />
     <Compile Include="QuizAnswers.cs" />

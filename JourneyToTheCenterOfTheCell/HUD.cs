@@ -53,9 +53,8 @@ namespace JourneyToTheCenterOfTheCell
             m_shield.Draw(spriteBatch, g);
 
 
-
-
         }
+
         public void Update()
         {
             //will need to pass a player object in here 

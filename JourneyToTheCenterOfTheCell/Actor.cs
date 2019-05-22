@@ -145,6 +145,8 @@ namespace JourneyToTheCenterOfTheCell
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {
+                    effect.EnableDefaultLighting();
+                    effect.PreferPerPixelLighting = true;
                     effect.World = world * ActorInit();
                     effect.View = view;
                     effect.Projection = projection;

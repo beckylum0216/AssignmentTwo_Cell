@@ -149,8 +149,8 @@ namespace JourneyToTheCenterOfTheCell
                             //string texturePath = "Textures/Reticulum_AlbedoTransparency";
                             //string modelPath = "Models/IncorporationOf_type00";
                             //string texturePath = "Textures/InclusionOf_AlbedoTransparency";
-                            string modelPath = "Models/golgi";
-                            string texturePath = "Textures/golgi_diff";
+                            string modelPath = FindModelType(randomItem);
+                            string texturePath = FindTextureType(randomItem);
 
                             float mapScale = 11f;
                             Vector3 buildingRotation = new Vector3(0, 0, 0);
@@ -274,6 +274,118 @@ namespace JourneyToTheCenterOfTheCell
             return codexType;        
            
         }
+
+        /** 
+        *   @brief this functions helps the program to find the right junction for each empty space.
+        *   @brief does not take into account orientation
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return junction the number of junctions
+        *	@pre 
+        *	@post 
+        */
+
+        private string FindModelType(int inputRandom)
+        {
+            string modelType = null;
+
+            switch (inputRandom)
+            {
+                case 0:
+                    modelType = "Models/cell_obj";
+                    break;
+                case 1:
+                    modelType = "Models/nucleus";
+                    break;
+                case 2:
+                    modelType = "Models/Riticulum";
+                    break;
+                case 3:
+                    modelType = "Models/Lysosome";
+                    break;
+                case 4:
+                    modelType = "Models/Ball_type00";
+                    break;
+                case 5:
+                    modelType = "Models/golgi";
+                    break;
+                case 6:
+                    modelType = "Models/mitochondria";
+                    break;
+                case 7:
+                    modelType = "Models/selenocystine_obj";
+                    break;
+                case 8:
+                    modelType = "Models/selenocystine_obj";
+                    break;
+            }
+
+            return modelType;
+
+        }
+
+        /** 
+        *   @brief this functions helps the program to find the right junction for each empty space.
+        *   @brief does not take into account orientation
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return junction the number of junctions
+        *	@pre 
+        *	@post 
+        */
+
+        private string FindTextureType(int inputRandom)
+        {
+            string textureType = null;
+
+            switch (inputRandom)
+            {
+                case 0:
+                    textureType = "Textures/cell_diff";
+                    break;
+                case 1:
+                    textureType = "Textures/nucleus_diff";
+                    break;
+                case 2:
+                    textureType = "Textures/Riticulum_diff";
+                    break;
+                case 3:
+                    textureType = "Textures/Lysosome_diff";
+                    break;
+                case 4:
+                    textureType = "Textures/Balls_diff";
+                    break;
+                case 5:
+                    textureType = "Textures/golgi_diff";
+                    break;
+                case 6:
+                    textureType = "Textures/Mitochondrion_diff";
+                    break;
+                case 7:
+                    textureType = "Textures/selenocystine_diff";
+                    break;
+                case 8:
+                    textureType = "Textures/selenocystine_diff";
+                    break;
+            }
+
+            return textureType;
+
+        }
+
+
 
         /** 
         *   @brief mutator to set the exact coordinates of the model assets

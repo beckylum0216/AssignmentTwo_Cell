@@ -4788,6 +4788,25 @@
 /processor:PassThroughProcessor
 /build:GeonBit.UI/themes/lowres/ThemeData.xml
 
+#begin Models/Ball_type00.FBX
+/importer:FbxImporter
+/processor:ModelProcessor
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=0
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=1
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:Models/Ball_type00.FBX
+
 #begin Models/bloodcell.obj
 /importer:FbxImporter
 /processor:ModelProcessor
@@ -5054,7 +5073,7 @@
 /processorParam:TextureFormat=Compressed
 /build:Models/Leukoplast.FBX
 
-#begin Models/lysosome.fbx
+#begin Models/Lysosome.FBX
 /importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
@@ -5071,7 +5090,7 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:Models/lysosome.fbx
+/build:Models/Lysosome.FBX
 
 #begin Models/Lysosome.FBX
 /importer:FbxImporter
@@ -5148,6 +5167,44 @@
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:Models/peroxisome.fbx
+
+#begin Models/Riticulum.obj
+/importer:FbxImporter
+/processor:ModelProcessor
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=0
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=1
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:Models/Riticulum.obj
+
+#begin Models/selenocystine_obj.obj
+/importer:FbxImporter
+/processor:ModelProcessor
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=0
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=1
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:Models/selenocystine_obj.obj
 
 #begin Models/skybox human cell.fbx
 /importer:FbxImporter
@@ -5337,6 +5394,18 @@
 /processorParam:Quality=Best
 /build:Sound/Power_Up_Ray-Mike_Koenig-800933783.mp3
 
+#begin Textures/Balls_diff.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Balls_diff.jpg
+
 #begin Textures/bloodcell_diff.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -5348,6 +5417,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Textures/bloodcell_diff.jpg
+
+#begin Textures/cell_diff.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/cell_diff.jpg
 
 #begin Textures/cellwall_diff.jpg
 /importer:TextureImporter
@@ -5421,6 +5502,18 @@
 /processorParam:TextureFormat=Color
 /build:Textures/Leukoplast_AlbedoTransparency.png
 
+#begin Textures/Leukoplast_diff.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Leukoplast_diff.jpg
+
 #begin Textures/Lysosome_AlbedoTransparency.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -5433,6 +5526,18 @@
 /processorParam:TextureFormat=Color
 /build:Textures/Lysosome_AlbedoTransparency.png
 
+#begin Textures/Lysosome_diff.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Lysosome_diff.jpg
+
 #begin Textures/Mitochondrion_AlbedoTransparency.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -5444,6 +5549,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Textures/Mitochondrion_AlbedoTransparency.png
+
+#begin Textures/Mitochondrion_diff.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Mitochondrion_diff.jpg
 
 #begin Textures/Mitochondrion_Normal.png
 /importer:TextureImporter
@@ -5469,6 +5586,18 @@
 /processorParam:TextureFormat=Color
 /build:Textures/NuclearEnvelope_AlbedoTransparency.png
 
+#begin Textures/nucleus_diff.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/nucleus_diff.jpg
+
 #begin Textures/Reticulum_AlbedoTransparency.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -5480,6 +5609,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Textures/Reticulum_AlbedoTransparency.png
+
+#begin Textures/Riticulum_diff.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/Riticulum_diff.jpg
+
+#begin Textures/selenocystine_diff.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/selenocystine_diff.jpg
 
 #begin Textures/Skin1.tif
 /importer:TextureImporter
