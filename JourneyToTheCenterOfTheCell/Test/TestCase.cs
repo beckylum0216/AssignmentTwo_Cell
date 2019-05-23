@@ -59,7 +59,6 @@ public class TestCase
         {
             Game game = new Game();
             GraphicsDeviceManager g = new GraphicsDeviceManager(game);
-            g.ApplyChanges();
             SpriteBatch s = new SpriteBatch(g.GraphicsDevice);
             QuizManager qm = new QuizManager();
             GameContext gtx = new GameContext(game,g,s);
@@ -121,7 +120,6 @@ public class TestCase
         {
             Game game = new Game();
             GraphicsDeviceManager g = new GraphicsDeviceManager(game);
-            g.ApplyChanges();
             SpriteBatch s = new SpriteBatch(g.GraphicsDevice);
             GameContext gtx = new GameContext(game,g,s);
             QuizManager qm = new QuizManager();
@@ -142,7 +140,6 @@ public class TestCase
         {
             Game game = new Game();
             GraphicsDeviceManager g = new GraphicsDeviceManager(game);
-            g.ApplyChanges();
             SpriteBatch s = new SpriteBatch(g.GraphicsDevice);
             GameContext gtx = new GameContext(game, g, s);
             QuizManager qm = new QuizManager();
@@ -164,7 +161,6 @@ public class TestCase
         {
             Game game = new Game();
             GraphicsDeviceManager g = new GraphicsDeviceManager(game);
-            g.ApplyChanges();
             SpriteBatch s = new SpriteBatch(g.GraphicsDevice);
             GameContext gtx = new GameContext(game, g, s);
             QuizManager qm = new QuizManager();
@@ -186,7 +182,6 @@ public class TestCase
         {
             Game game = new Game();
             GraphicsDeviceManager g = new GraphicsDeviceManager(game);
-            g.ApplyChanges();
             SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
             GameContext gtx = new GameContext(game, g, sb);
             Texture2D t = new Texture2D(g.GraphicsDevice,2,2);
@@ -209,7 +204,6 @@ public class TestCase
         {
             Game game = new Game();
             GraphicsDeviceManager g = new GraphicsDeviceManager(game);
-            g.ApplyChanges();
             SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
             GameContext gtx = new GameContext(game, g, sb);
             Texture2D t = new Texture2D(g.GraphicsDevice, 2, 2);
@@ -251,7 +245,6 @@ public class TestCase
         {
             Game game = new Game();
             GraphicsDeviceManager g = new GraphicsDeviceManager(game);
-            g.ApplyChanges();
             SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
             GameContext gtx = new GameContext(game, g, sb);
             Structure test = new Structure(gtx.GetGameInstance().Content,"Models/lysosome",null, Vector3.Zero, Vector3.Zero, 1,Vector3.Zero);
@@ -272,7 +265,6 @@ public class TestCase
         {
             Game game = new Game();
             GraphicsDeviceManager g = new GraphicsDeviceManager(game);
-            g.ApplyChanges();
             SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
             GameContext gtx = new GameContext(game, g, sb);
             Structure test = new Structure(gtx.GetGameInstance().Content, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero);
@@ -293,7 +285,6 @@ public class TestCase
         {
             Game game = new Game();
             GraphicsDeviceManager g = new GraphicsDeviceManager(game);
-            g.ApplyChanges();
             SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
             GameContext gtx = new GameContext(game, g, sb);
             SkyBox test = new SkyBox(gtx.GetGameInstance().Content, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero);
@@ -312,7 +303,6 @@ public class TestCase
         {
             Game game = new Game();
             GraphicsDeviceManager g = new GraphicsDeviceManager(game);
-            g.ApplyChanges();
             SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
             GameContext gtx = new GameContext(game, g, sb);
             SkyBox test = new SkyBox(gtx.GetGameInstance().Content, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero);
@@ -333,11 +323,228 @@ public class TestCase
         {
             Game game = new Game();
             GraphicsDeviceManager g = new GraphicsDeviceManager(game);
-            g.ApplyChanges();
             SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
             GameContext gtx = new GameContext(game, g, sb);
             SkyBox test = new SkyBox(gtx.GetGameInstance().Content, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero);
             test.ActorClone(gtx.GetGameInstance().Content, "Models/peroxisome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero);
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+
+
+    [Test]
+    public void NPC1() //test initialise
+    {
+
+        try
+        {
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            List<Vector3> waypoints = new List<Vector3>();
+            NPC npc = new NPC(gtx.GetGameInstance().Content, 1, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero, 1, waypoints);
+            
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+
+
+    [Test]
+    public void NPC2() //test actor clone
+    {
+
+        try
+        {
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            List<Vector3> waypoints = new List<Vector3>();
+            NPC npc = new NPC(gtx.GetGameInstance().Content,1, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero,1,waypoints);
+            npc.ActorClone(gtx.GetGameInstance().Content, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero);
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+
+    [Test]
+    public void NPC3() //test actor update
+    {
+
+        try
+        {
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            List<Vector3> waypoints = new List<Vector3>();
+            NPC npc = new NPC(gtx.GetGameInstance().Content, 1, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero, 1, waypoints);
+            npc.ActorUpdate(1f,1f);
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+    [Test]
+    public void NPC4() //test animate npc
+    {
+
+        try
+        {
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            List<Vector3> waypoints = new List<Vector3>();
+            NPC npc = new NPC(gtx.GetGameInstance().Content, 1, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero, 1, waypoints);
+            npc.AnimateNPC(1f, 1f);
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+    [Test]
+    public void NPC5() //test print npc waypoints
+    {
+
+        try
+        {
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            List<Vector3> waypoints = new List<Vector3>();
+            NPC npc = new NPC(gtx.GetGameInstance().Content, 1, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero, 1, waypoints);
+            npc.PrintNPCWaypoints();
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+    [Test]
+    public void NPC6() //test aabb
+    {
+
+        try
+        {
+            Camera c = new Camera();
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            List<Vector3> waypoints = new List<Vector3>();
+            NPC npc = new NPC(gtx.GetGameInstance().Content, 1, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero, 1, waypoints);
+            npc.StateAABB(c);
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+
+
+    [Test]
+    public void NPCWander1() //test initialise
+    {
+
+        try
+        {
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            List<Vector3> waypoints = new List<Vector3>();
+            NPC npc = new NPC(gtx.GetGameInstance().Content, 1, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero, 1, waypoints);
+            NPCWander test = new NPCWander(npc);
+            
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+
+    [Test]
+    public void NPCWander2() //test animate
+    {
+
+        try
+        {
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            List<Vector3> waypoints = new List<Vector3>();
+            NPC npc = new NPC(gtx.GetGameInstance().Content, 1, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero, 1, waypoints);
+            NPCWander test = new NPCWander(npc);
+            test.Animate(npc,1f,1f);
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+
+
+    [Test]
+    public void NPCAttack1() //test initialise
+    {
+
+        try
+        {
+            Camera c = new Camera();
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            List<Vector3> waypoints = new List<Vector3>();
+            NPC npc = new NPC(gtx.GetGameInstance().Content, 1, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero, 1, waypoints);
+            NPCAttack test = new NPCAttack(c);
+            
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+
+    [Test]
+    public void NPCAttack2() //test animate
+    {
+
+        try
+        {
+            Camera c = new Camera();
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            List<Vector3> waypoints = new List<Vector3>();
+            NPC npc = new NPC(gtx.GetGameInstance().Content, 1, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero, 1, waypoints);
+            NPCAttack test = new NPCAttack(c);
+            test.Animate(npc, 1f, 1f);
         }
         catch (Exception e)
         {
