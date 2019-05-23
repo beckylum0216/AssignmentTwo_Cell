@@ -67,6 +67,9 @@
     <Compile Include="MenuManager.cs" />
     <Compile Include="ModelHandler.cs" />
     <Compile Include="NPC.cs" />
+    <Compile Include="INPCState.cs" />
+    <Compile Include="NPCAttack.cs" />
+    <Compile Include="NPCWander.cs" />
     <Compile Include="Quiz.cs" />
     <Compile Include="QuizAnswers.cs" />
     <Compile Include="QuizFinishedView.cs" />

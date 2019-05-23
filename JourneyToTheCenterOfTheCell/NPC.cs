@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,12 @@ namespace JourneyToTheCenterOfTheCell
     {
         List<Vector3> npcWaypoints;
         private int npcID;
+        INPCState npcState;
+
+        Vector3 stateOffset;
+        Vector3 stateMinPoint;
+        Vector3 stateMaxPoint;
+        //Subject camera;
 
         public NPC(ContentManager Content, int inputID , String modelFile, String textureFile,
                         Vector3 inputPosition, Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset,
@@ -32,8 +39,21 @@ namespace JourneyToTheCenterOfTheCell
             this.maxPoint = this.actorPosition + this.AABBOffset;
             this.minPoint = this.actorPosition - this.AABBOffset;
 
+            this.stateOffset = new Vector3(10, 10, 10);
+            this.stateMaxPoint = this.maxPoint + stateOffset;
+            this.stateMinPoint = this.minPoint - stateOffset;
+
             this.npcID = inputID;
             this.npcWaypoints = inputWaypoints;
+            //Debug.WriteLine("Waypoint Size: " + this.npcWaypoints.Count);
+            this.PrintNPCWaypoints();
+
+            //this.npcWaypointIndex = 0;
+            //this.tempIndex = 0;
+            //resultVector = new Vector3(0, 0, 0);
+            //tempDirection = new Vector3(0, 0, 0);
+            this.npcState = new NPCWander(this);
+
         }
 
         public override Actor ActorClone(ContentManager Content, string modelFile, string textureFile, Vector3 inputPosition, Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset)
@@ -43,21 +63,69 @@ namespace JourneyToTheCenterOfTheCell
 
         public override void ActorUpdate(float deltaTime, float fps)
         {
+            this.maxPoint = this.actorPosition + this.AABBOffset;
+            this.minPoint = this.actorPosition - this.AABBOffset;
+
+
+
+            this.stateOffset = new Vector3(500, 500, 500);
+            this.stateMaxPoint = this.maxPoint + stateOffset;
+            this.stateMinPoint = this.minPoint - stateOffset;
+
             this.actorPosition += AnimateNPC(deltaTime, fps);
+        }
+
+        public void SetNPCState(INPCState inputState)
+        {
+            this.npcState = inputState;
+        }
+
+        public INPCState GetNPCState()
+        {
+            return this.npcState;
         }
 
         public Vector3 AnimateNPC(float deltaTime, float fps)
         {
-            Vector3 tempDirection = this.actorPosition - new Vector3(1, 1, 1);
-            tempDirection.Normalize();
-            Vector3 resultVector = -tempDirection * this.actorSpeed * deltaTime * fps;
-
-            return resultVector;
+            return this.npcState.Animate(this, deltaTime, fps);
         }
 
         public int GetNPCID()
         {
             return this.npcID;
         }
+
+        
+
+        public void SetNPCWaypoints(List<Vector3> inputWaypoints)
+        {
+            this.npcWaypoints = inputWaypoints;
+        }
+
+        public List<Vector3> GetNPCWaypoints()
+        {
+            return this.npcWaypoints;
+        }
+
+        public void PrintNPCWaypoints()
+        {
+            for(int ii = 0; ii < npcWaypoints.Count; ii +=1)
+            {
+                Debug.WriteLine("Waypoint index: " + ii + " vector: " + npcWaypoints[ii]);
+            }
+        }
+
+        public Boolean StateAABB(Subject inputSubject)
+        {
+            //Debug.WriteLine("camera maxpoint: " + inputSubject.maxPoint);
+
+            return (this.stateMaxPoint.X > inputSubject.minPoint.X &&
+                    this.stateMinPoint.X < inputSubject.maxPoint.X &&
+                    this.stateMaxPoint.Y > inputSubject.minPoint.Y &&
+                    this.stateMinPoint.Y < inputSubject.maxPoint.Y &&
+                    this.stateMaxPoint.Z > inputSubject.minPoint.Z &&
+                    this.stateMinPoint.Z < inputSubject.maxPoint.Z);
+        }
+
     }
 }

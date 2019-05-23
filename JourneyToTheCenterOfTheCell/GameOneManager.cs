@@ -36,7 +36,7 @@ namespace JourneyToTheCenterOfTheCell
         Stopwatch stopWatch = new Stopwatch();
         TimeSpan ts = new TimeSpan();
         HUD hud= new HUD();
-
+        List<NPCWander> npcStateList;
 
         public GameOneManager()
         {
@@ -75,7 +75,7 @@ namespace JourneyToTheCenterOfTheCell
             Vector3 deltaVector = new Vector3(0, 0, 0.001f);
             Vector3 AABBOffsetCamera = new Vector3(0.5f, 0.25f, 0.5f);
             camera = new Camera( gameCtx.GetGameInstance().Content, theCamera, camPositionVector, camEyeVector, deltaVector, AABBOffsetCamera, mapClient);
-            cameraSpeed = 3f;
+            cameraSpeed = 5f;
             fps = 60f;
 
             
@@ -91,6 +91,23 @@ namespace JourneyToTheCenterOfTheCell
             {
                 camera.SetItems(item.Value);
             }
+
+            foreach (var npc in mapClient.GetNPCHash())
+            {
+                camera.SetNPCs(npc.Value);
+            }
+
+            npcStateList = new List<NPCWander>();
+
+            foreach (var npc in mapClient.GetNPCHash())
+            {
+                NPCWander newWander = new NPCWander(npc.Value);
+                npcStateList.Add(newWander);
+            }
+
+            camera.SetWanderList(npcStateList);
+
+
             //initialise font for timer display
             font = gameCtx.GetGameInstance().Content.Load<SpriteFont>("Fonts/arialFont");
             text.Initialise(font);
@@ -169,10 +186,6 @@ namespace JourneyToTheCenterOfTheCell
             //this update animates the codex drop down
             CodexManager.GetCodexInstance().Update(gameCtx.GetGameTime(), keyboardInput, camera.GetCodexHash());
             
-            
-
-
-
             stopWatch.Stop();
             ts = stopWatch.Elapsed;
 

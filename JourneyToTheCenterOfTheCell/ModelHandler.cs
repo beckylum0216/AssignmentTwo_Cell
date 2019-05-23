@@ -322,10 +322,24 @@ namespace JourneyToTheCenterOfTheCell
                     if (!(npcMap[ii, jj] == null))
                     {
                         Vector3 tempPosition = new Vector3(npcMap[ii, jj].GetCoordX(), npcMap[ii, jj].GetCoordY(), npcMap[ii, jj].GetCoordZ());
-                        Vector3 tempOffset = new Vector3(20, 10, 20);
+                        Vector3 tempOffset = new Vector3(20, 20, 20);
                         float tempSpeed = 1;
                         int tempID = (int)Math.Round((npcMap[ii, jj].GetCoordX() * npcMap[ii, jj].GetCoordY() * npcMap[ii, jj].GetCoordZ()));
                         List<Vector3> newWayPoints = new List<Vector3>();
+                        Random randomNum = new Random();
+                        int npcWaypointSize = 10;
+                        int npcWaypointRange = 200;
+                        int npcRealWorld = 20;
+                        for (int aa = 0; aa < npcWaypointSize; aa += 1)
+                        {
+                            int randomX = randomNum.Next(npcWaypointRange) * npcRealWorld;
+                            int randomY = randomNum.Next(npcWaypointRange) * npcRealWorld;
+                            int randomZ = randomNum.Next(npcWaypointRange) * npcRealWorld;
+
+                            Vector3 newPosition = new Vector3(randomX, randomY, randomZ);
+                            newWayPoints.Add(newPosition);
+                        }
+
                         NPC tempPlot = new NPC(Content, tempID, npcMap[ii, jj].GetModelPath(), npcMap[ii, jj].GetTexturePath(), tempPosition, npcMap[ii, jj].GetMapRotation(), npcMap[ii, jj].GetMapScale(), tempOffset, tempSpeed, newWayPoints);
                         if (!npcHash.ContainsKey(tempPlot.GetNPCID()))
                         {

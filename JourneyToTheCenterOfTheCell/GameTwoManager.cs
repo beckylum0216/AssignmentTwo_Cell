@@ -90,6 +90,11 @@ namespace JourneyToTheCenterOfTheCell
                 camera.SetItems(item.Value);
             }
 
+            foreach (var npc in mapClient.GetNPCHash())
+            {
+                camera.SetNPCs(npc.Value);
+            }
+
             //initialise font for timer display
             font = gameCtx.GetGameInstance().Content.Load<SpriteFont>("Fonts/arialFont");
             text.Initialise(font);

@@ -14,14 +14,14 @@ namespace JourneyToTheCenterOfTheCell
     public class Camera: Subject
     {
 
-        Matrix theCamera;
+        private Matrix theCamera;
         private Vector3 cameraEye;
         private Vector3 zoomVector;
         private Quaternion deltaQuaternion;
         private ModelHandler itemHandler;
         private Dictionary<InputHandler.keyStates, Item> codexHash;
         private SoundEffect itemSound;
-        
+        private List<NPCWander> wanderList;
 
         public Camera(){ }
 
@@ -123,9 +123,38 @@ namespace JourneyToTheCenterOfTheCell
                 }
             }
 
+            for(int ii = 0; ii < this.GetNPCs().Count; ii += 1)
+            {
+                //Debug.WriteLine("Collision NPC State: " + this.GetNPCs()[ii].StateAABB(this));
+                if(this.GetNPCs()[ii].StateAABB(this))
+                {
+                    Debug.WriteLine("Attack State!!!");
+                    NPCAttack attackState = new NPCAttack(this);
+                    this.GetNPCs()[ii].SetNPCState(attackState);
+                }
+                else
+                {
+                    //Debug.WriteLine("Attack state!!!");
+                   
+                    this.GetNPCs()[ii].SetNPCState(wanderList[ii]);
+                }
+            }
+
+
+
             Matrix tempCameraObj = Matrix.CreateLookAt(subjectPosition, cameraEye, Vector3.Up);
 
             return tempCameraObj;
+        }
+
+        public void SetWanderList(List <NPCWander> inputList)
+        {
+            this.wanderList = inputList;
+        }
+
+        public List<NPCWander> GetWanderList()
+        {
+            return this.wanderList;
         }
 
 
