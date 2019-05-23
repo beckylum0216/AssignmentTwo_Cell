@@ -132,7 +132,7 @@ namespace JourneyToTheCenterOfTheCell
                     {
                         if ((ii == randomItemList[aa].X) && (jj == randomItemList[aa].Z))
                         {
-                            int randomItem = randomNum.Next(9);
+                            int randomItem = randomNum.Next(7);
 
                             //string modelPath = "Models/mitochondria";
                             //string texturePath = "Textures/Mitochondrion_AlbedoTransparency";
@@ -297,31 +297,31 @@ namespace JourneyToTheCenterOfTheCell
 
             switch (inputRandom)
             {
+                //case 0:
+                //    //modelType = "Models/cell_obj";
+                //    break;
+                //case 1:
+                //    //modelType = "Models/nucleus";
+                //    break;
                 case 0:
-                    modelType = "Models/cell_obj";
-                    break;
-                case 1:
-                    modelType = "Models/nucleus";
-                    break;
-                case 2:
                     modelType = "Models/Riticulum";
                     break;
-                case 3:
+                case 1:
                     modelType = "Models/Lysosome";
                     break;
-                case 4:
+                case 2:
                     modelType = "Models/Ball_type00";
                     break;
-                case 5:
+                case 3:
                     modelType = "Models/golgi";
                     break;
-                case 6:
+                case 4:
                     modelType = "Models/mitochondria";
                     break;
-                case 7:
+                case 5:
                     modelType = "Models/selenocystine_obj";
                     break;
-                case 8:
+                case 6:
                     modelType = "Models/selenocystine_obj";
                     break;
             }
@@ -352,31 +352,31 @@ namespace JourneyToTheCenterOfTheCell
 
             switch (inputRandom)
             {
+                //case 0:
+                //    //textureType = "Textures/cell_diff";
+                //    break;
+                //case 1:
+                //    //textureType = "Textures/nucleus_diff";
+                //    break;
                 case 0:
-                    textureType = "Textures/cell_diff";
-                    break;
-                case 1:
-                    textureType = "Textures/nucleus_diff";
-                    break;
-                case 2:
                     textureType = "Textures/Riticulum_diff";
                     break;
-                case 3:
+                case 1:
                     textureType = "Textures/Lysosome_diff";
                     break;
-                case 4:
+                case 2:
                     textureType = "Textures/Balls_diff";
                     break;
-                case 5:
+                case 3:
                     textureType = "Textures/golgi_diff";
                     break;
-                case 6:
+                case 4:
                     textureType = "Textures/Mitochondrion_diff";
                     break;
-                case 7:
+                case 5:
                     textureType = "Textures/selenocystine_diff";
                     break;
-                case 8:
+                case 6:
                     textureType = "Textures/selenocystine_diff";
                     break;
             }

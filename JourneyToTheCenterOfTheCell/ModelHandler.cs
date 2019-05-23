@@ -252,7 +252,18 @@ namespace JourneyToTheCenterOfTheCell
                 SkyBox skyBoxObj = new SkyBox(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
                 plotList.Add(skyBoxObj);
             }
+
+            string modelCell = "Models/cell_obj";
+            string textureCell = "Textures/cell_diff";
             
+            Vector3 positionCell = new Vector3(100, 20, 100);
+            Vector3 rotationCell = new Vector3(0, 0, 0);
+            Vector3 AABBCell = new Vector3(0, 0, 0);
+            float scaleCell = 100f;
+            //Actor plotSkyBox = landPlots["SkyBox"].ActorClone(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
+            Structure cellObj = new Structure(Content, modelCell, textureCell, positionCell, rotationCell, scaleCell, AABBCell);
+            plotList.Add(cellObj);
+
 
             Debug.WriteLine("list size:" + plotList.Count);
             //adds to the list the land and road tiles
@@ -327,7 +338,7 @@ namespace JourneyToTheCenterOfTheCell
                         int tempID = (int)Math.Round((npcMap[ii, jj].GetCoordX() * npcMap[ii, jj].GetCoordY() * npcMap[ii, jj].GetCoordZ()));
                         List<Vector3> newWayPoints = new List<Vector3>();
                         Random randomNum = new Random();
-                        int npcWaypointSize = 10;
+                        int npcWaypointSize = 50;
                         int npcWaypointRange = 200;
                         int npcRealWorld = 20;
                         for (int aa = 0; aa < npcWaypointSize; aa += 1)

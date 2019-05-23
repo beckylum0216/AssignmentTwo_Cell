@@ -36,7 +36,10 @@ namespace JourneyToTheCenterOfTheCell
         private int minutes = 0;
         Stopwatch stopWatch = new Stopwatch();
         TimeSpan ts = new TimeSpan();
-        HUD hud = new HUD(); 
+        HUD hud = new HUD();
+
+        List<NPCWander> npcStateList;
+
         public GameTwoManager()
         {
 
@@ -94,6 +97,16 @@ namespace JourneyToTheCenterOfTheCell
             {
                 camera.SetNPCs(npc.Value);
             }
+
+            npcStateList = new List<NPCWander>();
+
+            foreach (var npc in mapClient.GetNPCHash())
+            {
+                NPCWander newWander = new NPCWander(npc.Value);
+                npcStateList.Add(newWander);
+            }
+
+            camera.SetWanderList(npcStateList);
 
             //initialise font for timer display
             font = gameCtx.GetGameInstance().Content.Load<SpriteFont>("Fonts/arialFont");
