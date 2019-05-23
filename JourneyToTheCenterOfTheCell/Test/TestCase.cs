@@ -16,22 +16,22 @@ public class TestCase
     [Test]
     public void QuizTest1() //test initialisation with strings and list of strings
     {
-        try 
+        try
         {
             List<String> inputOptions = new List<String>();
             inputOptions.Add("With human eyes, with dimensions between 1 and 100 centimeters. ");
             inputOptions.Add("Only under a microscope, with dimensions between 1 and 100 micrometres. ");
             inputOptions.Add("With Insect eyes, with dimensions between 1 and 10 millimeters. ");
             Quiz testq = new Quiz("blah", inputOptions, "blah");
-                
-                
+
+
         }
         catch (Exception e)
         {
             Debug.WriteLine("Exception: " + e);
-                
+
         }
-        }
+    }
     [Test]
     public void QuizTest2() //test initialisation with a quiz
     {
@@ -61,9 +61,9 @@ public class TestCase
             GraphicsDeviceManager g = new GraphicsDeviceManager(game);
             SpriteBatch s = new SpriteBatch(g.GraphicsDevice);
             QuizManager qm = new QuizManager();
-            GameContext gtx = new GameContext(game,g,s);
+            GameContext gtx = new GameContext(game, g, s);
             QuizAnswers test = new QuizAnswers();
-            test.Init(gtx,qm);
+            test.Init(gtx, qm);
 
         }
         catch (Exception e)
@@ -86,7 +86,7 @@ public class TestCase
             inputOptions.Add("Only under a microscope, with dimensions between 1 and 100 micrometres. ");
             inputOptions.Add("With Insect eyes, with dimensions between 1 and 10 millimeters. ");
             Quiz q = new Quiz("blah", inputOptions, "blah");
-            QuizView test = new QuizView(qm,q,x,y);
+            QuizView test = new QuizView(qm, q, x, y);
 
         }
         catch (Exception e)
@@ -121,7 +121,7 @@ public class TestCase
             Game game = new Game();
             GraphicsDeviceManager g = new GraphicsDeviceManager(game);
             SpriteBatch s = new SpriteBatch(g.GraphicsDevice);
-            GameContext gtx = new GameContext(game,g,s);
+            GameContext gtx = new GameContext(game, g, s);
             QuizManager qm = new QuizManager();
             qm.Initialise(gtx);
         }
@@ -184,7 +184,7 @@ public class TestCase
             GraphicsDeviceManager g = new GraphicsDeviceManager(game);
             SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
             GameContext gtx = new GameContext(game, g, sb);
-            Texture2D t = new Texture2D(g.GraphicsDevice,2,2);
+            Texture2D t = new Texture2D(g.GraphicsDevice, 2, 2);
             SpriteFont s = gtx.GetGameInstance().Content.Load<SpriteFont>("Fonts/arialFont");
             Text test = new Text();
             test.Initialise(s);
@@ -210,7 +210,7 @@ public class TestCase
             SpriteFont s = gtx.GetGameInstance().Content.Load<SpriteFont>("Fonts/arialFont");
             Text test = new Text();
             test.Initialise(s);
-            test.Draw(sb,g);
+            test.Draw(sb, g);
         }
         catch (Exception e)
         {
@@ -227,8 +227,8 @@ public class TestCase
         try
         {
             StoryView test = new StoryView();
-            
-            
+
+
         }
         catch (Exception e)
         {
@@ -247,7 +247,7 @@ public class TestCase
             GraphicsDeviceManager g = new GraphicsDeviceManager(game);
             SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
             GameContext gtx = new GameContext(game, g, sb);
-            Structure test = new Structure(gtx.GetGameInstance().Content,"Models/lysosome",null, Vector3.Zero, Vector3.Zero, 1,Vector3.Zero);
+            Structure test = new Structure(gtx.GetGameInstance().Content, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero);
 
         }
         catch (Exception e)
@@ -256,7 +256,7 @@ public class TestCase
 
         }
     }
-    
+
     [Test]
     public void Structure2() //test clone
     {
@@ -306,8 +306,8 @@ public class TestCase
             SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
             GameContext gtx = new GameContext(game, g, sb);
             SkyBox test = new SkyBox(gtx.GetGameInstance().Content, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero);
-            float delta = 1, fps =1;
-            test.ActorUpdate(delta,fps);
+            float delta = 1, fps = 1;
+            test.ActorUpdate(delta, fps);
         }
         catch (Exception e)
         {
@@ -348,7 +348,7 @@ public class TestCase
             GameContext gtx = new GameContext(game, g, sb);
             List<Vector3> waypoints = new List<Vector3>();
             NPC npc = new NPC(gtx.GetGameInstance().Content, 1, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero, 1, waypoints);
-            
+
         }
         catch (Exception e)
         {
@@ -369,7 +369,7 @@ public class TestCase
             SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
             GameContext gtx = new GameContext(game, g, sb);
             List<Vector3> waypoints = new List<Vector3>();
-            NPC npc = new NPC(gtx.GetGameInstance().Content,1, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero,1,waypoints);
+            NPC npc = new NPC(gtx.GetGameInstance().Content, 1, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero, 1, waypoints);
             npc.ActorClone(gtx.GetGameInstance().Content, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero);
         }
         catch (Exception e)
@@ -391,7 +391,7 @@ public class TestCase
             GameContext gtx = new GameContext(game, g, sb);
             List<Vector3> waypoints = new List<Vector3>();
             NPC npc = new NPC(gtx.GetGameInstance().Content, 1, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero, 1, waypoints);
-            npc.ActorUpdate(1f,1f);
+            npc.ActorUpdate(1f, 1f);
         }
         catch (Exception e)
         {
@@ -475,7 +475,7 @@ public class TestCase
             List<Vector3> waypoints = new List<Vector3>();
             NPC npc = new NPC(gtx.GetGameInstance().Content, 1, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero, 1, waypoints);
             NPCWander test = new NPCWander(npc);
-            
+
         }
         catch (Exception e)
         {
@@ -497,7 +497,7 @@ public class TestCase
             List<Vector3> waypoints = new List<Vector3>();
             NPC npc = new NPC(gtx.GetGameInstance().Content, 1, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero, 1, waypoints);
             NPCWander test = new NPCWander(npc);
-            test.Animate(npc,1f,1f);
+            test.Animate(npc, 1f, 1f);
         }
         catch (Exception e)
         {
@@ -521,7 +521,7 @@ public class TestCase
             List<Vector3> waypoints = new List<Vector3>();
             NPC npc = new NPC(gtx.GetGameInstance().Content, 1, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero, 1, waypoints);
             NPCAttack test = new NPCAttack(c);
-            
+
         }
         catch (Exception e)
         {
@@ -563,8 +563,8 @@ public class TestCase
             GraphicsDeviceManager g = new GraphicsDeviceManager(game);
             SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
             GameContext gtx = new GameContext(game, g, sb);
-            
-            ModelHandler test = new ModelHandler(gtx.GetGameInstance().Content,1,1,1,1,1);
+
+            ModelHandler test = new ModelHandler(gtx.GetGameInstance().Content, 1, 1, 1, 1, 1);
         }
         catch (Exception e)
         {
@@ -627,7 +627,7 @@ public class TestCase
             GameContext gtx = new GameContext(game, g, sb);
 
             MenuView test = new MenuView(gtx);
-            
+
         }
         catch (Exception e)
         {
@@ -709,7 +709,7 @@ public class TestCase
 
         try
         {
-            MapGenerator test = new MapGenerator(10,10,10);            
+            MapGenerator test = new MapGenerator(10, 10, 10);
         }
         catch (Exception e)
         {
@@ -718,7 +718,7 @@ public class TestCase
         }
     }
 
-    
+
 
     [Test]
     public void MapGenerator2() //test print grid
@@ -759,7 +759,7 @@ public class TestCase
         try
         {
             Map test = new Map();
-            
+
         }
         catch (Exception e)
         {
@@ -775,7 +775,7 @@ public class TestCase
         try
         {
             Map map = new Map();
-            Map test = new Map(Vector3.Zero,map.GetMapType(),"Models/lysosome","Textures/lysosome",1,Vector3.Zero,map.GetCodexType(),1);
+            Map test = new Map(Vector3.Zero, map.GetMapType(), "Models/lysosome", "Textures/lysosome", 1, Vector3.Zero, map.GetCodexType(), 1);
         }
         catch (Exception e)
         {
@@ -784,6 +784,440 @@ public class TestCase
         }
     }
 
-}
+    [Test]
+    public void Item1() //test innit
+    {
 
+        try
+        {
+            InputHandler.keyStates keyBoardState = new InputHandler.keyStates();
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            Item test = new Item(gtx.GetGameInstance().Content, 1, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero, keyBoardState);
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+    [Test]
+    public void Item2() //test actor clone
+    {
+
+        try
+        {
+            InputHandler.keyStates keyBoardState = new InputHandler.keyStates();
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            Item test = new Item(gtx.GetGameInstance().Content, 1, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero, keyBoardState);
+            test.ActorClone(gtx.GetGameInstance().Content, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero);
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+    [Test]
+    public void Item3() //test actor update
+    {
+
+        try
+        {
+            InputHandler.keyStates keyBoardState = new InputHandler.keyStates();
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            Item test = new Item(gtx.GetGameInstance().Content, 1, "Models/lysosome", null, Vector3.Zero, Vector3.Zero, 1, Vector3.Zero, keyBoardState);
+            test.ActorUpdate(1f, 1f);
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+
+    [Test]
+    public void InfoView1() //test init
+    {
+
+        try
+        {
+            InfoView test = new InfoView();
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+
+    [Test]
+    public void HUD1() //test init
+    {
+
+        try
+        {
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            HUD test = new HUD();
+            test.Initialise(gtx, 300, 300);
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+    [Test]
+    public void HUD2() //test draw
+    {
+
+        try
+        {
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            HUD test = new HUD();
+            test.Initialise(gtx, 300, 300);
+            test.Draw(sb, g);
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+    [Test]
+    public void HUD3() //test update
+    {
+
+        try
+        {
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            HUD test = new HUD();
+            test.Initialise(gtx, 300, 300);
+            test.Update();
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+
+    [Test]
+    public void GameTwoManager1() //test init default
+    {
+
+        try
+        {
+            GameTwoManager test = new GameTwoManager();
+
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+    [Test]
+    public void GameTwoManager2() //test init with given game context
+    {
+
+        try
+        {
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            GameTwoManager test = new GameTwoManager(gtx);
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+    [Test]
+    public void GameTwoManager3() //test update
+    {
+
+        try
+        {
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            GameTwoManager test = new GameTwoManager(gtx);
+            test.Update(gtx);
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+    [Test]
+    public void GameTwoManager4() //test draw
+    {
+
+        try
+        {
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            GameTwoManager test = new GameTwoManager(gtx);
+            test.Draw(gtx);
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+
+    [Test]
+    public void GameOneManager1() //test init default
+    {
+
+        try
+        {
+            GameOneManager test = new GameOneManager();
+
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+    [Test]
+    public void GameOneManager2() //test init with given game context
+    {
+
+        try
+        {
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            GameOneManager test = new GameOneManager(gtx);
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+    [Test]
+    public void GameOneManager3() //test update
+    {
+
+        try
+        {
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            GameOneManager test = new GameOneManager(gtx);
+            test.Update(gtx);
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+    [Test]
+    public void GameOneManager4() //test draw
+    {
+
+        try
+        {
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            GameOneManager test = new GameOneManager(gtx);
+            test.Draw(gtx);
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+
+
+    [Test]
+    public void GameContext1() //test init default
+    {
+
+        try
+        {
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext test = new GameContext(game, g, sb);
+
+
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+    [Test]
+    public void GameContext2() //test init method
+    {
+
+        try
+        {
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext test = new GameContext(game, g, sb);
+            test.Initialise();
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+    [Test]
+    public void GameContext3() //test update
+    {
+
+        try
+        {
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext test = new GameContext(game, g, sb);
+            test.Update();
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+    [Test]
+    public void GameContext4() //test draw
+    {
+
+        try
+        {
+            Game game = new Game();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext test = new GameContext(game, g, sb);
+            test.Draw();
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+
+    [Test]
+    public void CodexView1() //test init
+    {
+
+        try
+        {
+            List<Codex> codexList = new List<Codex>();
+            CodexView test = new CodexView(codexList);
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+
+    [Test]
+    public void CodexManager1() //test init
+    {
+
+        try
+        {
+            Game game = new Game();
+            Dictionary<InputHandler.keyStates, Item> d = new Dictionary<InputHandler.keyStates, Item>();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            CodexManager test = new CodexManager();
+            test.Initialize(g, gtx.GetGameInstance().Content, d);
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+    [Test]
+    public void CodexManager2() //test draw
+    {
+
+        try
+        {
+            Game game = new Game();
+            Dictionary<InputHandler.keyStates, Item> d = new Dictionary<InputHandler.keyStates, Item>();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            CodexManager test = new CodexManager();
+            test.Initialize(g, gtx.GetGameInstance().Content, d);
+            test.Draw();
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+
+    [Test]
+    public void CodexManager3() //test update
+    {
+
+        try
+        {
+            InputHandler.keyStates k = new InputHandler.keyStates();
+            Game game = new Game();
+            Dictionary<InputHandler.keyStates, Item> d = new Dictionary<InputHandler.keyStates, Item>();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            CodexManager test = new CodexManager();
+            test.Initialize(g, gtx.GetGameInstance().Content, d);
+            test.Update(gtx.GetGameTime(), k, d);
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+}
+    
 

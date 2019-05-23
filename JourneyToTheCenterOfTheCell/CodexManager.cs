@@ -26,7 +26,7 @@ namespace JourneyToTheCenterOfTheCell
 
         private static CodexManager codexInstance = new CodexManager();
 
-        private CodexManager() { }
+        public CodexManager() { }
 
         public static CodexManager GetCodexInstance()
         {
