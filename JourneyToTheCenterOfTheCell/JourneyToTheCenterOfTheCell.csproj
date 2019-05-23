@@ -82,6 +82,7 @@
     <Compile Include="SkyBox.cs" />
     <Compile Include="Subject.cs" />
     <Compile Include="MenuView.cs" />
+    <Compile Include="Test\TestCase.cs" />
     <Compile Include="Test\testGame.cs" />
     <Compile Include="Text.cs" />
   </ItemGroup>
