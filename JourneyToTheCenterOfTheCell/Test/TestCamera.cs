@@ -23,11 +23,11 @@ namespace JourneyToTheCenterOfTheCell.Test
                 Vector3 AABBOffsetCamera = new Vector3(0.5f, 0.25f, 0.5f);
                 Matrix theCamera = Matrix.CreateLookAt(camPositionVector, camEyeVector, Vector3.Up);
                 Camera testCam = new Camera(testGame.Content, theCamera, camPositionVector, camEyeVector, deltaVector, AABBOffsetCamera, tempHandler);
-                //Assert.Pass();
+                
             }
             catch (Exception e)
             {
-                //Assert.Fail();
+                
             }
         }
     }

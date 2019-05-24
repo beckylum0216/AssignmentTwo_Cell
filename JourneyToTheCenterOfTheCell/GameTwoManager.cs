@@ -61,13 +61,15 @@ namespace JourneyToTheCenterOfTheCell
             gamePadInput = GamePad.GetState(PlayerIndex.One);
 
             gameLevel = 1;
-            mapClient = new ModelHandler(gameCtx.GetGameInstance().Content, 20, 20, 20, 1.0f, gameLevel);
-            mapClient.SetPlotDictionary();
-            mapClient.SetPlotList(gameLevel);
-            mapClient.PrintPlotList();
+            mapClient = new ModelHandler(gameCtx.GetGameInstance().Content, 200, 200, 200, 1.0f, gameLevel);
+            //mapClient.SetPlotDictionary();
+            mapClient.SetPlotList();
+            //mapClient.PrintPlotList();
 
             mapClient.SetItemHash();
-            //mapClient.PrintItemList();
+
+            mapClient.SetNPCHash();
+            
 
             
 
@@ -176,6 +178,12 @@ namespace JourneyToTheCenterOfTheCell
             //setting up collisions
 
             theCamera = camera.SubjectUpdate(gameCtx, mouseInputDelta, deltaTime, fps);
+
+            foreach (Actor index in mapClient.GetNPCHash().Values)
+            {
+                index.ActorUpdate(deltaTime, fps);
+            }
+
             //this update animates the codex drop down
             CodexManager.GetCodexInstance().Update(gameCtx.GetGameTime(), keyboardInput, camera.GetCodexHash());
 
@@ -204,7 +212,12 @@ namespace JourneyToTheCenterOfTheCell
                 index.ActorDraw(theWorld, theCamera, projection);
             }
 
-            
+            foreach (Actor index in mapClient.GetNPCHash().Values)
+            {
+                index.ActorDraw(theWorld, theCamera, projection);
+            }
+
+
             //draw the codex (should be drawn in deactivated state i.e. top of the screen)
             CodexManager.GetCodexInstance().Draw();
 

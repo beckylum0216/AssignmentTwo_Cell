@@ -28,6 +28,7 @@ namespace JourneyToTheCenterOfTheCell
         public Vector3 minPoint;
         public Vector3 maxPoint;
         public Vector3 AABBOffset;
+        public InputHandler.keyStates codexType;
         
         
 
@@ -150,8 +151,16 @@ namespace JourneyToTheCenterOfTheCell
                     effect.World = world * ActorInit();
                     effect.View = view;
                     effect.Projection = projection;
-                    effect.TextureEnabled = true;
-                    effect.Texture = actorTexture;
+                    if(texturePath == null)
+                    {
+                        effect.TextureEnabled = false;
+                    }
+                    else
+                    {
+                        effect.TextureEnabled = true;
+                        effect.Texture = actorTexture;
+                    }
+                    
                 }
 
                 mesh.Draw();
@@ -231,7 +240,7 @@ namespace JourneyToTheCenterOfTheCell
         *	@post 
         */
         public abstract Actor ActorClone(ContentManager Content, String modelFile, String textureFile, Vector3 inputPosition,
-                                    Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset);
+                                    Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset, InputHandler.keyStates inputType);
 
         /** 
         *   @brief Function implementing AABB collision detection
@@ -289,9 +298,15 @@ namespace JourneyToTheCenterOfTheCell
             return this.minPoint;
         }
 
+        public void SetCodexType(InputHandler.keyStates  inputType)
+        {
+            this.codexType = inputType;
+        }
 
-
-        
+        public InputHandler.keyStates GetCodexType()
+        {
+            return this.codexType;
+        }
 
     }
 }

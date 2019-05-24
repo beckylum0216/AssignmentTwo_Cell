@@ -52,7 +52,7 @@ namespace JourneyToTheCenterOfTheCell
         *	@post 
         */
         public override Actor ActorClone(ContentManager Content, String modelFile, String textureFile, Vector3 inputPosition,
-                                    Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset)
+                                    Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset, InputHandler.keyStates inputType)
         {
             return new SkyBox(Content, modelPath, texturePath, actorPosition, actorRotation, actorScale, AABBOffset);
         }

@@ -85,7 +85,7 @@ namespace JourneyToTheCenterOfTheCell
                             float mapScale = 1.0f;
                             Vector3 buildingRotation = new Vector3(0, 0, 0);
                             int modelLevel = 1;
-                            Map tempMap = new Map(randomList[aa], Map.buildType.Building, modelPath, texturePath, mapScale, buildingRotation, InputHandler.keyStates.NULL, modelLevel);
+                            Map tempMap = new Map(randomList[aa], InputHandler.keyStates.NULL, modelPath, texturePath, mapScale, buildingRotation, InputHandler.keyStates.NULL, modelLevel);
                             gridMap[ii, jj] = tempMap;
                         }
                     }
@@ -132,30 +132,15 @@ namespace JourneyToTheCenterOfTheCell
                     {
                         if ((ii == randomItemList[aa].X) && (jj == randomItemList[aa].Z))
                         {
-                            int randomItem = randomNum.Next(7);
+                            int randomItem = randomNum.Next(5);
 
-                            //string modelPath = "Models/mitochondria";
-                            //string texturePath = "Textures/Mitochondrion_AlbedoTransparency";
-                            //string texturePath = "Textures/Mitochondrion_Normal";
-                            //string modelPath = "Models/cell_obj";
-                            //string texturePath = "Textures/cellwall_diff";
-                            //string modelPath = "Models/Leukoplast";
-                            //string texturePath = "Textures/Leukoplast_AlbedoTransparency";
-                            //string modelPath = "Models/Lysosome";
-                            //string texturePath = "Textures/Lysosome_AlbedoTransparency";
-                            //string modelPath = "Models/nucleus";
-                            //string texturePath = "Textures/NuclearEnvelope_AlbedoTransparency";
-                            //string modelPath = "Models/Reticulum";
-                            //string texturePath = "Textures/Reticulum_AlbedoTransparency";
-                            //string modelPath = "Models/IncorporationOf_type00";
-                            //string texturePath = "Textures/InclusionOf_AlbedoTransparency";
-                            string modelPath = FindModelType(randomItem);
-                            string texturePath = FindTextureType(randomItem);
+                            string modelPath = FindModelTypeLevel2(randomItem);
+                            string texturePath = FindTextureTypeLevel2(randomItem);
 
                             float mapScale = 11f;
                             Vector3 buildingRotation = new Vector3(0, 0, 0);
                             int modelLevel = 1;
-                            Map tempMap = new Map(randomItemList[aa], Map.buildType.Building, modelPath, texturePath, mapScale, buildingRotation, FindCodexType(randomItem), modelLevel);
+                            Map tempMap = new Map(randomItemList[aa], FindCodexTypeLevel2(randomItem), modelPath, texturePath, mapScale, buildingRotation, FindCodexTypeLevel2(randomItem), modelLevel);
                             itemMap[ii, jj] = tempMap;
                         }
                     }
@@ -178,13 +163,13 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre 
         *	@post 
         */
-        public void SetNPCMap()
+        public void SetNPCMapLevel1()
         {
 
             // sets the initial "Map consisting of building and adjacent road
             Random randomNum = new Random();
             List<Vector3> randomItemList = new List<Vector3>();
-            for (int ii = 0; ii < itemSize; ii += 1)
+            for (int ii = 0; ii <npcSize; ii += 1)
             {
                 int randomX = randomNum.Next(itemSize);
                 int randomY = randomNum.Next(itemSize);
@@ -194,7 +179,7 @@ namespace JourneyToTheCenterOfTheCell
                 randomItemList.Add(newPosition);
             }
 
-            for (int aa = 0; aa < itemSize; aa += 1)
+            for (int aa = 0; aa < npcSize; aa += 1)
             {
                 for (int ii = 0; ii < this.sizeX; ii += 1)
                 {
@@ -204,13 +189,70 @@ namespace JourneyToTheCenterOfTheCell
                         {
                             int randomItem = randomNum.Next(2);
 
-                            string modelPath = "Models/Lysosome";
-                            string texturePath = "Textures/Lysosome_AlbedoTransparency";
-                            //string texturePath = "Textures/Mitochondrion_Normal";
+                            string modelPath = FindModelTypeLevel1(randomItem);
+                            //string texturePath = "Textures/Lysosome_AlbedoTransparency";
+                            string texturePath = null;
+                            float mapScale = 11.0f;
+                            Vector3 buildingRotation = new Vector3(0, 0, 0);
+                            int modelLevel = 0;
+                            InputHandler.keyStates modelType = FindCodexTypeLevel1(randomItem);
+                            Map tempMap = new Map(randomItemList[aa], modelType, modelPath, texturePath, mapScale, buildingRotation, FindCodexTypeLevel1(randomItem), modelLevel);
+                            npcMap[ii, jj] = tempMap;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        /** 
+        *   @brief randomly places items in a 3d space
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
+        public void SetNPCMapLevel2()
+        {
+
+            // sets the initial "Map consisting of building and adjacent road
+            Random randomNum = new Random();
+            List<Vector3> randomItemList = new List<Vector3>();
+            for (int ii = 0; ii < npcSize; ii += 1)
+            {
+                int randomX = randomNum.Next(itemSize);
+                int randomY = randomNum.Next(itemSize);
+                int randomZ = randomNum.Next(itemSize);
+
+                Vector3 newPosition = new Vector3(randomX, randomY, randomZ);
+                randomItemList.Add(newPosition);
+            }
+
+            for (int aa = 0; aa < npcSize; aa += 1)
+            {
+                for (int ii = 0; ii < this.sizeX; ii += 1)
+                {
+                    for (int jj = 0; jj < this.sizeZ; jj += 1)
+                    {
+                        if ((ii == randomItemList[aa].X) && (jj == randomItemList[aa].Z))
+                        {
+                            int randomItem = randomNum.Next(2);
+
+                            string modelPath = FindNPCModelTypeLevel2(randomItem);
+                            //string texturePath = "Textures/Lysosome_AlbedoTransparency";
+                            string texturePath = FindNPCTextureTypeLevel2(randomItem);
                             float mapScale = 11.0f;
                             Vector3 buildingRotation = new Vector3(0, 0, 0);
                             int modelLevel = 1;
-                            Map tempMap = new Map(randomItemList[aa], Map.buildType.Building, modelPath, texturePath, mapScale, buildingRotation, FindCodexType(randomItem), modelLevel);
+                            InputHandler.keyStates modelType = FindNPCCodexTypeLevel2(randomItem);
+                            Map tempMap = new Map(randomItemList[aa], modelType, modelPath, texturePath, mapScale, buildingRotation, FindNPCCodexTypeLevel2(randomItem), modelLevel);
                             npcMap[ii, jj] = tempMap;
                         }
                     }
@@ -235,38 +277,111 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre 
         *	@post 
         */
-
-        private InputHandler.keyStates FindCodexType(int inputRandom)
+        private InputHandler.keyStates FindCodexTypeLevel1(int inputRandom)
         {
             InputHandler.keyStates codexType = InputHandler.keyStates.NULL;
 
             switch (inputRandom)
             {
+                //case 0:
+                //    codexType = InputHandler.keyStates.Cell;
+                //    break;
                 case 0:
-                    codexType = InputHandler.keyStates.Cell;
+                    codexType = InputHandler.keyStates.RedBlood;
                     break;
                 case 1:
-                    codexType = InputHandler.keyStates.Nucleus;
+                    codexType = InputHandler.keyStates.WhiteBlood;
                     break;
-                case 2:
+                
+            }
+
+            return codexType;
+
+        }
+
+        /** 
+        *   @brief this functions helps the program to find the right junction for each empty space.
+        *   @brief does not take into account orientation
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return junction the number of junctions
+        *	@pre 
+        *	@post 
+        */
+        private string FindModelTypeLevel1(int inputRandom)
+        {
+            string modelType = null;
+
+            switch (inputRandom)
+            {
+                //case 0:
+                //    modelType = "Models/cell_obj";
+                //    break;
+                case 0:
+                    modelType = "Models/Red blood cell";
+                    break;
+                case 1:
+                    modelType = "Models/human cell";
+                    break;
+                
+            }
+
+            return modelType;
+
+        }
+
+        /** 
+        *   @brief this functions helps the program to find the right junction for each empty space.
+        *   @brief does not take into account orientation
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return junction the number of junctions
+        *	@pre 
+        *	@post 
+        */
+        private InputHandler.keyStates FindCodexTypeLevel2(int inputRandom)
+        {
+            InputHandler.keyStates codexType = InputHandler.keyStates.NULL;
+
+            switch (inputRandom)
+            {
+                //case 0:
+                //    codexType = InputHandler.keyStates.Cell;
+                //    break;
+                //case 1:
+                //    codexType = InputHandler.keyStates.Nucleus;
+                //    break;
+                case 0:
                     codexType = InputHandler.keyStates.ER;
                     break;
-                case 3:
-                    codexType = InputHandler.keyStates.Lysosome;
-                    break;
-                case 4:
-                    codexType = InputHandler.keyStates.Peroxisome;
-                    break;
-                case 5:
+                //case 1:
+                //    codexType = InputHandler.keyStates.Lysosome;
+                //    break;
+                //case 2:
+                //    codexType = InputHandler.keyStates.Peroxisome;
+                //    break;
+                case 1:
                     codexType = InputHandler.keyStates.Golgi;
                     break;
-                case 6:
+                case 2:
                     codexType = InputHandler.keyStates.Mitochondria;
                     break;
-                case 7:
+                case 3:
                     codexType = InputHandler.keyStates.Cytoskeleton;
                     break;
-                case 8:
+                case 4:
                     codexType = InputHandler.keyStates.Selenocysteine;
                     break;
             }
@@ -290,8 +405,7 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre 
         *	@post 
         */
-
-        private string FindModelType(int inputRandom)
+        private string FindModelTypeLevel2(int inputRandom)
         {
             string modelType = null;
 
@@ -306,22 +420,22 @@ namespace JourneyToTheCenterOfTheCell
                 case 0:
                     modelType = "Models/Riticulum";
                     break;
+                //case 1:
+                //    modelType = "Models/Lysosome";
+                //    break;
+                //case 2:
+                //    modelType = "Models/Ball_type00";
+                //    break;
                 case 1:
-                    modelType = "Models/Lysosome";
-                    break;
-                case 2:
-                    modelType = "Models/Ball_type00";
-                    break;
-                case 3:
                     modelType = "Models/golgi";
                     break;
-                case 4:
+                case 2:
                     modelType = "Models/mitochondria";
                     break;
-                case 5:
+                case 3:
                     modelType = "Models/selenocystine_obj";
                     break;
-                case 6:
+                case 4:
                     modelType = "Models/selenocystine_obj";
                     break;
             }
@@ -346,7 +460,7 @@ namespace JourneyToTheCenterOfTheCell
         *	@post 
         */
 
-        private string FindTextureType(int inputRandom)
+        private string FindTextureTypeLevel2(int inputRandom)
         {
             string textureType = null;
 
@@ -361,22 +475,22 @@ namespace JourneyToTheCenterOfTheCell
                 case 0:
                     textureType = "Textures/Riticulum_diff";
                     break;
+                //case 1:
+                //    textureType = "Textures/Lysosome_diff";
+                //    break;
+                //case 2:
+                //    textureType = "Textures/Balls_diff";
+                //    break;
                 case 1:
-                    textureType = "Textures/Lysosome_diff";
-                    break;
-                case 2:
-                    textureType = "Textures/Balls_diff";
-                    break;
-                case 3:
                     textureType = "Textures/golgi_diff";
                     break;
-                case 4:
+                case 2:
                     textureType = "Textures/Mitochondrion_diff";
                     break;
-                case 5:
+                case 3:
                     textureType = "Textures/selenocystine_diff";
                     break;
-                case 6:
+                case 4:
                     textureType = "Textures/selenocystine_diff";
                     break;
             }
@@ -385,6 +499,169 @@ namespace JourneyToTheCenterOfTheCell
 
         }
 
+
+        /** 
+        *   @brief this functions helps the program to find the right junction for each empty space.
+        *   @brief does not take into account orientation
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return junction the number of junctions
+        *	@pre 
+        *	@post 
+        */
+        private InputHandler.keyStates FindNPCCodexTypeLevel2(int inputRandom)
+        {
+            InputHandler.keyStates codexType = InputHandler.keyStates.NULL;
+
+            switch (inputRandom)
+            {
+                case 0:
+                    codexType = InputHandler.keyStates.Lysosome;
+                    break;
+                case 1:
+                    codexType = InputHandler.keyStates.Peroxisome;
+                    break;
+                    //case 0:
+                    //    codexType = InputHandler.keyStates.ER;
+                    //    break;
+                    //case 1:
+                    //    codexType = InputHandler.keyStates.Lysosome;
+                    //    break;
+                    //case 2:
+                    //    codexType = InputHandler.keyStates.Peroxisome;
+                    //    break;
+                    //case 3:
+                    //    codexType = InputHandler.keyStates.Golgi;
+                    //    break;
+                    //case 4:
+                    //    codexType = InputHandler.keyStates.Mitochondria;
+                    //    break;
+                    //case 5:
+                    //    codexType = InputHandler.keyStates.Cytoskeleton;
+                    //    break;
+                    //case 6:
+                    //    codexType = InputHandler.keyStates.Selenocysteine;
+                    //    break;
+            }
+
+            return codexType;
+
+        }
+
+        /** 
+        *   @brief this functions helps the program to find the right junction for each empty space.
+        *   @brief does not take into account orientation
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return junction the number of junctions
+        *	@pre 
+        *	@post 
+        */
+        private string FindNPCModelTypeLevel2(int inputRandom)
+        {
+            string modelType = null;
+
+            switch (inputRandom)
+            {
+                case 0:
+                    modelType = "Models/Lysosome";
+                    break;
+                case 1:
+                    modelType = "Models/Ball_type00";
+                    break;
+                    //case 0:
+                    //    modelType = "Models/Riticulum";
+                    //    break;
+                    //case 1:
+                    //    modelType = "Models/Lysosome";
+                    //    break;
+                    //case 2:
+                    //    modelType = "Models/Ball_type00";
+                    //    break;
+                    //case 3:
+                    //    modelType = "Models/golgi";
+                    //    break;
+                    //case 4:
+                    //    modelType = "Models/mitochondria";
+                    //    break;
+                    //case 5:
+                    //    modelType = "Models/selenocystine_obj";
+                    //    break;
+                    //case 6:
+                    //    modelType = "Models/selenocystine_obj";
+                    //    break;
+            }
+
+            return modelType;
+
+        }
+
+        /** 
+        *   @brief this functions helps the program to find the right junction for each empty space.
+        *   @brief does not take into account orientation
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return junction the number of junctions
+        *	@pre 
+        *	@post 
+        */
+
+        private string FindNPCTextureTypeLevel2(int inputRandom)
+        {
+            string textureType = null;
+
+            switch (inputRandom)
+            {
+                case 0:
+                    textureType = "Textures/Lysosome_diff";
+                    break;
+                case 1:
+                    textureType = "Textures/Balls_diff";
+                    break;
+                    //case 0:
+                    //    textureType = "Textures/Riticulum_diff";
+                    //    break;
+                    //case 1:
+                    //    textureType = "Textures/Lysosome_diff";
+                    //    break;
+                    //case 2:
+                    //    textureType = "Textures/Balls_diff";
+                    //    break;
+                    //case 3:
+                    //    textureType = "Textures/golgi_diff";
+                    //    break;
+                    //case 4:
+                    //    textureType = "Textures/Mitochondrion_diff";
+                    //    break;
+                    //case 5:
+                    //    textureType = "Textures/selenocystine_diff";
+                    //    break;
+                    //case 6:
+                    //    textureType = "Textures/selenocystine_diff";
+                    //    break;
+            }
+
+            return textureType;
+
+        }
 
 
         /** 
@@ -412,9 +689,9 @@ namespace JourneyToTheCenterOfTheCell
                     {
                         if ((ii == randomList[aa].X) && (jj == randomList[aa].Z))
                         {
-                            float tempX = gridMap[ii, jj].GetPositionMap().X * 22;
-                            float tempY = gridMap[ii, jj].GetPositionMap().Y * 22;
-                            float tempZ = gridMap[ii, jj].GetPositionMap().Z * 22;
+                            float tempX = gridMap[ii, jj].GetPositionMap().X * 20;
+                            float tempY = gridMap[ii, jj].GetPositionMap().Y * 20;
+                            float tempZ = gridMap[ii, jj].GetPositionMap().Z * 20;
 
                             gridMap[ii, jj].SetCoordX(tempX);
                             gridMap[ii, jj].SetCoordZ(tempZ);
@@ -609,24 +886,54 @@ namespace JourneyToTheCenterOfTheCell
         */
         public void PrintCoords()
         {
-            for(int aa = 0; aa < structureSize; aa += 1)
+            
+            for (int ii = 0; ii < sizeX; ii++)
             {
-                for (int ii = 0; ii < sizeX; ii++)
+                for (int jj = 0; jj < sizeZ; jj++)
                 {
-                    for (int jj = 0; jj < sizeZ; jj++)
+                    if (!(gridMap[ii,jj] == null))
                     {
-                        if ((ii == randomList[aa].X) && (jj == randomList[aa].Z))
-                        {
-                            Debug.WriteLine("Coord X: " + gridMap[ii, jj].GetCoordX() + " Y: " + gridMap[ii, jj].GetCoordY() + " Z: " + gridMap[ii, jj].GetCoordZ());
-                        }
-
+                        Debug.WriteLine("Coord X: " + gridMap[ii, jj].GetCoordX() + " Y: " + gridMap[ii, jj].GetCoordY() + " Z: " + gridMap[ii, jj].GetCoordZ());
                     }
+
                 }
             }
             
+            
         }
-        
 
+        /** 
+        *   @brief utility function to print out the coordinates of the grid for debugging
+        *   @brief 
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
+        public void PrintNPCCoords()
+        {
+     
+            for (int ii = 0; ii < sizeX; ii++)
+            {
+                for (int jj = 0; jj < sizeZ; jj++)
+                {
+                    if (!(npcMap[ii,jj] == null))
+                    {
+                        Debug.WriteLine("Coord X: " + npcMap[ii, jj].GetCoordX() + " Y: " + npcMap[ii, jj].GetCoordY() + " Z: " + npcMap[ii, jj].GetCoordZ());
+                    }
+
+                }
+            }
+            
+
+        }
 
 
 

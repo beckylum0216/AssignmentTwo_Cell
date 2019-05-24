@@ -26,7 +26,7 @@ namespace JourneyToTheCenterOfTheCell
 
         // enum of building types
         public enum buildType {NullMap, RoadHorizontal, RoadVertical, RoadCorner, Building, RoadT, RoadCross, SkyBox};
-        private buildType blockType;
+        private InputHandler.keyStates blockType;
         private String modelPath;
         private String texturePath;
 
@@ -42,7 +42,7 @@ namespace JourneyToTheCenterOfTheCell
         public Map()
         {
             this.positionMap = new Vector3();
-            this.blockType = buildType.NullMap;
+            this.blockType = InputHandler.keyStates.NULL;
         }
 
         /**
@@ -52,7 +52,7 @@ namespace JourneyToTheCenterOfTheCell
 	    *	@pre 
 	    *	@post Map will exist
 	    */
-        public Map(Vector3 gridPosition, buildType gridType, string modelFile, 
+        public Map(Vector3 gridPosition, InputHandler.keyStates gridType, string modelFile, 
                         string textureFile, float gridScale, Vector3 gridRotation, 
                         InputHandler.keyStates codexInput, int inputLevel)
         {
@@ -155,7 +155,7 @@ namespace JourneyToTheCenterOfTheCell
         * @pre 
         * @post block type will exist
         */
-        public void SetMapType(buildType inputType)
+        public void SetMapType(InputHandler.keyStates inputType)
         {
             this.blockType = inputType;
         }
@@ -167,7 +167,7 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre block type must exist
         *	@post 
         */
-        public buildType GetMapType()
+        public InputHandler.keyStates GetMapType()
         {
             return this.blockType;
         }

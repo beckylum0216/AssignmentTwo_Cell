@@ -31,8 +31,12 @@ namespace JourneyToTheCenterOfTheCell
         }
         public void StoryFinishedEvent(Entity btn)
         {
-            GameOneManager newGame = new GameOneManager(m_gtx);//need this code to execute on begin game of my new view class
-            m_gtx.SetGameState(newGame);
+            //need this code to execute on begin game of my new view class
+            //GameOneManager newGame = new GameOneManager(m_gtx);
+            //m_gtx.SetGameState(newGame);
+            GameTwoManager testGame = new GameTwoManager(m_gtx);
+            m_gtx.SetGameState(testGame);
+
 
         }
 

@@ -11,6 +11,9 @@ namespace JourneyToTheCenterOfTheCell
 {
     public class Structure : Actor
     {
+
+        
+
         /**
 	    *	@brief parameterised constructor to the plot object. Create a complete plot object.
 	    *	@param Content 
@@ -26,7 +29,7 @@ namespace JourneyToTheCenterOfTheCell
 	    *	@post Camera will exist
 	    */
         public Structure(ContentManager Content,  String modelFile, String textureFile,
-                        Vector3 inputPosition, Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset)
+                        Vector3 inputPosition, Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset, InputHandler.keyStates inputCodex)
         {
             this.modelPath = modelFile;
             this.texturePath = textureFile;
@@ -39,8 +42,9 @@ namespace JourneyToTheCenterOfTheCell
             this.AABBOffset = inputAABBOffset;
             this.maxPoint = this.actorPosition + this.AABBOffset;
             this.minPoint = this.actorPosition - this.AABBOffset;
-        }
+            this.codexType = inputCodex;
 
+        }
 
         
 
@@ -72,9 +76,9 @@ namespace JourneyToTheCenterOfTheCell
         *	@post 
         */
         public override Actor ActorClone(ContentManager Content, String modelFile, String textureFile, Vector3 inputPosition,
-                                    Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset)
+                                    Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset, InputHandler.keyStates inputType)
         {
-            return new Structure(Content, modelPath, texturePath, actorPosition, actorRotation, actorScale, AABBOffset);
+            return new Structure(Content, modelPath, texturePath, actorPosition, actorRotation, actorScale, AABBOffset, inputType);
         }
 
         

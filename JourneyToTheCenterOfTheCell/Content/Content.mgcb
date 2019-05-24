@@ -5168,6 +5168,25 @@
 /processorParam:TextureFormat=Compressed
 /build:Models/peroxisome.fbx
 
+#begin Models/Red blood cell.fbx
+/importer:FbxImporter
+/processor:ModelProcessor
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=0
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=1
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:Models/Red blood cell.fbx
+
 #begin Models/Riticulum.obj
 /importer:FbxImporter
 /processor:ModelProcessor
@@ -5394,6 +5413,18 @@
 /processorParam:Quality=Best
 /build:Sound/Power_Up_Ray-Mike_Koenig-800933783.mp3
 
+#begin Textures/aliencell_cubemap.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/aliencell_cubemap.jpg
+
 #begin Textures/Balls_diff.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -5405,6 +5436,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Textures/Balls_diff.jpg
+
+#begin Textures/blood_cubemap.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/blood_cubemap.jpg
 
 #begin Textures/bloodcell_diff.jpg
 /importer:TextureImporter

@@ -89,8 +89,18 @@ namespace JourneyToTheCenterOfTheCell
 
                 if (this.GetObservers()[ii].AABBtoAABB(this))
                 {
+                    if(this.GetObservers()[ii].GetCodexType() == InputHandler.keyStates.Cell)
+                    {
+                        Debug.WriteLine("Codex Type: " + this.GetObservers()[ii].GetCodexType());
+                        GameTwoManager newGame = new GameTwoManager(gameCtx);
+                        gameCtx.SetGameState(newGame);
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Codex Type: " + this.GetObservers()[ii].GetCodexType());
+                        this.AABBResolution(this.GetObservers()[ii], deltaTime, fps);
+                    }
                     
-                    this.AABBResolution(this.GetObservers()[ii], deltaTime, fps);
                     
                 }
 
@@ -108,7 +118,7 @@ namespace JourneyToTheCenterOfTheCell
                     }
                     this.itemHandler.RemoveItemHash(this.GetItems()[ii].GetItemID());
 
-                    if(this.GetItems()[ii].GetCodexType() == InputHandler.keyStates.Cell)
+                    if(this.GetItems()[ii].GetCodexType() == InputHandler.keyStates.Selenocysteine)
                     {
                         this.GetItems().Remove(this.GetItems()[ii]);
                         GameTwoManager newGame = new GameTwoManager(gameCtx);
@@ -125,12 +135,19 @@ namespace JourneyToTheCenterOfTheCell
 
             for(int ii = 0; ii < this.GetNPCs().Count; ii += 1)
             {
-                //Debug.WriteLine("Collision NPC State: " + this.GetNPCs()[ii].StateAABB(this));
                 if(this.GetNPCs()[ii].StateAABB(this))
                 {
-                    Debug.WriteLine("Attack State!!!");
-                    NPCAttack attackState = new NPCAttack(this);
-                    this.GetNPCs()[ii].SetNPCState(attackState);
+                    if(this.GetNPCs()[ii].GetNPCType() == InputHandler.keyStates.RedBlood)
+                    {
+                        this.GetNPCs()[ii].SetNPCState(wanderList[ii]);
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Attack State!!!");
+                        NPCAttack attackState = new NPCAttack(this);
+                        this.GetNPCs()[ii].SetNPCState(attackState);
+                    }
+                    
                 }
                 else
                 {

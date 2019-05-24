@@ -84,6 +84,7 @@
     <Compile Include="MenuView.cs" />
     <Compile Include="Test\TestCamera.cs" />
     <Compile Include="Test\TestCase.cs" />
+    <Compile Include="Test\TestCodex.cs" />
     <Compile Include="Test\TestInputHandler.cs" />
     <Compile Include="Text.cs" />
   </ItemGroup>

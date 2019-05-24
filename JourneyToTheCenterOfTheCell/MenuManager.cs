@@ -36,7 +36,7 @@ namespace JourneyToTheCenterOfTheCell
         public override void Update(GameContext gameCtx)
         {
             UserInterface.Active.Update(gameCtx.GetGameTime());
-            if (titleCount < 301)
+            if (titleCount < 101)
             {
                 titleCount += 1;
             }
@@ -48,7 +48,7 @@ namespace JourneyToTheCenterOfTheCell
             UserInterface.Active.IncludeCursorInRenderTarget = true;
 
             UserInterface.Active.Draw(gameCtx.GetSpriteBatch());
-            if (titleCount < 300)
+            if (titleCount < 100)
             {
                 sb.Begin();
                 sb.Draw(titleS, null,gameCtx.GetGraphics().GraphicsDevice.Viewport.Bounds);

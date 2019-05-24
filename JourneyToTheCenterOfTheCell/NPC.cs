@@ -19,17 +19,21 @@ namespace JourneyToTheCenterOfTheCell
         Vector3 stateOffset;
         Vector3 stateMinPoint;
         Vector3 stateMaxPoint;
-        //Subject camera;
+        InputHandler.keyStates npcType;
 
         public NPC(ContentManager Content, int inputID , String modelFile, String textureFile,
                         Vector3 inputPosition, Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset,
-                        float inputSpeed, List<Vector3> inputWaypoints)
+                        float inputSpeed, List<Vector3> inputWaypoints, InputHandler.keyStates inputType)
         {
 
             this.modelPath = modelFile;
             this.texturePath = textureFile;
             this.actorModel = Content.Load<Model>(modelPath);
-            this.actorTexture = Content.Load<Texture2D>(texturePath);
+            if(!(texturePath == null))
+            {
+                this.actorTexture = Content.Load<Texture2D>(texturePath);
+            }
+            
             this.futurePosition = inputPosition;
             this.actorPosition = inputPosition;
             this.actorRotation = inputRotation;
@@ -47,16 +51,17 @@ namespace JourneyToTheCenterOfTheCell
             this.npcWaypoints = inputWaypoints;
             //Debug.WriteLine("Waypoint Size: " + this.npcWaypoints.Count);
             this.PrintNPCWaypoints();
-
-            //this.npcWaypointIndex = 0;
-            //this.tempIndex = 0;
-            //resultVector = new Vector3(0, 0, 0);
-            //tempDirection = new Vector3(0, 0, 0);
+            
             this.npcState = new NPCWander(this);
+
+            this.npcType = inputType;
 
         }
 
-        public override Actor ActorClone(ContentManager Content, string modelFile, string textureFile, Vector3 inputPosition, Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset)
+        public override Actor ActorClone(ContentManager Content, string modelFile, 
+                                            string textureFile, Vector3 inputPosition, 
+                                                Vector3 inputRotation, float inputScale, 
+                                                    Vector3 inputAABBOffset, InputHandler.keyStates inputType)
         {
             return this.MemberwiseClone() as Actor;
         }
@@ -83,6 +88,16 @@ namespace JourneyToTheCenterOfTheCell
         public INPCState GetNPCState()
         {
             return this.npcState;
+        }
+
+        public void SetNPCType(InputHandler.keyStates inputType)
+        {
+            this.npcType = inputType;
+        }
+
+        public InputHandler.keyStates GetNPCType()
+        {
+            return this.npcType;
         }
 
         public Vector3 AnimateNPC(float deltaTime, float fps)

@@ -60,10 +60,10 @@ namespace JourneyToTheCenterOfTheCell
             gameLevel = 0;
             mapClient = new ModelHandler(gameCtx.GetGameInstance().Content, 100, 100, 100, 1.0f, gameLevel);
             mapClient.SetPlotDictionary();
-            mapClient.SetPlotList(gameLevel);
+            mapClient.SetPlotList();
             mapClient.PrintPlotList();
 
-            mapClient.SetItemHash();
+            //mapClient.SetItemHash();
             mapClient.SetNPCHash();
             //mapClient.PrintItemList();
 

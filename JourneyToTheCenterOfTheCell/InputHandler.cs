@@ -15,7 +15,7 @@ namespace JourneyToTheCenterOfTheCell
     public class InputHandler
     {
         public enum keyStates { Forwards, Backwards, Left, Right, NULL, CodexDown, CodexUp, Cell, Nucleus, ER,  
-                                Lysosome, Peroxisome, Golgi, Mitochondria, Cytoskeleton, Selenocysteine};
+                                Lysosome, Peroxisome, Golgi, Mitochondria, Cytoskeleton, Selenocysteine, RedBlood, WhiteBlood};
         private KeyboardState keyboardInput;
         private MouseState mouseInput;
         private GamePadState gamePadInput;

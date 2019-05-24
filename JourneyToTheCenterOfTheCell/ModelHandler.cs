@@ -43,6 +43,7 @@ namespace JourneyToTheCenterOfTheCell
 	    */
         public ModelHandler(ContentManager inputContent,  int inputX, int inputY, int inputZ, float inputScale, int inputLevel)
         {
+            this.gameLevel = inputLevel;
             Content = inputContent;
             sizeX = inputX;
             sizeY = inputY;
@@ -54,23 +55,37 @@ namespace JourneyToTheCenterOfTheCell
 
             // initialise map
             mapCreate = new MapGenerator(sizeX, sizeY, sizeZ);
-            mapCreate.SetStructureMap();
+
+            if(gameLevel ==  0)
+            {
+                mapCreate.SetNPCMapLevel1();
+                mapCreate.SetNPCCoords();
+                npcMap = mapCreate.GetNPCMap();
+            }
+            else if(gameLevel == 1)
+            {
+                mapCreate.SetStructureMap();
+
+                mapCreate.PrintGrid();
+                mapCreate.SetStructureCoords();
+                mapCreate.PrintCoords();
+
+                mapCreate.SetItemMap();
+                mapCreate.SetItemCoords();
+
+                mapCreate.SetNPCMapLevel2();
+                mapCreate.SetNPCCoords();
+                //mapCreate.PrintNPCCoords();
+
+                gridMap = mapCreate.GetGridMap();
+                itemMap = mapCreate.GetItemMap();
+                Debug.WriteLine("NPC map size: " + mapCreate.GetNPCMap().Length);
+                npcMap = mapCreate.GetNPCMap();
+
+            }
             
-            mapCreate.PrintGrid();
-            mapCreate.SetStructureCoords();
-            mapCreate.PrintCoords();
 
-            mapCreate.SetItemMap();
-            mapCreate.SetItemCoords();
-
-            mapCreate.SetNPCMap();
-            mapCreate.SetNPCCoords();
-
-            gridMap = mapCreate.GetGridMap();
-            itemMap = mapCreate.GetItemMap();
-            npcMap = mapCreate.GetNPCMap();
-
-            this.gameLevel = inputLevel;
+            
         }
 
         /** 
@@ -222,12 +237,12 @@ namespace JourneyToTheCenterOfTheCell
         }
 
         // bad bad code 
-        public void SetPlotList(int gameLevel)
+        public void SetPlotList()
         {
             if(gameLevel == 0)
             {
                 string modelFile = "Models/skybox_cube";
-                string textureFile = "Textures/InnerBody2";
+                string textureFile = "Textures/blood_cubemap";
                 // move the centre of the skybox to the centre of the "city"
                 float centerOrigin = 1;
                 Vector3 positionSkyBox = new Vector3(centerOrigin, 0f, centerOrigin);
@@ -241,7 +256,7 @@ namespace JourneyToTheCenterOfTheCell
             else
             {
                 string modelFile = "Models/skybox_cube";
-                string textureFile = "Textures/skybox_diffuse";
+                string textureFile = "Textures/aliencell_cubemap";
                 // move the centre of the skybox to the centre of the "city"
                 float centerOrigin = 1;
                 Vector3 positionSkyBox = new Vector3(centerOrigin, 0f, centerOrigin);
@@ -253,37 +268,44 @@ namespace JourneyToTheCenterOfTheCell
                 plotList.Add(skyBoxObj);
             }
 
-            string modelCell = "Models/cell_obj";
-            string textureCell = "Textures/cell_diff";
-            
-            Vector3 positionCell = new Vector3(100, 20, 100);
-            Vector3 rotationCell = new Vector3(0, 0, 0);
-            Vector3 AABBCell = new Vector3(0, 0, 0);
-            float scaleCell = 100f;
-            //Actor plotSkyBox = landPlots["SkyBox"].ActorClone(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
-            Structure cellObj = new Structure(Content, modelCell, textureCell, positionCell, rotationCell, scaleCell, AABBCell);
-            plotList.Add(cellObj);
 
-
-            Debug.WriteLine("list size:" + plotList.Count);
-            //adds to the list the land and road tiles
-            for (int ii = 0; ii < sizeX; ii++)
+            if(gameLevel == 0)
             {
-                for (int jj = 0; jj < sizeY; jj++)
-                {
-                    if(!(gridMap[ii, jj] == null))
-                    {
-                        Vector3 tempPosition = new Vector3(gridMap[ii, jj].GetCoordX(), gridMap[ii, jj].GetCoordY(), gridMap[ii, jj].GetCoordZ());
-                        Vector3 tempOffset = new Vector3(20, 10, 20);
-                        // prototyping map tiles not working as planned 
-                        // Actor tempPlot = landPlots[gridMap[ii, jj].GetBlockType().ToString()].ActorClone(Content, gridMap[ii, jj].GetModelPath(), gridMap[ii, jj].GetTexturePath(), tempPosition, gridMap[ii, jj].GetBlockRotation(), gridMap[ii, jj].GetBlockScale(), tempOffset);
-                        Structure tempPlot = new Structure(Content, gridMap[ii, jj].GetModelPath(), gridMap[ii, jj].GetTexturePath(), tempPosition, gridMap[ii, jj].GetMapRotation(), gridMap[ii, jj].GetMapScale(), tempOffset);
-                        plotList.Add(tempPlot);
-                    }
-                    
-                }
+                string modelCell = "Models/cell_obj";
+                string textureCell = "Textures/cell_diff";
+                Vector3 positionCell = new Vector3(100, 100, 100) * 20;
+                Vector3 rotationCell = new Vector3(0, 0, 0);
+                float scaleCell = 100f;
+                Vector3 AABBCell = new Vector3(2, 2, 2) * scaleCell;
+                
+                //Actor plotSkyBox = landPlots["SkyBox"].ActorClone(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
+                Structure cellObj = new Structure(Content, modelCell, textureCell, positionCell, rotationCell, scaleCell, AABBCell, InputHandler.keyStates.Cell);
+                plotList.Add(cellObj);
             }
-            Debug.WriteLine("list size:" + plotList.Count);
+            
+
+            if(gameLevel == 1)
+            {
+                Debug.WriteLine("list size:" + plotList.Count);
+                //adds to the list the land and road tiles
+                for (int ii = 0; ii < sizeX; ii++)
+                {
+                    for (int jj = 0; jj < sizeY; jj++)
+                    {
+                        if (!(gridMap[ii, jj] == null))
+                        {
+                            Vector3 tempPosition = new Vector3(gridMap[ii, jj].GetCoordX(), gridMap[ii, jj].GetCoordY(), gridMap[ii, jj].GetCoordZ());
+                            Vector3 tempOffset = new Vector3(20, 20, 20);
+                            // prototyping map tiles not working as planned 
+                            // Actor tempPlot = landPlots[gridMap[ii, jj].GetBlockType().ToString()].ActorClone(Content, gridMap[ii, jj].GetModelPath(), gridMap[ii, jj].GetTexturePath(), tempPosition, gridMap[ii, jj].GetBlockRotation(), gridMap[ii, jj].GetBlockScale(), tempOffset);
+                            Structure tempPlot = new Structure(Content, gridMap[ii, jj].GetModelPath(), gridMap[ii, jj].GetTexturePath(), tempPosition, gridMap[ii, jj].GetMapRotation(), gridMap[ii, jj].GetMapScale(), tempOffset, gridMap[ii,jj].GetCodexType());
+                            plotList.Add(tempPlot);
+                        }
+
+                    }
+                }
+                Debug.WriteLine("list size:" + plotList.Count);
+            }
             
         }
 
@@ -291,7 +313,7 @@ namespace JourneyToTheCenterOfTheCell
         public void SetItemHash()
         {
 
-            Debug.WriteLine("list size:" + plotList.Count);
+            Debug.WriteLine("item size:" + itemHash.Count);
             //adds to the list the land and road tiles
             for (int ii = 0; ii < sizeX; ii++)
             {
@@ -300,7 +322,7 @@ namespace JourneyToTheCenterOfTheCell
                     if (!(itemMap[ii, jj] == null))
                     {
                         Vector3 tempPosition = new Vector3(itemMap[ii, jj].GetCoordX(), itemMap[ii, jj].GetCoordY(), itemMap[ii, jj].GetCoordZ());
-                        Vector3 tempOffset = new Vector3(20, 10, 20);
+                        Vector3 tempOffset = new Vector3(20, 20, 20);
                         
                         int tempID = (int) Math.Round( (itemMap[ii, jj].GetCoordX() * itemMap[ii, jj].GetCoordY() * itemMap[ii, jj].GetCoordZ())) ;
                         Item tempPlot = new Item(Content, tempID, itemMap[ii, jj].GetModelPath(), itemMap[ii, jj].GetTexturePath(), tempPosition, itemMap[ii, jj].GetMapRotation(),itemMap[ii, jj].GetMapScale(), tempOffset, itemMap[ii,jj].GetCodexType());
@@ -312,7 +334,7 @@ namespace JourneyToTheCenterOfTheCell
 
                 }
             }
-            Debug.WriteLine("list size:" + plotList.Count);
+            Debug.WriteLine("item size:" + itemHash.Count);
 
         }
 
@@ -323,8 +345,6 @@ namespace JourneyToTheCenterOfTheCell
 
         public void SetNPCHash()
         {
-
-           
             //adds to the list the land and road tiles
             for (int ii = 0; ii < sizeX; ii++)
             {
@@ -351,7 +371,7 @@ namespace JourneyToTheCenterOfTheCell
                             newWayPoints.Add(newPosition);
                         }
 
-                        NPC tempPlot = new NPC(Content, tempID, npcMap[ii, jj].GetModelPath(), npcMap[ii, jj].GetTexturePath(), tempPosition, npcMap[ii, jj].GetMapRotation(), npcMap[ii, jj].GetMapScale(), tempOffset, tempSpeed, newWayPoints);
+                        NPC tempPlot = new NPC(Content, tempID, npcMap[ii, jj].GetModelPath(), npcMap[ii, jj].GetTexturePath(), tempPosition, npcMap[ii, jj].GetMapRotation(), npcMap[ii, jj].GetMapScale(), tempOffset, tempSpeed, newWayPoints, npcMap[ii, jj].GetMapType());
                         if (!npcHash.ContainsKey(tempPlot.GetNPCID()))
                         {
                             npcHash.Add(tempPlot.GetNPCID(), tempPlot);
