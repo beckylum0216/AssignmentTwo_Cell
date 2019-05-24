@@ -287,7 +287,7 @@ namespace JourneyToTheCenterOfTheCell
             if(gameLevel == 1)
             {
                 Debug.WriteLine("list size:" + plotList.Count);
-                //adds to the list the land and road tiles
+                
                 for (int ii = 0; ii < sizeX; ii++)
                 {
                     for (int jj = 0; jj < sizeY; jj++)
@@ -296,8 +296,6 @@ namespace JourneyToTheCenterOfTheCell
                         {
                             Vector3 tempPosition = new Vector3(gridMap[ii, jj].GetCoordX(), gridMap[ii, jj].GetCoordY(), gridMap[ii, jj].GetCoordZ());
                             Vector3 tempOffset = new Vector3(20, 20, 20);
-                            // prototyping map tiles not working as planned 
-                            // Actor tempPlot = landPlots[gridMap[ii, jj].GetBlockType().ToString()].ActorClone(Content, gridMap[ii, jj].GetModelPath(), gridMap[ii, jj].GetTexturePath(), tempPosition, gridMap[ii, jj].GetBlockRotation(), gridMap[ii, jj].GetBlockScale(), tempOffset);
                             Structure tempPlot = new Structure(Content, gridMap[ii, jj].GetModelPath(), gridMap[ii, jj].GetTexturePath(), tempPosition, gridMap[ii, jj].GetMapRotation(), gridMap[ii, jj].GetMapScale(), tempOffset, gridMap[ii,jj].GetCodexType());
                             plotList.Add(tempPlot);
                         }
