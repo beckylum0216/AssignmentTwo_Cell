@@ -54,7 +54,7 @@ namespace JourneyToTheCenterOfTheCell
 
 
             //draw the text at the required positionx
-            spriteBatch.DrawString(arial, theString, screenPosition, Color.White);
+            spriteBatch.DrawString(arial, theString, screenPosition, Color.Blue);
 
 
             spriteBatch.End();

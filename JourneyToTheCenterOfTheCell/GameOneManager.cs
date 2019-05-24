@@ -111,7 +111,7 @@ namespace JourneyToTheCenterOfTheCell
             //initialise font for timer display
             font = gameCtx.GetGameInstance().Content.Load<SpriteFont>("Fonts/arialFont");
             text.Initialise(font);
-            text.SetPosition(new Vector2((this.GetScreenX()/2)-30,10));
+            text.SetPosition(new Vector2((this.GetScreenX()/2)-45,8));
             stopWatch.Start();
             hud.Initialise(gameCtx,screenX,screenY);
 
@@ -192,7 +192,7 @@ namespace JourneyToTheCenterOfTheCell
             seconds = ts.Seconds;
             minutes = ts.Minutes;
             
-            text.SetString("Time : "+ minutes+":"+seconds+"");
+            text.SetString("Time: "+ minutes+":"+seconds+"");
             stopWatch.Start();
             hud.Update();
         }
@@ -215,10 +215,12 @@ namespace JourneyToTheCenterOfTheCell
                 index.ActorDraw(theWorld, theCamera, projection);
             }
 
-            CodexManager.GetCodexInstance().Draw();
             
-            text.Draw(gameCtx.GetSpriteBatch(),gameCtx.GetGraphics());
+            
+            
             hud.Draw(gameCtx.GetSpriteBatch(), gameCtx.GetGraphics());//draw the initialised hud
+            text.Draw(gameCtx.GetSpriteBatch(), gameCtx.GetGraphics());
+            CodexManager.GetCodexInstance().Draw();
         }
     }
 }
