@@ -94,7 +94,7 @@ namespace JourneyToTheCenterOfTheCell
             /// assuming righthandedness
             Vector3 pitchAxis = Vector3.Cross(subjectRotation, Vector3.Up);
             pitchAxis.Normalize();
-
+            p1.Update();
             subjectRotation = CameraUpdate(subjectRotation, pitchAxis, inputVector.Y, inputVector);
             subjectRotation = CameraUpdate(subjectRotation, Vector3.Up, -inputVector.X, -inputVector);
 
@@ -170,11 +170,18 @@ namespace JourneyToTheCenterOfTheCell
                     }
                     else
                     {
-                        Debug.WriteLine("Attack State!!!");
+                        if (this.GetCamPlayer().GetShieldIsActive() == false)
+                        {
+                            Debug.WriteLine("Attack State!!!");
 
-                        NPCAttack attackState = new NPCAttack(this);
-                        this.GetNPCs()[ii].SetNPCState(attackState);
-                        p1.SetHealthByReductionAmount(0.01f);
+                            NPCAttack attackState = new NPCAttack(this);
+                            this.GetNPCs()[ii].SetNPCState(attackState);
+                            p1.SetHealthByReductionAmount(0.01f);
+                        }
+                        else if (this.GetCamPlayer().GetShieldIsActive() == true)
+                        {
+                            this.GetNPCs()[ii].SetNPCState(wanderList[ii]);
+                        }
                     }
                     
                 }
@@ -267,7 +274,7 @@ namespace JourneyToTheCenterOfTheCell
         */
         public Vector3 CameraUpdate(Vector3 deltaVector, Vector3 targetAxis, float inputDegrees, Vector3 inputVector)
         {
-
+            
             if (inputVector.Length() > 0)
             {
                 float radianInput = SubjectRadians(inputDegrees);
@@ -307,6 +314,10 @@ namespace JourneyToTheCenterOfTheCell
         {
            
             subjectRotation.Normalize();
+            if (direction == InputHandler.keyStates.ShieldToggle)
+            {
+                this.p1.SetShieldActiveToggle();
+            }
 
             if (direction == InputHandler.keyStates.Forwards)
             {

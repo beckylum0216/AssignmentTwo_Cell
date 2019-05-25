@@ -60,6 +60,14 @@ namespace JourneyToTheCenterOfTheCell
 
         public void Update()
         {
+            if (shieldActive == true)
+            {
+                shield = shield - 0.07f;
+            }
+            if (shield < 1)
+            {
+                shieldActive = false;
+            }
             
         }
     }

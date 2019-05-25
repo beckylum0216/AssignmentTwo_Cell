@@ -15,7 +15,7 @@ namespace JourneyToTheCenterOfTheCell
     public class InputHandler
     {
         public enum keyStates { Forwards, Backwards, Left, Right, NULL, CodexDown, CodexUp, Cell, Nucleus, ER,  
-                                Lysosome, Peroxisome, Golgi, Mitochondria, Cytoskeleton, Selenocysteine, RedBlood, WhiteBlood};
+                                Lysosome, Peroxisome, Golgi, Mitochondria, Cytoskeleton, Selenocysteine, RedBlood, WhiteBlood,ShieldToggle};
         private KeyboardState keyboardInput;
         private MouseState mouseInput;
         private GamePadState gamePadInput;
@@ -181,6 +181,13 @@ namespace JourneyToTheCenterOfTheCell
             {
 
                 directionState = keyStates.CodexUp;
+                //c.Deactivate();
+            }
+
+            if (keyboardInput.IsKeyDown(Keys.G))//keypress for deactivating codex
+            {
+
+                directionState = keyStates.ShieldToggle;
                 //c.Deactivate();
             }
 
