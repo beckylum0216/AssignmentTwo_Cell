@@ -51,7 +51,7 @@ namespace JourneyToTheCenterOfTheCell
             theWorld = Matrix.CreateTranslation(new Vector3(0, 0, 0));
             screenX = gameCtx.GetGraphics().GraphicsDevice.Viewport.Width;
             screenY = gameCtx.GetGraphics().GraphicsDevice.Viewport.Height;
-            projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), screenX / screenY, 0.1f, 20000f);
+            projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), screenX / screenY, 0.1f, 30000f);
 
             int centerX = (int)(screenX / 2);
             int centerY = (int)(screenY / 2);

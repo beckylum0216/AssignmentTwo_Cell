@@ -248,7 +248,7 @@ namespace JourneyToTheCenterOfTheCell
                 Vector3 positionSkyBox = new Vector3(centerOrigin, 0f, centerOrigin);
                 Vector3 rotationSkyBox = new Vector3(0, 0, 0);
                 Vector3 AABBOffset = new Vector3(0, 0, 0);
-                float scaleSkyBox = 1000f;
+                float scaleSkyBox = 2000f;
                 //Actor plotSkyBox = landPlots["SkyBox"].ActorClone(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
                 SkyBox skyBoxObj = new SkyBox(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
                 plotList.Add(skyBoxObj);
@@ -262,7 +262,7 @@ namespace JourneyToTheCenterOfTheCell
                 Vector3 positionSkyBox = new Vector3(centerOrigin, 0f, centerOrigin);
                 Vector3 rotationSkyBox = new Vector3(0, 0, 0);
                 Vector3 AABBOffset = new Vector3(0, 0, 0);
-                float scaleSkyBox = 1000f;
+                float scaleSkyBox = 2000f;
                 //Actor plotSkyBox = landPlots["SkyBox"].ActorClone(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
                 SkyBox skyBoxObj = new SkyBox(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
                 plotList.Add(skyBoxObj);

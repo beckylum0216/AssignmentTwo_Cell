@@ -1,5 +1,5 @@
 ﻿//Author:Bruno Neto
-//Player: this class forms the interface for resolving attacks from enemies, death,and getters for other classes to update(HUD) 
+//Player: this class forms the interface for resolving attacks from enemies, death,and getters for other classes to update(HUD) setting shield on or of and handling shield logic
 //Version 1.0
 
 using GeonBit.UI;
@@ -9,11 +9,11 @@ namespace JourneyToTheCenterOfTheCell
 {
     public class Player
     {
-        GameContext gtx;
-        float health;
-        float shield;
-        
-        bool shieldActive;
+        private GameContext gtx;
+        private float health;
+        private float shield;
+        private bool shieldActive;
+
         public Player(GameContext GTX)
         {
             
@@ -60,6 +60,14 @@ namespace JourneyToTheCenterOfTheCell
 
         public void Update()
         {
+            if (shieldActive == true)
+            {
+                shield = shield - 0.07f;
+            }
+            if (shield < 1)
+            {
+                shieldActive = false;
+            }
             
         }
     }

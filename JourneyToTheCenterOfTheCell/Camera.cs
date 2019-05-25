@@ -99,14 +99,18 @@ namespace JourneyToTheCenterOfTheCell
             /// assuming righthandedness
             Vector3 pitchAxis = Vector3.Cross(subjectRotation, Vector3.Up);
             pitchAxis.Normalize();
-
+            p1.Update();
             subjectRotation = CameraUpdate(subjectRotation, pitchAxis, inputVector.Y, inputVector);
             subjectRotation = CameraUpdate(subjectRotation, Vector3.Up, -inputVector.X, -inputVector);
 
             cameraEye = subjectPosition + subjectRotation; // this is the correct 
 
             subjectPosition = FloorCheck();
-
+            subjectPosition = RoofCheck();
+            subjectPosition = FrontCheck();
+            subjectPosition = BackCheck();
+            subjectPosition = LeftCheck();
+            subjectPosition = RightCheck();
             for (int ii = 0; ii < this.GetObservers().Count; ii += 1)
             {
 
@@ -175,20 +179,29 @@ namespace JourneyToTheCenterOfTheCell
                     }
                     else
                     {
-                        Debug.WriteLine("Attack State!!!");
-                        if(gameLevel == 1)
-                        {
-                            if (!this.codexHash.ContainsKey(this.GetNPCs()[ii].GetCodexType()))
-                            {
-                                itemSound.Play();
-                                this.codexHash.Add(this.GetNPCs()[ii].GetCodexType(), this.GetItems()[ii]);
-                            }
-                        }
+                        
                         
 
-                        NPCAttack attackState = new NPCAttack(this);
-                        this.GetNPCs()[ii].SetNPCState(attackState);
-                        p1.SetHealthByReductionAmount(0.01f);
+                        if (this.GetCamPlayer().GetShieldIsActive() == false)
+                        {
+                            Debug.WriteLine("Attack State!!!");
+                            if (gameLevel == 1)
+                            {
+                                if (!this.codexHash.ContainsKey(this.GetNPCs()[ii].GetCodexType()))
+                                {
+                                    itemSound.Play();
+                                    this.codexHash.Add(this.GetNPCs()[ii].GetCodexType(), this.GetItems()[ii]);
+                                }
+                            }
+
+                            NPCAttack attackState = new NPCAttack(this);
+                            this.GetNPCs()[ii].SetNPCState(attackState);
+                            p1.SetHealthByReductionAmount(0.01f);
+                        }
+                        else if (this.GetCamPlayer().GetShieldIsActive() == true)
+                        {
+                            this.GetNPCs()[ii].SetNPCState(wanderList[ii]);
+                        }
                     }
                     
                 }
@@ -281,7 +294,7 @@ namespace JourneyToTheCenterOfTheCell
         */
         public Vector3 CameraUpdate(Vector3 deltaVector, Vector3 targetAxis, float inputDegrees, Vector3 inputVector)
         {
-
+            
             if (inputVector.Length() > 0)
             {
                 float radianInput = SubjectRadians(inputDegrees);
@@ -322,9 +335,14 @@ namespace JourneyToTheCenterOfTheCell
            
             subjectRotation.Normalize();
 
+            if (direction == InputHandler.keyStates.ShieldToggle)
+            {
+                this.p1.SetShieldActiveToggle();
+            }
+
             if (direction == InputHandler.keyStates.Forwards)
             {
-                //futurePosition += cameraSpeed * actorRotation * deltaTime * fps;
+               
                 subjectPosition += cameraSpeed * subjectRotation * deltaTime * fps;
                 
                 Debug.WriteLine("position Vector: " + subjectPosition.X + " " + subjectPosition.Y + " " + subjectPosition.Z);
@@ -333,7 +351,6 @@ namespace JourneyToTheCenterOfTheCell
             if (direction == InputHandler.keyStates.Backwards)
             {
 
-                //futurePosition -= cameraSpeed * actorRotation * deltaTime * fps;
                 subjectPosition -= cameraSpeed * subjectRotation * deltaTime * fps;
 
                 Debug.WriteLine("position Vector: " + subjectPosition.X + " " + subjectPosition.Y + " " + subjectPosition.Z);
@@ -449,7 +466,76 @@ namespace JourneyToTheCenterOfTheCell
                 return subjectPosition;
             }
         }
-        
+
+        private Vector3 RoofCheck()
+        {
+            if(subjectPosition.Y >= 10000)
+            {
+                Vector3 tempVector = new Vector3(subjectPosition.X, 10000, subjectPosition.Z);
+                return tempVector;
+            }
+            else
+            {
+                return subjectPosition;
+            }
+        }
+
+        private Vector3 FrontCheck()
+        {
+            if (subjectPosition.Z >= 10000)
+            {
+                Vector3 tempVector = new Vector3(subjectPosition.X, subjectPosition.Y, 10000);
+
+                return tempVector;
+            }
+            else
+            {
+                return subjectPosition;
+            }
+        }
+
+        private Vector3 BackCheck()
+        {
+            if (subjectPosition.Z <= -10000)
+            {
+                Vector3 tempVector = new Vector3(subjectPosition.X, subjectPosition.Y, -10000);
+
+                return tempVector;
+            }
+            else
+            {
+                return subjectPosition;
+            }
+        }
+
+        private Vector3 LeftCheck()
+        {
+            if (subjectPosition.X >= 10000)
+            {
+                Vector3 tempVector = new Vector3(10000, subjectPosition.Y, subjectPosition.Z);
+
+                return tempVector;
+            }
+            else
+            {
+                return subjectPosition;
+            }
+        }
+
+        private Vector3 RightCheck()
+        {
+            if (subjectPosition.X <= -10000)
+            {
+                Vector3 tempVector = new Vector3(-10000, subjectPosition.Y, subjectPosition.Z);
+
+                return tempVector;
+            }
+            else
+            {
+                return subjectPosition;
+            }
+        }
+
         public Dictionary<InputHandler.keyStates, Actor> GetCodexHash()
         {
             return this.codexHash;
