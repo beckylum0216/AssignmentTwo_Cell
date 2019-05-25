@@ -37,7 +37,7 @@ namespace JourneyToTheCenterOfTheCell
         TimeSpan ts = new TimeSpan();
         HUD hud= new HUD();
         List<NPCWander> npcStateList;
-
+        public Player p1;
         public GameOneManager()
         {
 
@@ -114,7 +114,7 @@ namespace JourneyToTheCenterOfTheCell
             text.SetPosition(new Vector2((this.GetScreenX()/2)-45,8));
             stopWatch.Start();
             hud.Initialise(gameCtx,screenX,screenY);
-
+            p1 = new Player(gameCtx);
         }
         
         public int GetScreenX()
@@ -194,7 +194,9 @@ namespace JourneyToTheCenterOfTheCell
             
             text.SetString("Time: "+ minutes+":"+seconds+"");
             stopWatch.Start();
-            hud.Update();
+            hud.Update(p1);
+            //p1.Update();
+            
         }
 
         public override void Draw(GameContext gameCtx)
@@ -221,6 +223,15 @@ namespace JourneyToTheCenterOfTheCell
             hud.Draw(gameCtx.GetSpriteBatch(), gameCtx.GetGraphics());//draw the initialised hud
             text.Draw(gameCtx.GetSpriteBatch(), gameCtx.GetGraphics());
             CodexManager.GetCodexInstance().Draw();
+            if (p1.GetHealth() < 1)
+            {
+                DeathView gui = new DeathView();
+                //UserInterface.Active.Clear();//clear the menu panel from the user interface
+                Panel test = gui.GetPanel(gameCtx);//load the death panel in the interface
+                //need to add something in here to switch lock of mouse of and other input
+                UserInterface.Active.AddEntity(test);
+            }
+
         }
     }
 }
