@@ -248,7 +248,7 @@ namespace JourneyToTheCenterOfTheCell
                 Vector3 positionSkyBox = new Vector3(centerOrigin, 0f, centerOrigin);
                 Vector3 rotationSkyBox = new Vector3(0, 0, 0);
                 Vector3 AABBOffset = new Vector3(0, 0, 0);
-                float scaleSkyBox = 200f;
+                float scaleSkyBox = 1000f;
                 //Actor plotSkyBox = landPlots["SkyBox"].ActorClone(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
                 SkyBox skyBoxObj = new SkyBox(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
                 plotList.Add(skyBoxObj);
@@ -262,7 +262,7 @@ namespace JourneyToTheCenterOfTheCell
                 Vector3 positionSkyBox = new Vector3(centerOrigin, 0f, centerOrigin);
                 Vector3 rotationSkyBox = new Vector3(0, 0, 0);
                 Vector3 AABBOffset = new Vector3(0, 0, 0);
-                float scaleSkyBox = 200f;
+                float scaleSkyBox = 1000f;
                 //Actor plotSkyBox = landPlots["SkyBox"].ActorClone(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
                 SkyBox skyBoxObj = new SkyBox(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
                 plotList.Add(skyBoxObj);
@@ -293,7 +293,7 @@ namespace JourneyToTheCenterOfTheCell
                 Vector3 positionNucleus = new Vector3(200, 200, 200) * 20;
                 Vector3 rotationNucleus = new Vector3(0, 0, 0);
                 float scaleNucleus = 100f;
-                Vector3 AABBNucleus = new Vector3(2, 2, 2) * scaleNucleus;
+                Vector3 AABBNucleus = new Vector3(20, 20, 20) * scaleNucleus;
                 Structure nucleusObj = new Structure(Content, modelNucleus, textureNucleus, positionNucleus, rotationNucleus, scaleNucleus, AABBNucleus, InputHandler.keyStates.Nucleus);
                 plotList.Add(nucleusObj);
 
@@ -302,7 +302,7 @@ namespace JourneyToTheCenterOfTheCell
                 Vector3 positionReticulum = new Vector3(200, 200, 200) * 20;
                 Vector3 rotationReticulum = new Vector3(0, 0, 0);
                 float scaleReticulum = 100f;
-                Vector3 AABBReticulum = new Vector3(2, 2, 2) * scaleReticulum;
+                Vector3 AABBReticulum = new Vector3(20, 20, 20) * scaleReticulum;
                 Structure reticulumObj = new Structure(Content, modelReticulum, textureReticulum, positionReticulum, rotationReticulum, scaleReticulum, AABBReticulum, InputHandler.keyStates.ER);
                 plotList.Add(reticulumObj);
 
@@ -311,7 +311,7 @@ namespace JourneyToTheCenterOfTheCell
                 Vector3 positionGolgi = new Vector3(100, 200, 100) * 20;
                 Vector3 rotationGolgi = new Vector3(0, 0, 0);
                 float scaleGolgi = 100f;
-                Vector3 AABBGolgi = new Vector3(2, 2, 2) * scaleGolgi;
+                Vector3 AABBGolgi = new Vector3(10, 10, 10) * scaleGolgi;
                 Structure golgiObj = new Structure(Content, modelGolgi, textureGolgi, positionGolgi, rotationGolgi, scaleGolgi, AABBGolgi, InputHandler.keyStates.Golgi);
                 plotList.Add(golgiObj);
 

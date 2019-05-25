@@ -22,10 +22,12 @@ namespace JourneyToTheCenterOfTheCell
         private Dictionary<InputHandler.keyStates, Actor> codexHash;
         private SoundEffect itemSound;
         private List<NPCWander> wanderList;
-        Player p1;
+        private Player p1;
+        private int gameLevel;
+
         public Camera(){ }
 
-        public Camera(GameContext gtx, ContentManager Content, Matrix inputCamera, Vector3 initPosition, Vector3 eyePosition, Vector3 deltaVector, Vector3 inputOffset, ModelHandler inputHandler)
+        public Camera(GameContext gtx, ContentManager Content, Matrix inputCamera, Vector3 initPosition, Vector3 eyePosition, Vector3 deltaVector, Vector3 inputOffset, ModelHandler inputHandler, int inputLevel)
         {
             this.theCamera = inputCamera;
             this.futurePosition = initPosition;
@@ -41,10 +43,12 @@ namespace JourneyToTheCenterOfTheCell
             this.codexHash = new Dictionary<InputHandler.keyStates, Actor>();
             itemSound = Content.Load<SoundEffect>("Sound/Power_Up_Ray-Mike_Koenig-800933783");
             p1 = new Player(gtx);
+            this.gameLevel = inputLevel;
+
         }
 
         public Camera(GameContext gtx, ContentManager Content, String modelFile, String textureFile, Vector3 predictedPosition, Vector3 inputPosition, 
-                        Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset, Camera inputCamera, ModelHandler inputHandler)
+                        Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset, Camera inputCamera, ModelHandler inputHandler, int inputLevel)
         {
             this.modelPath = modelFile;
             this.texturePath = textureFile;
@@ -61,6 +65,7 @@ namespace JourneyToTheCenterOfTheCell
             this.codexHash = new Dictionary<InputHandler.keyStates, Actor>();
             itemSound = Content.Load<SoundEffect>("Sound/Power_Up_Ray-Mike_Koenig-800933783");
             p1 = new Player(gtx);
+            this.gameLevel = inputLevel;
         }
 
 
@@ -171,6 +176,15 @@ namespace JourneyToTheCenterOfTheCell
                     else
                     {
                         Debug.WriteLine("Attack State!!!");
+                        if(gameLevel == 1)
+                        {
+                            if (!this.codexHash.ContainsKey(this.GetNPCs()[ii].GetCodexType()))
+                            {
+                                itemSound.Play();
+                                this.codexHash.Add(this.GetNPCs()[ii].GetCodexType(), this.GetItems()[ii]);
+                            }
+                        }
+                        
 
                         NPCAttack attackState = new NPCAttack(this);
                         this.GetNPCs()[ii].SetNPCState(attackState);

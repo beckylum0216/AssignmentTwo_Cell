@@ -28,7 +28,7 @@ namespace JourneyToTheCenterOfTheCell.Test
                 Vector3 deltaVector = new Vector3(0, 0, 0.001f);
                 Vector3 AABBOffsetCamera = new Vector3(0.5f, 0.25f, 0.5f);
                 Matrix theCamera = Matrix.CreateLookAt(camPositionVector, camEyeVector, Vector3.Up);
-                Camera testCam = new Camera(gtx,testGame.Content, theCamera, camPositionVector, camEyeVector, deltaVector, AABBOffsetCamera, tempHandler);
+                Camera testCam = new Camera(gtx,testGame.Content, theCamera, camPositionVector, camEyeVector, deltaVector, AABBOffsetCamera, tempHandler, 0);
                 
             }
             catch (Exception e)

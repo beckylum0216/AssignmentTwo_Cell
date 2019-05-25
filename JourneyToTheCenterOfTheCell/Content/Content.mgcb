@@ -5263,6 +5263,12 @@
 /processorParam:TextureFormat=Compressed
 /build:Models/skybox_cube.obj
 
+#begin Music/JourneyToTheCentreOfTheCell.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/JourneyToTheCentreOfTheCell.wav
+
 #begin Pics/782px-Peroxisome-wikimedia.jpg
 /importer:TextureImporter
 /processor:TextureProcessor

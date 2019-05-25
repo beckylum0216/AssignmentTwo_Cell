@@ -9,6 +9,7 @@ using GeonBit.UI;
 using GeonBit.UI.Entities;
 using System.Collections.Generic;
 using System;
+using Microsoft.Xna.Framework.Media;
 
 namespace JourneyToTheCenterOfTheCell
 {
@@ -45,23 +46,9 @@ namespace JourneyToTheCenterOfTheCell
             newGame = new GameContext(this, graphics, spriteBatch);
             newGame.SetGameState(menuManager);
             newGame.Initialise();
-
-
-            
-
-            
-            List<String> tempAns = new List<String>();
-            tempAns.Add("lorem ipsum");
-            tempAns.Add("blah");
-            Quiz testQuiz = new Quiz("Lorem ipsum dolor sit amet," +
-                " consectetur adipiscing elit, sed do eiusmod " +
-                "tempor incididunt ut labore et " +
-                "dolore magna aliqua.", tempAns, "blah");
-            //QuizView quiz = new QuizView(testQuiz, screenX, screenY);
-            //Panel testPanel = quiz.GetQuizPanel();
-
-           
-            //UserInterface.Active.AddEntity(testPanel);
+            Song cellSong = Content.Load<Song>("Music/JourneyToTheCentreOfTheCell");
+            MediaPlayer.Play(cellSong);
+            MediaPlayer.IsRepeating = true;
 
             base.Initialize();
         }

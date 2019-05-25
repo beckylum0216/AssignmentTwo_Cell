@@ -74,7 +74,7 @@ namespace JourneyToTheCenterOfTheCell
             //initial "front" vector
             Vector3 deltaVector = new Vector3(0, 0, 0.001f);
             Vector3 AABBOffsetCamera = new Vector3(0.5f, 0.25f, 0.5f);
-            camera = new Camera(gameCtx, gameCtx.GetGameInstance().Content, theCamera, camPositionVector, camEyeVector, deltaVector, AABBOffsetCamera, mapClient);
+            camera = new Camera(gameCtx, gameCtx.GetGameInstance().Content, theCamera, camPositionVector, camEyeVector, deltaVector, AABBOffsetCamera, mapClient, gameLevel);
             cameraSpeed = 5f;
             fps = 60f;
 
