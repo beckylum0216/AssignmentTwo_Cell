@@ -55,7 +55,6 @@
     <Compile Include="GameState.cs" />
     <Compile Include="HUD.cs" />
     <Compile Include="InfoView.cs" />
-    <Compile Include="IntroView.cs" />
     <Compile Include="Codex.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Map.cs" />

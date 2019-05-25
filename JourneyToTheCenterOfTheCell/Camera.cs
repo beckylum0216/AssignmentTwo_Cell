@@ -155,6 +155,7 @@ namespace JourneyToTheCenterOfTheCell
                         Debug.WriteLine("Attack State!!!");
                         NPCAttack attackState = new NPCAttack(this);
                         this.GetNPCs()[ii].SetNPCState(attackState);
+
                     }
                     
                 }

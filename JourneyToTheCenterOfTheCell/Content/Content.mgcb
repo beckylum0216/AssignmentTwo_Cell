@@ -5092,7 +5092,7 @@
 /processorParam:TextureFormat=Compressed
 /build:Models/Lysosome.FBX
 
-#begin Models/Lysosome.FBX
+#begin Models/manualskybox_obj.obj
 /importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
@@ -5109,7 +5109,7 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:Models/Lysosome.FBX
+/build:Models/manualskybox_obj.obj
 
 #begin Models/mitochondria.obj
 /importer:FbxImporter

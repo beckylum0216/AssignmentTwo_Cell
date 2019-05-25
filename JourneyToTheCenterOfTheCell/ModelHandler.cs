@@ -241,7 +241,7 @@ namespace JourneyToTheCenterOfTheCell
         {
             if(gameLevel == 0)
             {
-                string modelFile = "Models/skybox_cube";
+                string modelFile = "Models/manualskybox_obj";
                 string textureFile = "Textures/blood_cubemap";
                 // move the centre of the skybox to the centre of the "city"
                 float centerOrigin = 1;
@@ -255,7 +255,7 @@ namespace JourneyToTheCenterOfTheCell
             }
             else
             {
-                string modelFile = "Models/skybox_cube";
+                string modelFile = "Models/manualskybox_obj";
                 string textureFile = "Textures/aliencell_cubemap";
                 // move the centre of the skybox to the centre of the "city"
                 float centerOrigin = 1;
@@ -294,8 +294,6 @@ namespace JourneyToTheCenterOfTheCell
                 Vector3 rotationNucleus = new Vector3(0, 0, 0);
                 float scaleNucleus = 100f;
                 Vector3 AABBNucleus = new Vector3(2, 2, 2) * scaleNucleus;
-
-                //Actor plotSkyBox = landPlots["SkyBox"].ActorClone(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
                 Structure nucleusObj = new Structure(Content, modelNucleus, textureNucleus, positionNucleus, rotationNucleus, scaleNucleus, AABBNucleus, InputHandler.keyStates.Nucleus);
                 plotList.Add(nucleusObj);
 
@@ -308,21 +306,28 @@ namespace JourneyToTheCenterOfTheCell
                 Structure reticulumObj = new Structure(Content, modelReticulum, textureReticulum, positionReticulum, rotationReticulum, scaleReticulum, AABBReticulum, InputHandler.keyStates.ER);
                 plotList.Add(reticulumObj);
 
+                string modelGolgi = "Models/golgi";
+                string textureGolgi = "Textures/golgi_diff";
+                Vector3 positionGolgi = new Vector3(100, 200, 100) * 20;
+                Vector3 rotationGolgi = new Vector3(0, 0, 0);
+                float scaleGolgi = 100f;
+                Vector3 AABBGolgi = new Vector3(2, 2, 2) * scaleGolgi;
+                Structure golgiObj = new Structure(Content, modelGolgi, textureGolgi, positionGolgi, rotationGolgi, scaleGolgi, AABBGolgi, InputHandler.keyStates.Golgi);
+                plotList.Add(golgiObj);
 
-
-                for (int ii = 0; ii < sizeX; ii++)
-                {
-                    for (int jj = 0; jj < sizeY; jj++)
-                    {
-                        if (!(gridMap[ii, jj] == null))
-                        {
-                            Vector3 tempPosition = new Vector3(gridMap[ii, jj].GetCoordX(), gridMap[ii, jj].GetCoordY(), gridMap[ii, jj].GetCoordZ());
-                            Vector3 tempOffset = new Vector3(20, 20, 20);
-                            Structure tempPlot = new Structure(Content, gridMap[ii, jj].GetModelPath(), gridMap[ii, jj].GetTexturePath(), tempPosition, gridMap[ii, jj].GetMapRotation(), gridMap[ii, jj].GetMapScale(), tempOffset, gridMap[ii,jj].GetCodexType());
-                            plotList.Add(tempPlot);
-                        }
-                    }
-                }
+                //for (int ii = 0; ii < sizeX; ii++)
+                //{
+                //    for (int jj = 0; jj < sizeY; jj++)
+                //    {
+                //        if (!(gridMap[ii, jj] == null))
+                //        {
+                //            Vector3 tempPosition = new Vector3(gridMap[ii, jj].GetCoordX(), gridMap[ii, jj].GetCoordY(), gridMap[ii, jj].GetCoordZ());
+                //            Vector3 tempOffset = new Vector3(20, 20, 20);
+                //            Structure tempPlot = new Structure(Content, gridMap[ii, jj].GetModelPath(), gridMap[ii, jj].GetTexturePath(), tempPosition, gridMap[ii, jj].GetMapRotation(), gridMap[ii, jj].GetMapScale(), tempOffset, gridMap[ii,jj].GetCodexType());
+                //            plotList.Add(tempPlot);
+                //        }
+                //    }
+                //}
                 Debug.WriteLine("list size:" + plotList.Count);
             }
             
@@ -335,13 +340,13 @@ namespace JourneyToTheCenterOfTheCell
 
             string modelSelenocysteine = "Models/selenocystine_obj";
             string textureSelenocysteine = "Textures/selenocystine_diff";
-            Vector3 positionSelenocysteine = new Vector3(100, 100, 100) * 20;
+            Vector3 positionSelenocysteine = new Vector3(10, 10, 10) * 20;
             Vector3 rotationSelenocysteine = new Vector3(0, 0, 0);
-            float scaleSelenocysteine = 50f;
-            Vector3 AABBSelenocysteine = new Vector3(2, 2, 2) * scaleSelenocysteine;
+            float scaleSelenocysteine = 10f;
+            Vector3 AABBSelenocysteine = new Vector3(1, 1, 1) * scaleSelenocysteine;
             int selenocysteineID = (int)Math.Round((positionSelenocysteine.X * positionSelenocysteine.Y * positionSelenocysteine.Z));
             Item selenocysteineObj = new Item(Content, selenocysteineID, modelSelenocysteine, textureSelenocysteine, positionSelenocysteine, rotationSelenocysteine, scaleSelenocysteine, AABBSelenocysteine, InputHandler.keyStates.Selenocysteine);
-            plotList.Add(selenocysteineObj);
+            itemHash.Add(selenocysteineID, selenocysteineObj);
 
 
             for (int ii = 0; ii < sizeX; ii++)
