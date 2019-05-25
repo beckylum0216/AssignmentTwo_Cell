@@ -7,7 +7,7 @@ using GeonBit.UI.Entities;
 
 namespace JourneyToTheCenterOfTheCell
 {
-    class Player
+    public class Player
     {
         GameContext gtx;
         int health;
@@ -22,7 +22,7 @@ namespace JourneyToTheCenterOfTheCell
             shield = 100;
             shieldActive = false;
         }
-        public void SetHealth(int dmg)// can use these setters to test hud
+        public void SetHealthByReductionAmount(int dmg)// can use these setters to test hud
         {
             health = health - dmg;
         }

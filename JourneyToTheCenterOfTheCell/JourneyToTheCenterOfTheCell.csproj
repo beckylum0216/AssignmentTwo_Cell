@@ -49,6 +49,7 @@
     <Compile Include="Actor.cs" />
     <Compile Include="CodexManager.cs" />
     <Compile Include="CodexView.cs" />
+    <Compile Include="DeathManager.cs" />
     <Compile Include="DeathView.cs" />
     <Compile Include="GameContext.cs" />
     <Compile Include="GameFinishedView.cs" />

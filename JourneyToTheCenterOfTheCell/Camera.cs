@@ -22,10 +22,10 @@ namespace JourneyToTheCenterOfTheCell
         private Dictionary<InputHandler.keyStates, Actor> codexHash;
         private SoundEffect itemSound;
         private List<NPCWander> wanderList;
-
+        Player p1;
         public Camera(){ }
 
-        public Camera(ContentManager Content, Matrix inputCamera, Vector3 initPosition, Vector3 eyePosition, Vector3 deltaVector, Vector3 inputOffset, ModelHandler inputHandler)
+        public Camera(GameContext gtx, ContentManager Content, Matrix inputCamera, Vector3 initPosition, Vector3 eyePosition, Vector3 deltaVector, Vector3 inputOffset, ModelHandler inputHandler)
         {
             this.theCamera = inputCamera;
             this.futurePosition = initPosition;
@@ -40,9 +40,10 @@ namespace JourneyToTheCenterOfTheCell
             this.itemHandler = inputHandler;
             this.codexHash = new Dictionary<InputHandler.keyStates, Actor>();
             itemSound = Content.Load<SoundEffect>("Sound/Power_Up_Ray-Mike_Koenig-800933783");
+            p1 = new Player(gtx);
         }
 
-        public Camera(ContentManager Content, String modelFile, String textureFile, Vector3 predictedPosition, Vector3 inputPosition, 
+        public Camera(GameContext gtx, ContentManager Content, String modelFile, String textureFile, Vector3 predictedPosition, Vector3 inputPosition, 
                         Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset, Camera inputCamera, ModelHandler inputHandler)
         {
             this.modelPath = modelFile;
@@ -59,7 +60,24 @@ namespace JourneyToTheCenterOfTheCell
             this.itemHandler = inputHandler;
             this.codexHash = new Dictionary<InputHandler.keyStates, Actor>();
             itemSound = Content.Load<SoundEffect>("Sound/Power_Up_Ray-Mike_Koenig-800933783");
+            p1 = new Player(gtx);
         }
+
+
+        /** 
+         *  @brief gets the player object of camera giving access to any object that accesses camera already 
+        
+         *	@return p1 the player object in camera
+         *	@pre 
+         *	@post returns the cameras player class
+         */
+        public Player GetCamPlayer()
+        {
+            return this.p1;
+        }
+
+
+
 
         /** 
          *  @brief update the position state of the camera 

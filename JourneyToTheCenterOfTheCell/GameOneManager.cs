@@ -37,7 +37,7 @@ namespace JourneyToTheCenterOfTheCell
         TimeSpan ts = new TimeSpan();
         HUD hud= new HUD();
         List<NPCWander> npcStateList;
-        public Player p1;
+        //public Player p1;
         public GameOneManager()
         {
 
@@ -74,7 +74,7 @@ namespace JourneyToTheCenterOfTheCell
             //initial "front" vector
             Vector3 deltaVector = new Vector3(0, 0, 0.001f);
             Vector3 AABBOffsetCamera = new Vector3(0.5f, 0.25f, 0.5f);
-            camera = new Camera( gameCtx.GetGameInstance().Content, theCamera, camPositionVector, camEyeVector, deltaVector, AABBOffsetCamera, mapClient);
+            camera = new Camera(gameCtx, gameCtx.GetGameInstance().Content, theCamera, camPositionVector, camEyeVector, deltaVector, AABBOffsetCamera, mapClient);
             cameraSpeed = 5f;
             fps = 60f;
 
@@ -114,7 +114,7 @@ namespace JourneyToTheCenterOfTheCell
             text.SetPosition(new Vector2((this.GetScreenX()/2)-45,8));
             stopWatch.Start();
             hud.Initialise(gameCtx,screenX,screenY);
-            p1 = new Player(gameCtx);
+            
         }
         
         public int GetScreenX()
@@ -194,7 +194,7 @@ namespace JourneyToTheCenterOfTheCell
             
             text.SetString("Time: "+ minutes+":"+seconds+"");
             stopWatch.Start();
-            hud.Update(p1);
+            hud.Update(camera.GetCamPlayer());
             //p1.Update();
             
         }
@@ -223,13 +223,12 @@ namespace JourneyToTheCenterOfTheCell
             hud.Draw(gameCtx.GetSpriteBatch(), gameCtx.GetGraphics());//draw the initialised hud
             text.Draw(gameCtx.GetSpriteBatch(), gameCtx.GetGraphics());
             CodexManager.GetCodexInstance().Draw();
-            if (p1.GetHealth() < 1)
+            if (camera.GetCamPlayer().GetHealth() < 1)
             {
-                DeathView gui = new DeathView();
-                //UserInterface.Active.Clear();//clear the menu panel from the user interface
-                Panel test = gui.GetPanel(gameCtx);//load the death panel in the interface
-                //need to add something in here to switch lock of mouse of and other input
-                UserInterface.Active.AddEntity(test);
+                DeathManager newGame = new DeathManager();
+                gameCtx.SetGameState(newGame);
+                newGame.Initialise(gameCtx);
+                
             }
 
         }
