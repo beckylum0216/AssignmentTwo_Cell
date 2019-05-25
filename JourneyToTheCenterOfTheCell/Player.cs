@@ -10,8 +10,8 @@ namespace JourneyToTheCenterOfTheCell
     public class Player
     {
         GameContext gtx;
-        int health;
-        int shield;
+        float health;
+        float shield;
         
         bool shieldActive;
         public Player(GameContext GTX)
@@ -22,7 +22,7 @@ namespace JourneyToTheCenterOfTheCell
             shield = 100;
             shieldActive = false;
         }
-        public void SetHealthByReductionAmount(int dmg)// can use these setters to test hud
+        public void SetHealthByReductionAmount(float dmg)// can use these setters to test hud
         {
             health = health - dmg;
         }
@@ -38,15 +38,15 @@ namespace JourneyToTheCenterOfTheCell
             }
         }
        
-        public void SetShieldAmount(int shieldUseAmount)
+        public void SetShieldAmount(float shieldUseAmount)
         {
             shield = shield - shieldUseAmount;
         }
-        public int GetHealth()
+        public float GetHealth()
         {
             return health;
         }
-        public int GetShield()
+        public float GetShield()
         {
             return shield;
         }

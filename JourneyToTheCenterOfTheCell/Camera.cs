@@ -171,9 +171,10 @@ namespace JourneyToTheCenterOfTheCell
                     else
                     {
                         Debug.WriteLine("Attack State!!!");
+
                         NPCAttack attackState = new NPCAttack(this);
                         this.GetNPCs()[ii].SetNPCState(attackState);
-
+                        p1.SetHealthByReductionAmount(0.01f);
                     }
                     
                 }

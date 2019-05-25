@@ -64,14 +64,14 @@ namespace JourneyToTheCenterOfTheCell
         {
             //will need to pass a player object in here 
             //need to check if local ints for health and shield are the same as the players if not use the setters to update to the players actual current hp and shield
-            if (health != p1.GetHealth())
+            if (health != (int)p1.GetHealth())
             {
-                health = p1.GetHealth();
+                health = (int)p1.GetHealth();
                 m_health.SetString("Health: " + health);
             }
-            if (shield != p1.GetShield())
+            if (shield != (int)p1.GetShield())
             {
-                shield = p1.GetShield();
+                shield = (int)p1.GetShield();
                 m_shield.SetString("Shield: " + shield);
             }
             
