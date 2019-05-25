@@ -113,7 +113,7 @@ namespace JourneyToTheCenterOfTheCell
             //initialise font for timer display
             font = gameCtx.GetGameInstance().Content.Load<SpriteFont>("Fonts/arialFont");
             text.Initialise(font);
-            text.SetPosition(new Vector2((this.GetScreenX() / 2) - 45, 8));
+            text.SetPosition(new Vector2((this.GetScreenX() / 2) - (this.GetScreenX() / 18), this.GetScreenY() / 52));
             stopWatch.Start();
             hud.Initialise(gameCtx,screenX,screenY);
             
