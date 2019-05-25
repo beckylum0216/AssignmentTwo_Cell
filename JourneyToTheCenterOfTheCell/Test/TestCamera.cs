@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,11 @@ namespace JourneyToTheCenterOfTheCell.Test
         {
             try
             {
+                Game game = new Game();
+                GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+                SpriteBatch s = new SpriteBatch(g.GraphicsDevice);
+                QuizManager qm = new QuizManager();
+                GameContext gtx = new GameContext(game, g, s);
                 Game1 testGame = new Game1();
                 ModelHandler tempHandler = new ModelHandler(testGame.Content, 1,1,1,1,1);
                 Vector3 camEyeVector = new Vector3(0, 0, 0);
@@ -22,7 +28,7 @@ namespace JourneyToTheCenterOfTheCell.Test
                 Vector3 deltaVector = new Vector3(0, 0, 0.001f);
                 Vector3 AABBOffsetCamera = new Vector3(0.5f, 0.25f, 0.5f);
                 Matrix theCamera = Matrix.CreateLookAt(camPositionVector, camEyeVector, Vector3.Up);
-                Camera testCam = new Camera(testGame.Content, theCamera, camPositionVector, camEyeVector, deltaVector, AABBOffsetCamera, tempHandler);
+                Camera testCam = new Camera(gtx,testGame.Content, theCamera, camPositionVector, camEyeVector, deltaVector, AABBOffsetCamera, tempHandler);
                 
             }
             catch (Exception e)
