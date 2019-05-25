@@ -905,13 +905,15 @@ public class TestCase
 
         try
         {
+            
             Game game = new Game();
             GraphicsDeviceManager g = new GraphicsDeviceManager(game);
             SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
             GameContext gtx = new GameContext(game, g, sb);
+            Player p1 = new Player(gtx);
             HUD test = new HUD();
             test.Initialise(gtx, 300, 300);
-            test.Update();
+            test.Update(p1);
         }
         catch (Exception e)
         {

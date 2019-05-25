@@ -80,15 +80,21 @@ namespace JourneyToTheCenterOfTheCell
                 case "New Game":
                     m_interface.Clear();//clear the menu panel from the user interface
                     Panel test = gui.GetPanel(gameContext,x, y);//load the story panel in the interface
+                                        
                     m_interface.AddEntity(test);
-                    //GameOneManager newGame = new GameOneManager(gameContext);need this code to execute on begin game of my new view class
-                    //gameContext.SetGameState(newGame);
+                    
                     break;
                 case "Save Game":
+                    GameFinishedView g2 = new GameFinishedView();
+                    m_interface.Clear();//clear the menu panel from the user interface
+                    Panel test2 = g2.GetPanel(gameContext);//load the story panel in the interface
 
+                    m_interface.AddEntity(test2);
                     break;
                 case "Load Game":
+                    
 
+                    
                     break;
                 case "Quiz":
                     QuizManager newQuiz = new QuizManager();
