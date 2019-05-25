@@ -109,14 +109,11 @@ namespace JourneyToTheCenterOfTheCell
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             newGame.Draw();
-
             
 
-            
             // out textbox is ready to draw at all times will only actually draw if its boolean is set to true using textboxvariable.DisplayFont() method 
             //this way triggers or events that need a textbox can set the texbox parameters and switch the textbox to display for duration of event
             
-
 
             base.Draw(gameTime);
         }
