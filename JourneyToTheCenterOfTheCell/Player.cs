@@ -42,14 +42,17 @@ namespace JourneyToTheCenterOfTheCell
         {
             shield = shield - shieldUseAmount;
         }
+
         public float GetHealth()
         {
             return health;
         }
+
         public float GetShield()
         {
             return shield;
         }
+
         public bool GetShieldIsActive()
         {
             return shieldActive;
