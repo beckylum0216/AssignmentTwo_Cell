@@ -199,6 +199,12 @@ namespace JourneyToTheCenterOfTheCell
             text.SetString("Time: " + minutes + ":" + seconds + "");
             stopWatch.Start();
             hud.Update(camera.GetCamPlayer());
+            if (camera.GetCamPlayer().GetHealth() < 1)
+            {
+                DeathManager newGame = new DeathManager();
+                gameCtx.SetGameState(newGame);
+                newGame.Initialise(gameCtx);
+            }
         }
 
         public override void Draw(GameContext gameCtx)
@@ -226,12 +232,9 @@ namespace JourneyToTheCenterOfTheCell
             text.Draw(gameCtx.GetSpriteBatch(), gameCtx.GetGraphics());
             //draw the codex (should be drawn in deactivated state i.e. top of the screen)
             CodexManager.GetCodexInstance().Draw();
-            if (camera.GetCamPlayer().GetHealth() < 1)
-            {
-                DeathManager newGame = new DeathManager();
-                gameCtx.SetGameState(newGame);
-                newGame.Initialise(gameCtx);
-            }
+            
+            //if(CodexManager.GetCodexInstance().)
+
         }
     }
 }
