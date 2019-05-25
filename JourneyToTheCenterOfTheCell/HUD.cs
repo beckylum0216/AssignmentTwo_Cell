@@ -29,9 +29,9 @@ namespace JourneyToTheCenterOfTheCell
             font = gameCtx.GetGameInstance().Content.Load<SpriteFont>("Fonts/arialFont");//initialise font
             
             m_shield.Initialise(font);//for each text
-            m_shield.SetPosition(new Vector2(screenX-390, screenY-80));
+            m_shield.SetPosition(new Vector2((screenX/2)+(screenX/52), screenY-(screenY/6)));
             m_health.Initialise(font);
-            m_health.SetPosition(new Vector2(290, screenY-80));
+            m_health.SetPosition(new Vector2((screenX/2)-(screenX/7.5f), screenY- (screenY / 6)));
             health = 100;
             shield = 100;
             m_health.SetString("Health:" + health);
