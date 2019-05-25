@@ -1,20 +1,19 @@
-﻿using JourneyToTheCenterOfTheCell;
+﻿
+using JourneyToTheCenterOfTheCell;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 
 [TestFixture]
 public class TestCase
 {
     [Test]
-    public void QuizTest1() //test initialisation with strings and list of strings
+    public void Quiz1() //test initialisation with strings and list of strings
     {
         try
         {
@@ -33,7 +32,7 @@ public class TestCase
         }
     }
     [Test]
-    public void QuizTest2() //test initialisation with a quiz
+    public void Quiz2() //test initialisation with a quiz
     {
         try
         {
@@ -1214,6 +1213,140 @@ public class TestCase
             CodexManager test = new CodexManager();
             test.Initialize(g, gtx.GetGameInstance().Content, d);
             test.Update(gtx.GetGameTime(), k, d);
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+
+    [Test]
+    public void Player1() //test init
+    {
+
+        try
+        {
+            
+            Game game = new Game();
+            Dictionary<InputHandler.keyStates, Actor> d = new Dictionary<InputHandler.keyStates, Actor>();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            Player test = new Player(gtx);
+            
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+
+    [Test]
+    public void Player2() //test update
+    {
+
+        try
+        {
+
+            Game game = new Game();
+            Dictionary<InputHandler.keyStates, Actor> d = new Dictionary<InputHandler.keyStates, Actor>();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            Player test = new Player(gtx);
+            test.Update();
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+
+    [Test]
+    public void Deathview1() //test initialise
+    {
+
+        try
+        {
+
+            DeathView test = new DeathView();
+            
+            
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+    [Test]
+    public void DeathManager1() //test initialise
+    {
+
+        try
+        {
+
+            Game game = new Game();
+            Dictionary<InputHandler.keyStates, Actor> d = new Dictionary<InputHandler.keyStates, Actor>();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+
+            DeathManager test = new DeathManager();
+            test.Initialise(gtx);
+
+
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+    [Test]
+    public void DeathManager2() //test update
+    {
+
+        try
+        {
+
+            Game game = new Game();
+            Dictionary<InputHandler.keyStates, Actor> d = new Dictionary<InputHandler.keyStates, Actor>();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            DeathManager test = new DeathManager();
+            test.Initialise(gtx);
+            test.Update(gtx);
+
+
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Exception: " + e);
+
+        }
+    }
+    [Test]
+    public void DeathManager3() //test Draw
+    {
+
+        try
+        {
+
+            Game game = new Game();
+            Dictionary<InputHandler.keyStates, Actor> d = new Dictionary<InputHandler.keyStates, Actor>();
+            GraphicsDeviceManager g = new GraphicsDeviceManager(game);
+            SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
+            GameContext gtx = new GameContext(game, g, sb);
+            DeathManager test = new DeathManager();
+            test.Initialise(gtx);
+            test.Draw(gtx);
+
+
         }
         catch (Exception e)
         {
