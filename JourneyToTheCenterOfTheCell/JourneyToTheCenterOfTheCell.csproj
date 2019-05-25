@@ -52,6 +52,7 @@
     <Compile Include="DeathManager.cs" />
     <Compile Include="DeathView.cs" />
     <Compile Include="GameContext.cs" />
+    <Compile Include="GameFinishedManager.cs" />
     <Compile Include="GameFinishedView.cs" />
     <Compile Include="GameTwoManager.cs" />
     <Compile Include="GameOneManager.cs" />

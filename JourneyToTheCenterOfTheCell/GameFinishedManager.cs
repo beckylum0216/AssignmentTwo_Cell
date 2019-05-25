@@ -10,24 +10,24 @@ using System.Threading.Tasks;
 //author Bruno Neto
 namespace JourneyToTheCenterOfTheCell
 {
-    class DeathManager:GameState
+    class GameFinishedManager : GameState
     {
         private int screenX;
         private int screenY;
-        
+
         SpriteBatch sb;
-        
+
         public override void Initialise(GameContext gameCtx)
         {
-            
+
             sb = new SpriteBatch(gameCtx.GetGraphics().GraphicsDevice);
-            
+
 
             screenX = gameCtx.GetGraphics().GraphicsDevice.Viewport.Width;
             screenY = gameCtx.GetGraphics().GraphicsDevice.Viewport.Height;
 
             UserInterface.Initialize(gameCtx.GetGameInstance().Content, BuiltinThemes.hd);
-            DeathView gui = new DeathView();
+            GameFinishedView gui = new GameFinishedView();
 
             Panel testPanel = gui.GetPanel(gameCtx);
 
@@ -37,19 +37,17 @@ namespace JourneyToTheCenterOfTheCell
         public override void Update(GameContext gameCtx)
         {
             UserInterface.Active.Update(gameCtx.GetGameTime());
-           
+
         }
 
         public override void Draw(GameContext gameCtx)
         {
-            gameCtx.GetGraphics().GraphicsDevice.Clear(Color.Red);
+            
             // draw cursor outside the render target
             UserInterface.Active.IncludeCursorInRenderTarget = true;
 
             UserInterface.Active.Draw(gameCtx.GetSpriteBatch());
-            
+
         }
     }
 }
-
-

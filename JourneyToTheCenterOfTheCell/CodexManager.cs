@@ -174,7 +174,7 @@ namespace JourneyToTheCenterOfTheCell
             if(inputActivation==false)
             {
                 //remove whatever panel was last stored 
-                UserInterface.Active.RemoveEntity(blah);
+                UserInterface.Active.Clear();//RemoveEntity(blah);
                 
                 //reset panel to content start page
                 blah = codexGui.GetPanel();
