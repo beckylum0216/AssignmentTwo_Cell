@@ -17,6 +17,7 @@ namespace JourneyToTheCenterOfTheCell
         private Map[,] itemMap;
         private Map[,] npcMap;
         private List<Vector3> randomList;
+        int structureCount;
         int itemSize;
         int structureSize;
         int npcSize;
@@ -38,6 +39,7 @@ namespace JourneyToTheCenterOfTheCell
             itemMap = new Map[sizeX, sizeZ];
             npcMap = new Map[sizeX, sizeZ];
             randomList = new List<Vector3>();
+            structureCount = 50;
             structureSize = 200;
             itemSize = 200;
             npcSize = 200;
@@ -72,7 +74,8 @@ namespace JourneyToTheCenterOfTheCell
                 randomList.Add(newPosition);
             }
 
-            for(int aa = 0; aa < structureSize; aa += 1)
+            // number of times a structure appears
+            for(int aa = 0; aa < structureCount; aa += 1)
             {
                 for (int ii = 0; ii < this.sizeX; ii += 1)
                 {
@@ -80,12 +83,12 @@ namespace JourneyToTheCenterOfTheCell
                     {
                         if((ii == randomList[aa].X) && (jj == randomList[aa].Z))
                         {
-                            string modelPath = "Models/Fireninja_blueninja";
-                            string texturePath = "Textures/Skin1";
-                            float mapScale = 1.0f;
+                            string modelPath = "Models/golgi";
+                            string texturePath = "Textures/golgi_diff";
+                            float mapScale = 10.0f;
                             Vector3 buildingRotation = new Vector3(0, 0, 0);
                             int modelLevel = 1;
-                            Map tempMap = new Map(randomList[aa], InputHandler.keyStates.NULL, modelPath, texturePath, mapScale, buildingRotation, InputHandler.keyStates.NULL, modelLevel);
+                            Map tempMap = new Map(randomList[aa], InputHandler.keyStates.Golgi, modelPath, texturePath, mapScale, buildingRotation, InputHandler.keyStates.Golgi, modelLevel);
                             gridMap[ii, jj] = tempMap;
                         }
                     }
@@ -111,7 +114,7 @@ namespace JourneyToTheCenterOfTheCell
         public void SetItemMap()
         {
 
-            // sets the initial "Map consisting of building and adjacent road
+            
             Random randomNum = new Random();
             List<Vector3> randomItemList = new List<Vector3>();
             for (int ii = 0; ii < itemSize; ii += 1)
@@ -132,15 +135,14 @@ namespace JourneyToTheCenterOfTheCell
                     {
                         if ((ii == randomItemList[aa].X) && (jj == randomItemList[aa].Z))
                         {
-                            int randomItem = randomNum.Next(5);
+                            //int randomItem = randomNum.Next(5);
 
-                            string modelPath = FindModelTypeLevel2(randomItem);
-                            string texturePath = FindTextureTypeLevel2(randomItem);
-
+                            string modelPath = "Models/mitochondria";
+                            string texturePath = "Textures/Mitochondrion_diff";
                             float mapScale = 11f;
                             Vector3 buildingRotation = new Vector3(0, 0, 0);
                             int modelLevel = 1;
-                            Map tempMap = new Map(randomItemList[aa], FindCodexTypeLevel2(randomItem), modelPath, texturePath, mapScale, buildingRotation, FindCodexTypeLevel2(randomItem), modelLevel);
+                            Map tempMap = new Map(randomItemList[aa], InputHandler.keyStates.Mitochondria, modelPath, texturePath, mapScale, buildingRotation, InputHandler.keyStates.Mitochondria, modelLevel);
                             itemMap[ii, jj] = tempMap;
                         }
                     }
@@ -351,153 +353,153 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre 
         *	@post 
         */
-        private InputHandler.keyStates FindCodexTypeLevel2(int inputRandom)
-        {
-            InputHandler.keyStates codexType = InputHandler.keyStates.NULL;
+        //private InputHandler.keyStates FindCodexTypeLevel2(int inputRandom)
+        //{
+        //    InputHandler.keyStates codexType = InputHandler.keyStates.NULL;
 
-            switch (inputRandom)
-            {
-                //case 0:
-                //    codexType = InputHandler.keyStates.Cell;
-                //    break;
-                //case 1:
-                //    codexType = InputHandler.keyStates.Nucleus;
-                //    break;
-                case 0:
-                    codexType = InputHandler.keyStates.ER;
-                    break;
-                //case 1:
-                //    codexType = InputHandler.keyStates.Lysosome;
-                //    break;
-                //case 2:
-                //    codexType = InputHandler.keyStates.Peroxisome;
-                //    break;
-                case 1:
-                    codexType = InputHandler.keyStates.Golgi;
-                    break;
-                case 2:
-                    codexType = InputHandler.keyStates.Mitochondria;
-                    break;
-                case 3:
-                    codexType = InputHandler.keyStates.Cytoskeleton;
-                    break;
-                case 4:
-                    codexType = InputHandler.keyStates.Selenocysteine;
-                    break;
-            }
+        //    switch (inputRandom)
+        //    {
+        //        //case 0:
+        //        //    codexType = InputHandler.keyStates.Cell;
+        //        //    break;
+        //        //case 1:
+        //        //    codexType = InputHandler.keyStates.Nucleus;
+        //        //    break;
+        //        //case 0:
+        //        //    codexType = InputHandler.keyStates.ER;
+        //        //    break;
+        //        //case 1:
+        //        //    codexType = InputHandler.keyStates.Lysosome;
+        //        //    break;
+        //        //case 2:
+        //        //    codexType = InputHandler.keyStates.Peroxisome;
+        //        //    break;
+        //        //case 0:
+        //        //    codexType = InputHandler.keyStates.Golgi;
+        //        //    break;
+        //        //case 1:
+        //        //    codexType = InputHandler.keyStates.Mitochondria;
+        //        //    break;
+        //        //case 3:
+        //        //    codexType = InputHandler.keyStates.Cytoskeleton;
+        //        //    break;
+        //        case 4:
+        //            codexType = InputHandler.keyStates.Selenocysteine;
+        //            break;
+        //    }
 
-            return codexType;        
+        //    return codexType;        
            
-        }
+        //}
 
-        /** 
-        *   @brief this functions helps the program to find the right junction for each empty space.
-        *   @brief does not take into account orientation
-        *   @see 
-        *	@param 
-        *	@param 
-        *	@param  
-        *	@param 
-        *	@param 
-        *	@param 
-        *	@param 
-        *	@return junction the number of junctions
-        *	@pre 
-        *	@post 
-        */
-        private string FindModelTypeLevel2(int inputRandom)
-        {
-            string modelType = null;
+        ///** 
+        //*   @brief this functions helps the program to find the right junction for each empty space.
+        //*   @brief does not take into account orientation
+        //*   @see 
+        //*	@param 
+        //*	@param 
+        //*	@param  
+        //*	@param 
+        //*	@param 
+        //*	@param 
+        //*	@param 
+        //*	@return junction the number of junctions
+        //*	@pre 
+        //*	@post 
+        //*/
+        //private string FindModelTypeLevel2(int inputRandom)
+        //{
+        //    string modelType = null;
 
-            switch (inputRandom)
-            {
-                //case 0:
-                //    //modelType = "Models/cell_obj";
-                //    break;
-                //case 1:
-                //    //modelType = "Models/nucleus";
-                //    break;
-                case 0:
-                    modelType = "Models/Riticulum";
-                    break;
-                //case 1:
-                //    modelType = "Models/Lysosome";
-                //    break;
-                //case 2:
-                //    modelType = "Models/Ball_type00";
-                //    break;
-                case 1:
-                    modelType = "Models/golgi";
-                    break;
-                case 2:
-                    modelType = "Models/mitochondria";
-                    break;
-                case 3:
-                    modelType = "Models/selenocystine_obj";
-                    break;
-                case 4:
-                    modelType = "Models/selenocystine_obj";
-                    break;
-            }
+        //    switch (inputRandom)
+        //    {
+        //        //case 0:
+        //        //    //modelType = "Models/cell_obj";
+        //        //    break;
+        //        //case 1:
+        //        //    //modelType = "Models/nucleus";
+        //        //    break;
+        //        //case 0:
+        //        //    modelType = "Models/Riticulum";
+        //            //break;
+        //        //case 1:
+        //        //    modelType = "Models/Lysosome";
+        //        //    break;
+        //        //case 2:
+        //        //    modelType = "Models/Ball_type00";
+        //        //    break;
+        //        case 1:
+        //            modelType = "Models/golgi";
+        //            break;
+        //        case 2:
+        //            modelType = "Models/mitochondria";
+        //            break;
+        //        case 3:
+        //            modelType = "Models/selenocystine_obj";
+        //            break;
+        //        case 4:
+        //            modelType = "Models/selenocystine_obj";
+        //            break;
+        //    }
 
-            return modelType;
+        //    return modelType;
 
-        }
+        //}
 
-        /** 
-        *   @brief this functions helps the program to find the right junction for each empty space.
-        *   @brief does not take into account orientation
-        *   @see 
-        *	@param 
-        *	@param 
-        *	@param  
-        *	@param 
-        *	@param 
-        *	@param 
-        *	@param 
-        *	@return junction the number of junctions
-        *	@pre 
-        *	@post 
-        */
+        ///** 
+        //*   @brief this functions helps the program to find the right junction for each empty space.
+        //*   @brief does not take into account orientation
+        //*   @see 
+        //*	@param 
+        //*	@param 
+        //*	@param  
+        //*	@param 
+        //*	@param 
+        //*	@param 
+        //*	@param 
+        //*	@return junction the number of junctions
+        //*	@pre 
+        //*	@post 
+        //*/
 
-        private string FindTextureTypeLevel2(int inputRandom)
-        {
-            string textureType = null;
+        //private string FindTextureTypeLevel2(int inputRandom)
+        //{
+        //    string textureType = null;
 
-            switch (inputRandom)
-            {
-                //case 0:
-                //    //textureType = "Textures/cell_diff";
-                //    break;
-                //case 1:
-                //    //textureType = "Textures/nucleus_diff";
-                //    break;
-                case 0:
-                    textureType = "Textures/Riticulum_diff";
-                    break;
-                //case 1:
-                //    textureType = "Textures/Lysosome_diff";
-                //    break;
-                //case 2:
-                //    textureType = "Textures/Balls_diff";
-                //    break;
-                case 1:
-                    textureType = "Textures/golgi_diff";
-                    break;
-                case 2:
-                    textureType = "Textures/Mitochondrion_diff";
-                    break;
-                case 3:
-                    textureType = "Textures/selenocystine_diff";
-                    break;
-                case 4:
-                    textureType = "Textures/selenocystine_diff";
-                    break;
-            }
+        //    switch (inputRandom)
+        //    {
+        //        //case 0:
+        //        //    //textureType = "Textures/cell_diff";
+        //        //    break;
+        //        //case 1:
+        //        //    //textureType = "Textures/nucleus_diff";
+        //        //    break;
+        //        case 0:
+        //            textureType = "Textures/Riticulum_diff";
+        //            break;
+        //        //case 1:
+        //        //    textureType = "Textures/Lysosome_diff";
+        //        //    break;
+        //        //case 2:
+        //        //    textureType = "Textures/Balls_diff";
+        //        //    break;
+        //        case 1:
+        //            textureType = "Textures/golgi_diff";
+        //            break;
+        //        case 2:
+        //            textureType = "Textures/Mitochondrion_diff";
+        //            break;
+        //        case 3:
+        //            textureType = "Textures/selenocystine_diff";
+        //            break;
+        //        case 4:
+        //            textureType = "Textures/selenocystine_diff";
+        //            break;
+        //    }
 
-            return textureType;
+        //    return textureType;
 
-        }
+        //}
 
 
         /** 
@@ -681,7 +683,7 @@ namespace JourneyToTheCenterOfTheCell
         */
         public void SetStructureCoords()
         {
-            for(int aa = 0; aa < structureSize; aa += 1)
+            for(int aa = 0; aa < structureCount; aa += 1)
             {
                 for (int ii = 0; ii < sizeX; ii++)
                 {
@@ -850,7 +852,7 @@ namespace JourneyToTheCenterOfTheCell
         // output function for debugging
         public void PrintGrid()
         {
-            for(int aa = 0; aa < structureSize; aa += 1)
+            for(int aa = 0; aa < structureCount; aa += 1)
             {
                 for (int ii = 0; ii < sizeX; ii++)
                 {

@@ -1162,7 +1162,7 @@ public class TestCase
         try
         {
             Game game = new Game();
-            Dictionary<InputHandler.keyStates, Item> d = new Dictionary<InputHandler.keyStates, Item>();
+            Dictionary<InputHandler.keyStates, Actor> d = new Dictionary<InputHandler.keyStates, Actor>();
             GraphicsDeviceManager g = new GraphicsDeviceManager(game);
             SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
             GameContext gtx = new GameContext(game, g, sb);
@@ -1182,7 +1182,7 @@ public class TestCase
         try
         {
             Game game = new Game();
-            Dictionary<InputHandler.keyStates, Item> d = new Dictionary<InputHandler.keyStates, Item>();
+            Dictionary<InputHandler.keyStates, Actor> d = new Dictionary<InputHandler.keyStates, Actor>();
             GraphicsDeviceManager g = new GraphicsDeviceManager(game);
             SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
             GameContext gtx = new GameContext(game, g, sb);
@@ -1205,7 +1205,7 @@ public class TestCase
         {
             InputHandler.keyStates k = new InputHandler.keyStates();
             Game game = new Game();
-            Dictionary<InputHandler.keyStates, Item> d = new Dictionary<InputHandler.keyStates, Item>();
+            Dictionary<InputHandler.keyStates, Actor> d = new Dictionary<InputHandler.keyStates, Actor>();
             GraphicsDeviceManager g = new GraphicsDeviceManager(game);
             SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
             GameContext gtx = new GameContext(game, g, sb);

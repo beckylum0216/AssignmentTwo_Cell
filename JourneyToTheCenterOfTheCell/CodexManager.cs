@@ -34,7 +34,7 @@ namespace JourneyToTheCenterOfTheCell
         }
 
 
-        public void Initialize(GraphicsDeviceManager g, ContentManager Content, Dictionary<InputHandler.keyStates, Item> activeState)
+        public void Initialize(GraphicsDeviceManager g, ContentManager Content, Dictionary<InputHandler.keyStates, Actor> activeState)
         {
             content = Content;
             spritebatch = new SpriteBatch(g.GraphicsDevice);
@@ -193,7 +193,7 @@ namespace JourneyToTheCenterOfTheCell
             }
         }
 
-        public void Update(GameTime gameTime, InputHandler.keyStates inputState, Dictionary<InputHandler.keyStates, Item> inputActive)
+        public void Update(GameTime gameTime, InputHandler.keyStates inputState, Dictionary<InputHandler.keyStates, Actor> inputActive)
         {
             codexGui.SetPanel(content, inputActive);
             // if the codex has been activated

@@ -66,7 +66,7 @@ namespace JourneyToTheCenterOfTheCell
             {
                 mapCreate.SetStructureMap();
 
-                mapCreate.PrintGrid();
+                //mapCreate.PrintGrid();
                 mapCreate.SetStructureCoords();
                 mapCreate.PrintCoords();
 
@@ -248,7 +248,7 @@ namespace JourneyToTheCenterOfTheCell
                 Vector3 positionSkyBox = new Vector3(centerOrigin, 0f, centerOrigin);
                 Vector3 rotationSkyBox = new Vector3(0, 0, 0);
                 Vector3 AABBOffset = new Vector3(0, 0, 0);
-                float scaleSkyBox = 100f;
+                float scaleSkyBox = 200f;
                 //Actor plotSkyBox = landPlots["SkyBox"].ActorClone(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
                 SkyBox skyBoxObj = new SkyBox(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
                 plotList.Add(skyBoxObj);
@@ -262,7 +262,7 @@ namespace JourneyToTheCenterOfTheCell
                 Vector3 positionSkyBox = new Vector3(centerOrigin, 0f, centerOrigin);
                 Vector3 rotationSkyBox = new Vector3(0, 0, 0);
                 Vector3 AABBOffset = new Vector3(0, 0, 0);
-                float scaleSkyBox = 100f;
+                float scaleSkyBox = 200f;
                 //Actor plotSkyBox = landPlots["SkyBox"].ActorClone(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
                 SkyBox skyBoxObj = new SkyBox(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
                 plotList.Add(skyBoxObj);
@@ -287,7 +287,29 @@ namespace JourneyToTheCenterOfTheCell
             if(gameLevel == 1)
             {
                 Debug.WriteLine("list size:" + plotList.Count);
-                
+
+                string modelNucleus = "Models/nucleus";
+                string textureNucleus = "Textures/nucleus_diff";
+                Vector3 positionNucleus = new Vector3(200, 200, 200) * 20;
+                Vector3 rotationNucleus = new Vector3(0, 0, 0);
+                float scaleNucleus = 100f;
+                Vector3 AABBNucleus = new Vector3(2, 2, 2) * scaleNucleus;
+
+                //Actor plotSkyBox = landPlots["SkyBox"].ActorClone(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
+                Structure nucleusObj = new Structure(Content, modelNucleus, textureNucleus, positionNucleus, rotationNucleus, scaleNucleus, AABBNucleus, InputHandler.keyStates.Nucleus);
+                plotList.Add(nucleusObj);
+
+                string modelReticulum = "Models/Riticulum";
+                string textureReticulum = "Textures/Riticulum_diff";
+                Vector3 positionReticulum = new Vector3(200, 200, 200) * 20;
+                Vector3 rotationReticulum = new Vector3(0, 0, 0);
+                float scaleReticulum = 100f;
+                Vector3 AABBReticulum = new Vector3(2, 2, 2) * scaleReticulum;
+                Structure reticulumObj = new Structure(Content, modelReticulum, textureReticulum, positionReticulum, rotationReticulum, scaleReticulum, AABBReticulum, InputHandler.keyStates.ER);
+                plotList.Add(reticulumObj);
+
+
+
                 for (int ii = 0; ii < sizeX; ii++)
                 {
                     for (int jj = 0; jj < sizeY; jj++)
@@ -299,7 +321,6 @@ namespace JourneyToTheCenterOfTheCell
                             Structure tempPlot = new Structure(Content, gridMap[ii, jj].GetModelPath(), gridMap[ii, jj].GetTexturePath(), tempPosition, gridMap[ii, jj].GetMapRotation(), gridMap[ii, jj].GetMapScale(), tempOffset, gridMap[ii,jj].GetCodexType());
                             plotList.Add(tempPlot);
                         }
-
                     }
                 }
                 Debug.WriteLine("list size:" + plotList.Count);
@@ -310,9 +331,19 @@ namespace JourneyToTheCenterOfTheCell
         // 
         public void SetItemHash()
         {
-
             Debug.WriteLine("item size:" + itemHash.Count);
-            //adds to the list the land and road tiles
+
+            string modelSelenocysteine = "Models/selenocystine_obj";
+            string textureSelenocysteine = "Textures/selenocystine_diff";
+            Vector3 positionSelenocysteine = new Vector3(100, 100, 100) * 20;
+            Vector3 rotationSelenocysteine = new Vector3(0, 0, 0);
+            float scaleSelenocysteine = 50f;
+            Vector3 AABBSelenocysteine = new Vector3(2, 2, 2) * scaleSelenocysteine;
+            int selenocysteineID = (int)Math.Round((positionSelenocysteine.X * positionSelenocysteine.Y * positionSelenocysteine.Z));
+            Item selenocysteineObj = new Item(Content, selenocysteineID, modelSelenocysteine, textureSelenocysteine, positionSelenocysteine, rotationSelenocysteine, scaleSelenocysteine, AABBSelenocysteine, InputHandler.keyStates.Selenocysteine);
+            plotList.Add(selenocysteineObj);
+
+
             for (int ii = 0; ii < sizeX; ii++)
             {
                 for (int jj = 0; jj < sizeY; jj++)

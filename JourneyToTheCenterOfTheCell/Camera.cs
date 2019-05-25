@@ -19,7 +19,7 @@ namespace JourneyToTheCenterOfTheCell
         private Vector3 zoomVector;
         private Quaternion deltaQuaternion;
         private ModelHandler itemHandler;
-        private Dictionary<InputHandler.keyStates, Item> codexHash;
+        private Dictionary<InputHandler.keyStates, Actor> codexHash;
         private SoundEffect itemSound;
         private List<NPCWander> wanderList;
 
@@ -38,7 +38,7 @@ namespace JourneyToTheCenterOfTheCell
             this.minPoint = this.subjectPosition - this.AABBOffset;
             zoomVector = new Vector3(0, 0, 0);
             this.itemHandler = inputHandler;
-            this.codexHash = new Dictionary<InputHandler.keyStates, Item>();
+            this.codexHash = new Dictionary<InputHandler.keyStates, Actor>();
             itemSound = Content.Load<SoundEffect>("Sound/Power_Up_Ray-Mike_Koenig-800933783");
         }
 
@@ -57,7 +57,7 @@ namespace JourneyToTheCenterOfTheCell
             this.maxPoint = this.subjectPosition + this.AABBOffset;
             this.minPoint = this.subjectPosition - this.AABBOffset;
             this.itemHandler = inputHandler;
-            this.codexHash = new Dictionary<InputHandler.keyStates, Item>();
+            this.codexHash = new Dictionary<InputHandler.keyStates, Actor>();
             itemSound = Content.Load<SoundEffect>("Sound/Power_Up_Ray-Mike_Koenig-800933783");
         }
 
@@ -98,6 +98,13 @@ namespace JourneyToTheCenterOfTheCell
                     else
                     {
                         Debug.WriteLine("Codex Type: " + this.GetObservers()[ii].GetCodexType());
+                        
+                        if (!this.codexHash.ContainsKey(this.GetObservers()[ii].GetCodexType()))
+                        {
+                            itemSound.Play();
+                            this.codexHash.Add(this.GetObservers()[ii].GetCodexType(), this.GetObservers()[ii]);
+                        }
+
                         this.AABBResolution(this.GetObservers()[ii], deltaTime, fps);
                     }
                     
@@ -111,11 +118,13 @@ namespace JourneyToTheCenterOfTheCell
                 if(this.GetItems()[ii].AABBtoAABB(this))
                 {
                     Debug.WriteLine("collided ID:" + this.GetItems()[ii].GetItemID());
-                    itemSound.Play();
+                    
                     if (!this.codexHash.ContainsKey(this.GetItems()[ii].GetCodexType()))
                     {
+                        itemSound.Play();
                         this.codexHash.Add(this.GetItems()[ii].GetCodexType(), this.GetItems()[ii]);
                     }
+
                     this.itemHandler.RemoveItemHash(this.GetItems()[ii].GetItemID());
 
                     if(this.GetItems()[ii].GetCodexType() == InputHandler.keyStates.Selenocysteine)
@@ -407,7 +416,7 @@ namespace JourneyToTheCenterOfTheCell
             }
         }
         
-        public Dictionary<InputHandler.keyStates, Item> GetCodexHash()
+        public Dictionary<InputHandler.keyStates, Actor> GetCodexHash()
         {
             return this.codexHash;
         }

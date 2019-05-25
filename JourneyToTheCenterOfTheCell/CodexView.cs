@@ -29,7 +29,7 @@ namespace JourneyToTheCenterOfTheCell
             return this.codexList;
         }
 
-        public void SetPanel(ContentManager Content, Dictionary<InputHandler.keyStates, Item> activeStateHash)
+        public void SetPanel(ContentManager Content, Dictionary<InputHandler.keyStates, Actor> activeStateHash)
         {
             newPanel = new Panel();
             Header pageHead = new Header("Codex", Anchor.TopCenter, new Vector2(0, -18));
