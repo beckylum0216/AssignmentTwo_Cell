@@ -283,26 +283,83 @@ namespace JourneyToTheCenterOfTheCell
             this.minPoint = actorPosition - AABBOffset;
         }
 
+        /** 
+        *   @brief accessor to the bounding box 
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return minpoint
+        *	@pre 
+        *	@post 
+        */
         public Vector3 GetMinPoint()
         {
             return this.minPoint;
         }
 
+        /** 
+        *   @brief mutator to the bounding box 
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return 
+        *	@pre 
+        *	@post 
+        */
         public void SetMaxPoint()
         {
             this.maxPoint = actorPosition + AABBOffset;
         }
 
+
+        /** 
+        *   @brief accessor to the bounding box 
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return maxPoint
+        *	@pre 
+        *	@post 
+        */
         public Vector3 GetMaxPoint()
         {
-            return this.minPoint;
+            return this.maxPoint;
         }
 
+
+        /** 
+        *   @brief mutator to the codex type
+        *   @see
+        *	@param inputType codex enum
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return 
+        *	@pre 
+        *	@post 
+        */
         public void SetCodexType(InputHandler.keyStates  inputType)
         {
             this.codexType = inputType;
         }
 
+        /** 
+        *   @brief accessor to the codex type
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return codexType 
+        *	@pre 
+        *	@post 
+        */
         public InputHandler.keyStates GetCodexType()
         {
             return this.codexType;

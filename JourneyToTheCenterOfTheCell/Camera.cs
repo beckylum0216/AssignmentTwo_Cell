@@ -467,6 +467,17 @@ namespace JourneyToTheCenterOfTheCell
             }
         }
 
+        /** 
+        *   @brief This function creates a roof plane
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return tempVector the roof position
+        *	@pre 
+        *	@post 
+        */
         private Vector3 RoofCheck()
         {
             if(subjectPosition.Y >= 10000)
@@ -480,6 +491,17 @@ namespace JourneyToTheCenterOfTheCell
             }
         }
 
+        /** 
+        *   @brief This function creates a front plane
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return tempVector the front position
+        *	@pre 
+        *	@post 
+        */
         private Vector3 FrontCheck()
         {
             if (subjectPosition.Z >= 10000)
@@ -494,6 +516,17 @@ namespace JourneyToTheCenterOfTheCell
             }
         }
 
+        /** 
+        *   @brief This function creates a back plane
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return tempVector the back position
+        *	@pre 
+        *	@post 
+        */
         private Vector3 BackCheck()
         {
             if (subjectPosition.Z <= -10000)
@@ -508,6 +541,17 @@ namespace JourneyToTheCenterOfTheCell
             }
         }
 
+        /** 
+        *   @brief This function creates a left plane
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return tempVector the left position
+        *	@pre 
+        *	@post 
+        */
         private Vector3 LeftCheck()
         {
             if (subjectPosition.X >= 10000)
@@ -522,6 +566,17 @@ namespace JourneyToTheCenterOfTheCell
             }
         }
 
+        /** 
+        *   @brief This function creates a right plane
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return tempVector the right position
+        *	@pre 
+        *	@post 
+        */
         private Vector3 RightCheck()
         {
             if (subjectPosition.X <= -10000)
@@ -536,6 +591,17 @@ namespace JourneyToTheCenterOfTheCell
             }
         }
 
+        /** 
+        *   @brief Passes the a codex map to check off codex entries
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return codexHash
+        *	@pre 
+        *	@post 
+        */
         public Dictionary<InputHandler.keyStates, Actor> GetCodexHash()
         {
             return this.codexHash;
