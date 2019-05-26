@@ -10,6 +10,7 @@ using System.Diagnostics;
 
 namespace JourneyToTheCenterOfTheCell
 {
+	/// @brief class for CodexManager
     public class CodexManager
     {
         private SpriteBatch spritebatch;
@@ -26,15 +27,38 @@ namespace JourneyToTheCenterOfTheCell
         private List<Codex> codexList;
 
         private static CodexManager codexInstance = new CodexManager();
-
+/** 
+*	@brief default constuctor for CodexManager 
+*   @see
+*	@param   
+*	@return 
+*	@pre 
+*	@post 
+*/
         public CodexManager() { }
-
+/** 
+*   @brief Accessor for codexInstance 
+*   @see
+*	@param 
+*	@return codexInstance the instance of the codex manager
+*	@pre  
+*	@post 
+*/
         public static CodexManager GetCodexInstance()
         {
             return codexInstance;
         }
 
-
+/** 
+*	@brief initialisation for CodexManager  plugs the codex into our game framework and loads all the codex entries
+*   @see
+*	@param  g the graphics device manager of our game
+*	@param 	Content the content manager of our game
+*	@param  activeState hash map of codex entry activation
+*	@return void
+*	@pre g must be initialised, Content must be initialised, activeState must be initialised
+*	@post 
+*/
         public void Initialize(GraphicsDeviceManager g, ContentManager Content, Dictionary<InputHandler.keyStates, Actor> activeState)
         {
             Debug.WriteLine("Running codex initialise!!!");
@@ -125,7 +149,7 @@ namespace JourneyToTheCenterOfTheCell
         *   @brief sets the boolean if the codex panel has been opened/activated 
         *   @see 
         *	@param 
-        *	@return 
+        *	@return void
         *	@pre 
         *	@post 
         */
@@ -138,7 +162,7 @@ namespace JourneyToTheCenterOfTheCell
         *   @brief deactivates the codex panel
         *   @see 
         *	@param 
-        *	@return 
+        *	@return void
         *	@pre 
         *	@post 
         */
@@ -148,7 +172,14 @@ namespace JourneyToTheCenterOfTheCell
         }
 
         
-
+		/** 
+        *   @brief mechanism for animating the codex dropping down
+        *   @see 
+        *	@param inputActivation the boolean that holds wether the codex has been activated from input
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
         private void CodexDown(bool inputActivation)
         {
             // if the codex has been activated
@@ -163,7 +194,14 @@ namespace JourneyToTheCenterOfTheCell
 
             }
         }
-
+		/** 
+        *   @brief mechanism for animating the codex going back up, not working as changes led to codex needing to reset so it could use 1 ui for many purposes
+        *   @see 
+        *	@param inputActivation the boolean that holds wether the codex has been activated from input
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
         private void CodexUp(bool inputActivation)
         {
 
@@ -188,7 +226,17 @@ namespace JourneyToTheCenterOfTheCell
                 }
             }
         }
-
+		
+		/** 
+        *   @brief Update function animates drop down of codex 
+        *   @see 
+        *	@param gameTime the time variable for our game
+		*	@param inputState the current input from inputmanager
+		*	@param inputActive what entries are currently active	
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
         public void Update(GameTime gameTime, InputHandler.keyStates inputState, Dictionary<InputHandler.keyStates, Actor> inputActive)
         {
             
@@ -227,7 +275,13 @@ namespace JourneyToTheCenterOfTheCell
             
             UserInterface.Active.Update(gameTime);
         }
-
+		/** 
+        *   @brief Draw function draws the codex 
+        *   @see	
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
         public void Draw()
         {
             

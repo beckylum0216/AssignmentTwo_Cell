@@ -9,10 +9,18 @@ using System;
 
 namespace JourneyToTheCenterOfTheCell
 {
+	/// @brief class for GameFinishedView the panels and layout of GameFinished state
     class GameFinishedView
     {
         GameContext newGame;
-
+/** 
+*   @brief accesor for gameFinished panel 
+*   @see
+*	@param gTX the current game context
+*	@return newPanel the actual panel to represnt the view
+*	@pre gTX must be initialised and valid
+*	@post 
+*/
         public Panel GetPanel(GameContext gTX)
         {
             newGame = gTX;
@@ -28,7 +36,14 @@ namespace JourneyToTheCenterOfTheCell
             newPanel.AddChild(returnToMenuButton);
             return newPanel;
         }
-
+/** 
+*   @brief mutator for game state variable 
+*   @see
+*	@param btn the button of the panel 
+*	@return void
+*	@pre 
+*	@post 
+*/
         public void QuizFinishedEvent(Entity btn)
         {
             MenuManager menuManager = new MenuManager();
