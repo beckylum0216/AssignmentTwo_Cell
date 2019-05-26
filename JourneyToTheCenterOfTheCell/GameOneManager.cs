@@ -197,7 +197,14 @@ namespace JourneyToTheCenterOfTheCell
             stopWatch.Start();
             hud.Update(camera.GetCamPlayer());
             //p1.Update();
-            
+            if (camera.GetCamPlayer().GetHealth() < 1)
+            {
+                DeathManager newGame = new DeathManager();
+                gameCtx.SetGameState(newGame);
+                newGame.Initialise(gameCtx);
+
+            }
+
         }
 
         public override void Draw(GameContext gameCtx)
@@ -221,13 +228,7 @@ namespace JourneyToTheCenterOfTheCell
             hud.Draw(gameCtx.GetSpriteBatch(), gameCtx.GetGraphics());//draw the initialised hud
             text.Draw(gameCtx.GetSpriteBatch(), gameCtx.GetGraphics());
             CodexManager.GetCodexInstance().Draw();
-            if (camera.GetCamPlayer().GetHealth() < 1)
-            {
-                DeathManager newGame = new DeathManager();
-                gameCtx.SetGameState(newGame);
-                newGame.Initialise(gameCtx);
-                
-            }
+            
 
         }
     }

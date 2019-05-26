@@ -24,7 +24,7 @@ namespace JourneyToTheCenterOfTheCell
         private List<NPCWander> wanderList;
         private Player p1;
         private int gameLevel;
-        //private bool endGameState;
+        private bool selenoAquired = false;
 
         public Camera(){ }
 
@@ -48,6 +48,7 @@ namespace JourneyToTheCenterOfTheCell
             //this.endGameState = false;
 
         }
+        
 
         public Camera(GameContext gtx, ContentManager Content, String modelFile, String textureFile, Vector3 predictedPosition, Vector3 inputPosition, 
                         Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset, Camera inputCamera, ModelHandler inputHandler, int inputLevel)
@@ -159,8 +160,11 @@ namespace JourneyToTheCenterOfTheCell
 
                     if(this.GetItems()[ii].GetCodexType() == InputHandler.keyStates.Selenocysteine)
                     {
+
                         this.GetItems().Remove(this.GetItems()[ii]);
-                        //endGameState = true;
+                        selenoAquired = true;
+
+
                     }
                     else
                     {
@@ -542,6 +546,10 @@ namespace JourneyToTheCenterOfTheCell
             return this.codexHash;
         }
 
-        
+        public bool SelenoAquired()
+        {
+            return selenoAquired;
+        }
+
     }
 }

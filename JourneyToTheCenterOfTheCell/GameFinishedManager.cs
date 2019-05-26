@@ -28,7 +28,11 @@ namespace JourneyToTheCenterOfTheCell
             sb = new SpriteBatch(gameCtx.GetGraphics().GraphicsDevice);
             screenX = gameCtx.GetGraphics().GraphicsDevice.Viewport.Width;
             screenY = gameCtx.GetGraphics().GraphicsDevice.Viewport.Height;
+
+
             UserInterface.Initialize(gameCtx.GetGameInstance().Content, BuiltinThemes.hd);
+            UserInterface.Active.Clear();
+
             GameFinishedView gui = new GameFinishedView();
 
             Panel testPanel = gui.GetPanel(gameCtx);
