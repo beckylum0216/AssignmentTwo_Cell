@@ -62,7 +62,7 @@ namespace JourneyToTheCenterOfTheCell
                 mapCreate.SetNPCCoords();
                 npcMap = mapCreate.GetNPCMap();
             }
-            else if(gameLevel == 1)
+            else 
             {
                 mapCreate.SetStructureMap();
 
@@ -315,19 +315,6 @@ namespace JourneyToTheCenterOfTheCell
                 Structure golgiObj = new Structure(Content, modelGolgi, textureGolgi, positionGolgi, rotationGolgi, scaleGolgi, AABBGolgi, InputHandler.keyStates.Golgi);
                 plotList.Add(golgiObj);
 
-                //for (int ii = 0; ii < sizeX; ii++)
-                //{
-                //    for (int jj = 0; jj < sizeY; jj++)
-                //    {
-                //        if (!(gridMap[ii, jj] == null))
-                //        {
-                //            Vector3 tempPosition = new Vector3(gridMap[ii, jj].GetCoordX(), gridMap[ii, jj].GetCoordY(), gridMap[ii, jj].GetCoordZ());
-                //            Vector3 tempOffset = new Vector3(20, 20, 20);
-                //            Structure tempPlot = new Structure(Content, gridMap[ii, jj].GetModelPath(), gridMap[ii, jj].GetTexturePath(), tempPosition, gridMap[ii, jj].GetMapRotation(), gridMap[ii, jj].GetMapScale(), tempOffset, gridMap[ii,jj].GetCodexType());
-                //            plotList.Add(tempPlot);
-                //        }
-                //    }
-                //}
                 Debug.WriteLine("list size:" + plotList.Count);
             }
             
@@ -348,7 +335,7 @@ namespace JourneyToTheCenterOfTheCell
             Item selenocysteineObj = new Item(Content, selenocysteineID, modelSelenocysteine, textureSelenocysteine, positionSelenocysteine, rotationSelenocysteine, scaleSelenocysteine, AABBSelenocysteine, InputHandler.keyStates.Selenocysteine);
             itemHash.Add(selenocysteineID, selenocysteineObj);
 
-
+            // creating random mitochondria
             for (int ii = 0; ii < sizeX; ii++)
             {
                 for (int jj = 0; jj < sizeY; jj++)
@@ -405,7 +392,12 @@ namespace JourneyToTheCenterOfTheCell
                             newWayPoints.Add(newPosition);
                         }
 
-                        NPC tempPlot = new NPC(Content, tempID, npcMap[ii, jj].GetModelPath(), npcMap[ii, jj].GetTexturePath(), tempPosition, npcMap[ii, jj].GetMapRotation(), npcMap[ii, jj].GetMapScale(), tempOffset, tempSpeed, newWayPoints, npcMap[ii, jj].GetMapType());
+                        Debug.WriteLine("npc codex type: " + npcMap[ii, jj].GetCodexType());
+
+                        NPC tempPlot = new NPC(Content, tempID, npcMap[ii, jj].GetModelPath(), 
+                                                npcMap[ii, jj].GetTexturePath(), tempPosition, 
+                                                    npcMap[ii, jj].GetMapRotation(), npcMap[ii, jj].GetMapScale(), 
+                                                        tempOffset, tempSpeed, newWayPoints, npcMap[ii, jj].GetCodexType());
                         if (!npcHash.ContainsKey(tempPlot.GetNPCID()))
                         {
                             npcHash.Add(tempPlot.GetNPCID(), tempPlot);

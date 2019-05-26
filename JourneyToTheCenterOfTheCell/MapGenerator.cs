@@ -248,12 +248,12 @@ namespace JourneyToTheCenterOfTheCell
                             int randomItem = randomNum.Next(2);
 
                             string modelPath = FindNPCModelTypeLevel2(randomItem);
-                            //string texturePath = "Textures/Lysosome_AlbedoTransparency";
                             string texturePath = FindNPCTextureTypeLevel2(randomItem);
                             float mapScale = 11.0f;
                             Vector3 buildingRotation = new Vector3(0, 0, 0);
                             int modelLevel = 1;
                             InputHandler.keyStates modelType = FindNPCCodexTypeLevel2(randomItem);
+                            Debug.WriteLine("npc type: " + modelType);
                             Map tempMap = new Map(randomItemList[aa], modelType, modelPath, texturePath, mapScale, buildingRotation, FindNPCCodexTypeLevel2(randomItem), modelLevel);
                             npcMap[ii, jj] = tempMap;
                         }
@@ -353,170 +353,6 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre 
         *	@post 
         */
-        //private InputHandler.keyStates FindCodexTypeLevel2(int inputRandom)
-        //{
-        //    InputHandler.keyStates codexType = InputHandler.keyStates.NULL;
-
-        //    switch (inputRandom)
-        //    {
-        //        //case 0:
-        //        //    codexType = InputHandler.keyStates.Cell;
-        //        //    break;
-        //        //case 1:
-        //        //    codexType = InputHandler.keyStates.Nucleus;
-        //        //    break;
-        //        //case 0:
-        //        //    codexType = InputHandler.keyStates.ER;
-        //        //    break;
-        //        //case 1:
-        //        //    codexType = InputHandler.keyStates.Lysosome;
-        //        //    break;
-        //        //case 2:
-        //        //    codexType = InputHandler.keyStates.Peroxisome;
-        //        //    break;
-        //        //case 0:
-        //        //    codexType = InputHandler.keyStates.Golgi;
-        //        //    break;
-        //        //case 1:
-        //        //    codexType = InputHandler.keyStates.Mitochondria;
-        //        //    break;
-        //        //case 3:
-        //        //    codexType = InputHandler.keyStates.Cytoskeleton;
-        //        //    break;
-        //        case 4:
-        //            codexType = InputHandler.keyStates.Selenocysteine;
-        //            break;
-        //    }
-
-        //    return codexType;        
-           
-        //}
-
-        ///** 
-        //*   @brief this functions helps the program to find the right junction for each empty space.
-        //*   @brief does not take into account orientation
-        //*   @see 
-        //*	@param 
-        //*	@param 
-        //*	@param  
-        //*	@param 
-        //*	@param 
-        //*	@param 
-        //*	@param 
-        //*	@return junction the number of junctions
-        //*	@pre 
-        //*	@post 
-        //*/
-        //private string FindModelTypeLevel2(int inputRandom)
-        //{
-        //    string modelType = null;
-
-        //    switch (inputRandom)
-        //    {
-        //        //case 0:
-        //        //    //modelType = "Models/cell_obj";
-        //        //    break;
-        //        //case 1:
-        //        //    //modelType = "Models/nucleus";
-        //        //    break;
-        //        //case 0:
-        //        //    modelType = "Models/Riticulum";
-        //            //break;
-        //        //case 1:
-        //        //    modelType = "Models/Lysosome";
-        //        //    break;
-        //        //case 2:
-        //        //    modelType = "Models/Ball_type00";
-        //        //    break;
-        //        case 1:
-        //            modelType = "Models/golgi";
-        //            break;
-        //        case 2:
-        //            modelType = "Models/mitochondria";
-        //            break;
-        //        case 3:
-        //            modelType = "Models/selenocystine_obj";
-        //            break;
-        //        case 4:
-        //            modelType = "Models/selenocystine_obj";
-        //            break;
-        //    }
-
-        //    return modelType;
-
-        //}
-
-        ///** 
-        //*   @brief this functions helps the program to find the right junction for each empty space.
-        //*   @brief does not take into account orientation
-        //*   @see 
-        //*	@param 
-        //*	@param 
-        //*	@param  
-        //*	@param 
-        //*	@param 
-        //*	@param 
-        //*	@param 
-        //*	@return junction the number of junctions
-        //*	@pre 
-        //*	@post 
-        //*/
-
-        //private string FindTextureTypeLevel2(int inputRandom)
-        //{
-        //    string textureType = null;
-
-        //    switch (inputRandom)
-        //    {
-        //        //case 0:
-        //        //    //textureType = "Textures/cell_diff";
-        //        //    break;
-        //        //case 1:
-        //        //    //textureType = "Textures/nucleus_diff";
-        //        //    break;
-        //        case 0:
-        //            textureType = "Textures/Riticulum_diff";
-        //            break;
-        //        //case 1:
-        //        //    textureType = "Textures/Lysosome_diff";
-        //        //    break;
-        //        //case 2:
-        //        //    textureType = "Textures/Balls_diff";
-        //        //    break;
-        //        case 1:
-        //            textureType = "Textures/golgi_diff";
-        //            break;
-        //        case 2:
-        //            textureType = "Textures/Mitochondrion_diff";
-        //            break;
-        //        case 3:
-        //            textureType = "Textures/selenocystine_diff";
-        //            break;
-        //        case 4:
-        //            textureType = "Textures/selenocystine_diff";
-        //            break;
-        //    }
-
-        //    return textureType;
-
-        //}
-
-
-        /** 
-        *   @brief this functions helps the program to find the right junction for each empty space.
-        *   @brief does not take into account orientation
-        *   @see 
-        *	@param 
-        *	@param 
-        *	@param  
-        *	@param 
-        *	@param 
-        *	@param 
-        *	@param 
-        *	@return junction the number of junctions
-        *	@pre 
-        *	@post 
-        */
         private InputHandler.keyStates FindNPCCodexTypeLevel2(int inputRandom)
         {
             InputHandler.keyStates codexType = InputHandler.keyStates.NULL;
@@ -529,27 +365,7 @@ namespace JourneyToTheCenterOfTheCell
                 case 1:
                     codexType = InputHandler.keyStates.Peroxisome;
                     break;
-                    //case 0:
-                    //    codexType = InputHandler.keyStates.ER;
-                    //    break;
-                    //case 1:
-                    //    codexType = InputHandler.keyStates.Lysosome;
-                    //    break;
-                    //case 2:
-                    //    codexType = InputHandler.keyStates.Peroxisome;
-                    //    break;
-                    //case 3:
-                    //    codexType = InputHandler.keyStates.Golgi;
-                    //    break;
-                    //case 4:
-                    //    codexType = InputHandler.keyStates.Mitochondria;
-                    //    break;
-                    //case 5:
-                    //    codexType = InputHandler.keyStates.Cytoskeleton;
-                    //    break;
-                    //case 6:
-                    //    codexType = InputHandler.keyStates.Selenocysteine;
-                    //    break;
+                    
             }
 
             return codexType;
@@ -583,27 +399,7 @@ namespace JourneyToTheCenterOfTheCell
                 case 1:
                     modelType = "Models/Ball_type00";
                     break;
-                    //case 0:
-                    //    modelType = "Models/Riticulum";
-                    //    break;
-                    //case 1:
-                    //    modelType = "Models/Lysosome";
-                    //    break;
-                    //case 2:
-                    //    modelType = "Models/Ball_type00";
-                    //    break;
-                    //case 3:
-                    //    modelType = "Models/golgi";
-                    //    break;
-                    //case 4:
-                    //    modelType = "Models/mitochondria";
-                    //    break;
-                    //case 5:
-                    //    modelType = "Models/selenocystine_obj";
-                    //    break;
-                    //case 6:
-                    //    modelType = "Models/selenocystine_obj";
-                    //    break;
+                    
             }
 
             return modelType;
@@ -638,27 +434,7 @@ namespace JourneyToTheCenterOfTheCell
                 case 1:
                     textureType = "Textures/Balls_diff";
                     break;
-                    //case 0:
-                    //    textureType = "Textures/Riticulum_diff";
-                    //    break;
-                    //case 1:
-                    //    textureType = "Textures/Lysosome_diff";
-                    //    break;
-                    //case 2:
-                    //    textureType = "Textures/Balls_diff";
-                    //    break;
-                    //case 3:
-                    //    textureType = "Textures/golgi_diff";
-                    //    break;
-                    //case 4:
-                    //    textureType = "Textures/Mitochondrion_diff";
-                    //    break;
-                    //case 5:
-                    //    textureType = "Textures/selenocystine_diff";
-                    //    break;
-                    //case 6:
-                    //    textureType = "Textures/selenocystine_diff";
-                    //    break;
+                    
             }
 
             return textureType;

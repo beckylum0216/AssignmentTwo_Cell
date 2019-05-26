@@ -50,7 +50,7 @@ namespace JourneyToTheCenterOfTheCell
             this.npcID = inputID;
             this.npcWaypoints = inputWaypoints;
             //Debug.WriteLine("Waypoint Size: " + this.npcWaypoints.Count);
-            this.PrintNPCWaypoints();
+            //this.PrintNPCWaypoints();
             
             this.npcState = new NPCWander(this);
 

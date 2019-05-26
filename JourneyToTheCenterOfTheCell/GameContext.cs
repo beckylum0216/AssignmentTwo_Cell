@@ -15,14 +15,15 @@ namespace JourneyToTheCenterOfTheCell
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private GameTime gameTime;
+        private GraphicsDevice gameGraphicsDevice;
 
-        public GameContext(Game inputGame, GraphicsDeviceManager inputGraphics, SpriteBatch inputSpriteBatch)
+        public GameContext(Game inputGame, GraphicsDeviceManager inputGraphics, SpriteBatch inputSpriteBatch, GraphicsDevice inputDevice)
         {
             this.gameInstance = inputGame;
             this.graphics = inputGraphics;
             this.spriteBatch = inputSpriteBatch;
+            this.gameGraphicsDevice = inputDevice;
             gameState = new GameOneManager();
-
         }
 
         public void SetGameInstance(Game inputGame)
@@ -53,6 +54,16 @@ namespace JourneyToTheCenterOfTheCell
         public GraphicsDeviceManager GetGraphics()
         {
             return this.graphics;
+        }
+
+        public void SetGraphicsDevice(GraphicsDevice inputDevice)
+        {
+            this.gameGraphicsDevice = inputDevice;
+        }
+
+        public GraphicsDevice GetGraphicsDevice()
+        {
+            return this.gameGraphicsDevice;
         }
 
         public void SetSpriteBatch(SpriteBatch inputSpriteBatch)
@@ -90,5 +101,7 @@ namespace JourneyToTheCenterOfTheCell
         {
             gameState.Draw(this);
         }
+
+
     }
 }

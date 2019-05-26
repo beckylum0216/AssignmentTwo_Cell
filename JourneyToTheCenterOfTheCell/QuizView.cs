@@ -52,7 +52,8 @@ namespace JourneyToTheCenterOfTheCell
             {
                 if (answerButtons[ii].Checked == true)
                 {
-                    if (answerButtons[ii].Identifier.ToString() == q.GetQuizAnswer())//if true need to send some data back to quizmanager
+                    //if true need to send some data back to quizmanager
+                    if (answerButtons[ii].Identifier.ToString() == q.GetQuizAnswer())
                     {
                         
                         qm.AddToQuestionNumber();

@@ -29,9 +29,9 @@ namespace JourneyToTheCenterOfTheCell
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.IsFullScreen = true;
+            //graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
-            graphics.HardwareModeSwitch = false;
+            //graphics.HardwareModeSwitch = false;
 
         }
 
@@ -44,7 +44,7 @@ namespace JourneyToTheCenterOfTheCell
         protected override void Initialize()
         {
             MenuManager menuManager = new MenuManager();
-            newGame = new GameContext(this, graphics, spriteBatch);
+            newGame = new GameContext(this, graphics, spriteBatch, GraphicsDevice);
             newGame.SetGameState(menuManager);
             newGame.Initialise();
             Song cellSong = Content.Load<Song>("Music/JourneyToTheCentreOfTheCell");

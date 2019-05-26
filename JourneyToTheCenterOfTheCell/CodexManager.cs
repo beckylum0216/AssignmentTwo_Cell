@@ -6,6 +6,7 @@ using GeonBit.UI.Entities;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace JourneyToTheCenterOfTheCell
 {
@@ -36,6 +37,7 @@ namespace JourneyToTheCenterOfTheCell
 
         public void Initialize(GraphicsDeviceManager g, ContentManager Content, Dictionary<InputHandler.keyStates, Actor> activeState)
         {
+            Debug.WriteLine("Running codex initialise!!!");
             content = Content;
             spritebatch = new SpriteBatch(g.GraphicsDevice);
             
@@ -145,13 +147,7 @@ namespace JourneyToTheCenterOfTheCell
             codexActivate = false;
         }
 
-        public void Draw()
-        {           
-            //turns off the geonbit cursor
-            UserInterface.Active.ShowCursor = false;
-            //draws the panels stored in active ui
-            UserInterface.Active.Draw(spritebatch);                 
-        }
+        
 
         private void CodexDown(bool inputActivation)
         {
@@ -178,6 +174,7 @@ namespace JourneyToTheCenterOfTheCell
                 
                 //reset panel to content start page
                 blah = codexGui.GetPanel();
+
                 //send the panel to ui
                 UserInterface.Active.AddEntity(blah);
                 //initial ofset variable
@@ -185,8 +182,7 @@ namespace JourneyToTheCenterOfTheCell
                 //if the panel has not reached the deactive position
                 if (blah.Offset != new Vector2(0, -540))
                 {
-                    //increment till we reach that position , 
-                    //this animation of the panel returning no longer works 
+                    //increment till we reach that position, this animation of the panel returning no longer works 
                     //because we need to clear the old panels every cycle or the program locks up
                     blah.Offset = new Vector2(0, blah.Offset.Y - 10);
                 }
@@ -195,6 +191,7 @@ namespace JourneyToTheCenterOfTheCell
 
         public void Update(GameTime gameTime, InputHandler.keyStates inputState, Dictionary<InputHandler.keyStates, Actor> inputActive)
         {
+            
             codexGui.SetPanel(content, inputActive);
             // if the codex has been activated
             if (inputState == InputHandler.keyStates.CodexDown)
@@ -211,10 +208,9 @@ namespace JourneyToTheCenterOfTheCell
 
             CodexUp(codexActivate);
 
-            
-
             for (int ii = 0; ii < codexList.Count; ii += 1)
             {
+                
                 if(inputState == codexList[ii].GetKeyBoardState())
                 {
                     if(codexActivate)
@@ -228,8 +224,19 @@ namespace JourneyToTheCenterOfTheCell
                 codexList[ii].SetItemActive(false);
             }
 
+            
             UserInterface.Active.Update(gameTime);
         }
-        
+
+        public void Draw()
+        {
+            
+
+            //turns off the geonbit cursor
+            UserInterface.Active.ShowCursor = false;
+            //draws the panels stored in active ui
+            UserInterface.Active.Draw(spritebatch);
+        }
+
     }
 }

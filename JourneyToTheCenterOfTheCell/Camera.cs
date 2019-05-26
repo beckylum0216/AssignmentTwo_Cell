@@ -24,6 +24,7 @@ namespace JourneyToTheCenterOfTheCell
         private List<NPCWander> wanderList;
         private Player p1;
         private int gameLevel;
+        //private bool endGameState;
 
         public Camera(){ }
 
@@ -44,6 +45,7 @@ namespace JourneyToTheCenterOfTheCell
             itemSound = Content.Load<SoundEffect>("Sound/Power_Up_Ray-Mike_Koenig-800933783");
             p1 = new Player(gtx);
             this.gameLevel = inputLevel;
+            //this.endGameState = false;
 
         }
 
@@ -134,35 +136,31 @@ namespace JourneyToTheCenterOfTheCell
 
                         this.AABBResolution(this.GetObservers()[ii], deltaTime, fps);
                     }
-                    
-                    
                 }
-
             }
 
+
+            // checking for item collisions
             for(int ii = 0; ii < this.GetItems().Count; ii += 1)
             {
                 if(this.GetItems()[ii].AABBtoAABB(this))
                 {
                     Debug.WriteLine("collided ID:" + this.GetItems()[ii].GetItemID());
-                    
+
+                    // add to codex ticked list if not on list
                     if (!this.codexHash.ContainsKey(this.GetItems()[ii].GetCodexType()))
                     {
                         itemSound.Play();
                         this.codexHash.Add(this.GetItems()[ii].GetCodexType(), this.GetItems()[ii]);
                     }
 
+                    // removes sprite from screen
                     this.itemHandler.RemoveItemHash(this.GetItems()[ii].GetItemID());
 
                     if(this.GetItems()[ii].GetCodexType() == InputHandler.keyStates.Selenocysteine)
                     {
-                        //this.GetItems().Remove(this.GetItems()[ii]);
-                        GameFinishedManager newGame = new GameFinishedManager();
-                        newGame.Initialise(gameCtx);
-                        gameCtx.SetGameState(newGame);
-                        
-
-
+                        this.GetItems().Remove(this.GetItems()[ii]);
+                        //endGameState = true;
                     }
                     else
                     {
@@ -184,17 +182,16 @@ namespace JourneyToTheCenterOfTheCell
                     else
                     {
                         
-                        
-
                         if (this.GetCamPlayer().GetShieldIsActive() == false)
                         {
-                            Debug.WriteLine("Attack State!!!");
+                            Debug.WriteLine("Attack State!!! codex type: " + this.GetNPCs()[ii].GetNPCType());
+
                             if (gameLevel == 1)
                             {
-                                if (!this.codexHash.ContainsKey(this.GetNPCs()[ii].GetCodexType()))
+                                if (!this.codexHash.ContainsKey(this.GetNPCs()[ii].GetNPCType()))
                                 {
                                     itemSound.Play();
-                                    this.codexHash.Add(this.GetNPCs()[ii].GetCodexType(), this.GetItems()[ii]);
+                                    this.codexHash.Add(this.GetNPCs()[ii].GetNPCType(), this.GetNPCs()[ii]);
                                 }
                             }
 
@@ -544,5 +541,7 @@ namespace JourneyToTheCenterOfTheCell
         {
             return this.codexHash;
         }
+
+        
     }
 }

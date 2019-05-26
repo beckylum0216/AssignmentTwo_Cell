@@ -16,6 +16,7 @@ namespace JourneyToTheCenterOfTheCell
         private int screenY;
         Texture2D titleS;
         SpriteBatch sb;
+
         int titleCount = 0;
         public override void Initialise(GameContext gameCtx)
         {

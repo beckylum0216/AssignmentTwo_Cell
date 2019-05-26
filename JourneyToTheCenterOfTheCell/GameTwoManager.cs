@@ -37,6 +37,7 @@ namespace JourneyToTheCenterOfTheCell
         Stopwatch stopWatch = new Stopwatch();
         TimeSpan ts = new TimeSpan();
         HUD hud = new HUD();
+        
 
         List<NPCWander> npcStateList;
         
@@ -48,6 +49,7 @@ namespace JourneyToTheCenterOfTheCell
         public GameTwoManager(GameContext gameCtx)
         {
             Debug.WriteLine("Level 2 Initialised!!!");
+
             theWorld = Matrix.CreateTranslation(new Vector3(0, 0, 0));
             screenX = gameCtx.GetGraphics().GraphicsDevice.Viewport.Width;
             screenY = gameCtx.GetGraphics().GraphicsDevice.Viewport.Height;
@@ -69,9 +71,6 @@ namespace JourneyToTheCenterOfTheCell
             mapClient.SetItemHash();
 
             mapClient.SetNPCHash();
-            
-
-            
 
             Vector3 camEyeVector = new Vector3(0, 0, 0);
             Vector3 camPositionVector = Vector3.Add(new Vector3(0, 0, 0), new Vector3(0, 1.6f, 0));
@@ -97,6 +96,7 @@ namespace JourneyToTheCenterOfTheCell
 
             foreach (var npc in mapClient.GetNPCHash())
             {
+                Debug.WriteLine("npc typey: " + npc.Value.GetCodexType());
                 camera.SetNPCs(npc.Value);
             }
 
@@ -199,6 +199,8 @@ namespace JourneyToTheCenterOfTheCell
             text.SetString("Time: " + minutes + ":" + seconds + "");
             stopWatch.Start();
             hud.Update(camera.GetCamPlayer());
+
+            
         }
 
         public override void Draw(GameContext gameCtx)
@@ -218,12 +220,10 @@ namespace JourneyToTheCenterOfTheCell
                 index.ActorDraw(theWorld, theCamera, projection);
             }
 
-
-            
-
             
             hud.Draw(gameCtx.GetSpriteBatch(), gameCtx.GetGraphics());
             text.Draw(gameCtx.GetSpriteBatch(), gameCtx.GetGraphics());
+
             //draw the codex (should be drawn in deactivated state i.e. top of the screen)
             CodexManager.GetCodexInstance().Draw();
             if (camera.GetCamPlayer().GetHealth() < 1)
@@ -232,6 +232,14 @@ namespace JourneyToTheCenterOfTheCell
                 gameCtx.SetGameState(newGame);
                 newGame.Initialise(gameCtx);
             }
+        }
+
+        public void EndGame(GameContext gameCtx)
+        {
+            GameFinishedManager endGame = new GameFinishedManager();
+            endGame.Initialise(gameCtx);
+            gameCtx.SetGameState(endGame);
+
         }
     }
 }

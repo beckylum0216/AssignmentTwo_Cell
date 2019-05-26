@@ -38,6 +38,7 @@ namespace JourneyToTheCenterOfTheCell
         HUD hud= new HUD();
         List<NPCWander> npcStateList;
         //public Player p1;
+
         public GameOneManager()
         {
 
@@ -61,7 +62,7 @@ namespace JourneyToTheCenterOfTheCell
             mapClient = new ModelHandler(gameCtx.GetGameInstance().Content, 100, 100, 100, 1.0f, gameLevel);
             mapClient.SetPlotDictionary();
             mapClient.SetPlotList();
-            mapClient.PrintPlotList();
+            //mapClient.PrintPlotList();
 
             //mapClient.SetItemHash();
             mapClient.SetNPCHash();
@@ -216,9 +217,6 @@ namespace JourneyToTheCenterOfTheCell
             {
                 index.ActorDraw(theWorld, theCamera, projection);
             }
-
-            
-            
             
             hud.Draw(gameCtx.GetSpriteBatch(), gameCtx.GetGraphics());//draw the initialised hud
             text.Draw(gameCtx.GetSpriteBatch(), gameCtx.GetGraphics());

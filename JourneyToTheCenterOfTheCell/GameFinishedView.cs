@@ -28,6 +28,7 @@ namespace JourneyToTheCenterOfTheCell
             newPanel.AddChild(returnToMenuButton);
             return newPanel;
         }
+
         public void QuizFinishedEvent(Entity btn)
         {
             MenuManager menuManager = new MenuManager();
