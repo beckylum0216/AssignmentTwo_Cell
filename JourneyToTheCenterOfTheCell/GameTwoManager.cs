@@ -205,6 +205,12 @@ namespace JourneyToTheCenterOfTheCell
                 gameCtx.SetGameState(newGame);
                 newGame.Initialise(gameCtx);
             }
+            if (camera.SelenoAquired())
+            {
+                GameFinishedManager newGame = new GameFinishedManager();
+                gameCtx.SetGameState(newGame);
+                newGame.Initialise(gameCtx);
+            }
         }
 
         public override void Draw(GameContext gameCtx)
