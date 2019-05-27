@@ -85,11 +85,9 @@ namespace JourneyToTheCenterOfTheCell
                     
                     break;
                 case "Save Game":
-                    GameFinishedView g2 = new GameFinishedView();
-                    m_interface.Clear();//clear the menu panel from the user interface
-                    Panel test2 = g2.GetPanel(gameContext);//load the story panel in the interface
+                    
 
-                    m_interface.AddEntity(test2);
+                    
                     break;
                 case "Load Game":
                     

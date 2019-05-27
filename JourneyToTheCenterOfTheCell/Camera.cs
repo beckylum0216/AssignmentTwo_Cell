@@ -166,6 +166,13 @@ namespace JourneyToTheCenterOfTheCell
 
 
                     }
+                    if (this.GetItems()[ii].GetCodexType() == InputHandler.keyStates.Mitochondria)
+                    {
+
+                        this.GetCamPlayer().SetShieldAmount(-50);
+
+
+                    }
                     else
                     {
                         this.GetItems().Remove(this.GetItems()[ii]);

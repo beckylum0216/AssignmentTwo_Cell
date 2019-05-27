@@ -10,11 +10,22 @@ using System;
 
 namespace JourneyToTheCenterOfTheCell
 {
+	/// @brief class for StoryView the panels and layout of story panel that displays on newgame button bress in main menu
     class StoryView
     {
         int m_screenX;
         int m_screenY;
         GameContext m_gtx;
+/** 
+*   @brief accesor for storyview panel 
+*   @see
+*	@param gtx the current game context
+*	@param screenX the current max x of viewport
+*	@param screenY the current max y of viewport
+*	@return newPanel the actual panel to represnt the view
+*	@pre gTX must be initialised and valid
+*	@post 
+*/
         public Panel GetPanel(GameContext gtx,int screenX, int screenY)
         {
             m_screenX = screenX;
@@ -29,13 +40,21 @@ namespace JourneyToTheCenterOfTheCell
                 newPanel.AddChild(startLvl1Button);
                 return newPanel;
         }
+/** 
+*   @brief mutator for game state variable 
+*   @see
+*	@param btn the button of the panel 
+*	@return void
+*	@pre 
+*	@post 
+*/
         public void StoryFinishedEvent(Entity btn)
         {
             //need this code to execute on begin game of my new view class
-            //GameOneManager newGame = new GameOneManager(m_gtx);
-            //m_gtx.SetGameState(newGame);
-            GameTwoManager testGame = new GameTwoManager(m_gtx);
-            m_gtx.SetGameState(testGame);
+            GameOneManager newGame = new GameOneManager(m_gtx);
+            m_gtx.SetGameState(newGame);
+            //GameTwoManager testGame = new GameTwoManager(m_gtx);
+            //m_gtx.SetGameState(testGame);
 
 
         }

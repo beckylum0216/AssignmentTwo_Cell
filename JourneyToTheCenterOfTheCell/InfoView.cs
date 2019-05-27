@@ -1,5 +1,5 @@
 ﻿//Author:Bruno Neto
-//CodexGui: this class forms the basic ui for the detailed codex page to be loaded by the codex class
+//infoview: this class forms the basic ui for the detailed codex page to be loaded by the codex class
 //Version 1.0
 using GeonBit.UI.Entities;
 using Microsoft.Xna.Framework;
@@ -8,10 +8,22 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace JourneyToTheCenterOfTheCell
 {
+	/// @brief class for InfoView the panel and layout of an individual codex detail page entry
     class InfoView
     {
         Panel infoPanel;
 
+/** 
+*   @brief mutator for codex detail page entry 
+*   @see
+*	@param Content the current game content manager 
+*	@param title the detail page title string
+*	@param info the detail page info string
+*	@param infoImage the filepath for the detail page
+*	@return void
+*	@pre Content must be initialised and valid, the info image string must point to an image file
+*	@post 
+*/
         public void SetPanel(ContentManager Content, string title, string info, string infoImage)
         {
             infoPanel = new Panel();
@@ -41,7 +53,14 @@ namespace JourneyToTheCenterOfTheCell
 
 
         }
-
+/** 
+*   @brief accesor for infoview panel 
+*   @see
+*	@param 
+*	@return infoPanel the actual panel to represent the view
+*	@pre 
+*	@post 
+*/
         public Panel GetPanel()
         {
             return infoPanel;

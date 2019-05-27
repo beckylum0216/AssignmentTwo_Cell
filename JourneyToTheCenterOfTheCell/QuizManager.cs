@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace JourneyToTheCenterOfTheCell
 {
+	///   @brief  QuizManager class game state for quiz
     class QuizManager:GameState
     {
         
@@ -19,13 +20,27 @@ namespace JourneyToTheCenterOfTheCell
         QuizAnswers questions = new QuizAnswers();
         QuizFinishedView final = new QuizFinishedView(); 
         Panel testPanel = new Panel();
-        
+/** 
+*   @brief mutator for the questionComplete boolean used to update the quiz to next question 
+*   @see
+*	@param 
+*	@return void
+*	@pre 
+*	@post 
+*/        
         public void QuestionComplete()
         {
             questionComplete = true;
         }
         
-       
+/** 
+*   @brief mutator for the currentQuestionNumber int used to keep track of when to end quiz 
+*   @see
+*	@param 
+*	@return void
+*	@pre 
+*	@post 
+*/       
         //probably need a saveQuizResultToFile function if we have time so players can check their scores from a panel in menu
         public void AddToQuestionNumber()
         {
@@ -33,14 +48,28 @@ namespace JourneyToTheCenterOfTheCell
                 currentQuestionNumber = currentQuestionNumber + 1;
             
         }
-
+/** 
+*   @brief mutator for the totalCorrect int used to track how many correct answers have been entered 
+*   @see
+*	@param 
+*	@return void
+*	@pre 
+*	@post 
+*/
         public void AddToTotalCorrect()
         {
             
                 totalCorrect = totalCorrect + 1;
             
         }
-
+/** 
+*   @brief initialise for the QuizManager state  
+*   @see
+*	@param gameCtx the current game context
+*	@return void
+*	@pre 
+*	@post 
+*/
         public override void Initialise(GameContext gameCtx)
         {
 
@@ -78,7 +107,14 @@ namespace JourneyToTheCenterOfTheCell
             testPanel = questions.GetQuizView1().GetQuizPanel();
             UserInterface.Active.AddEntity(testPanel);
         }
-       
+/** 
+*   @brief update for the QuizManager state  
+*   @see
+*	@param gameCtx the current game context
+*	@return void
+*	@pre 
+*	@post 
+*/       
         public override void Update(GameContext gameCtx)
         {
            
@@ -142,7 +178,14 @@ namespace JourneyToTheCenterOfTheCell
 
             UserInterface.Active.Update(gameCtx.GetGameTime());
         }
-
+/** 
+*   @brief draw for the QuizManager state  draws the quiz
+*   @see
+*	@param gameCtx the current game context
+*	@return void
+*	@pre 
+*	@post 
+*/
         public override void Draw(GameContext gameCtx)
         {
             UserInterface.Active.Draw(gameCtx.GetSpriteBatch());
