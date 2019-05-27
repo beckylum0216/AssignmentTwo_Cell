@@ -392,7 +392,7 @@ namespace JourneyToTheCenterOfTheCell
                             newWayPoints.Add(newPosition);
                         }
 
-                        Debug.WriteLine("npc codex type: " + npcMap[ii, jj].GetCodexType());
+                        //Debug.WriteLine("npc codex type: " + npcMap[ii, jj].GetCodexType());
 
                         NPC tempPlot = new NPC(Content, tempID, npcMap[ii, jj].GetModelPath(), 
                                                 npcMap[ii, jj].GetTexturePath(), tempPosition, 

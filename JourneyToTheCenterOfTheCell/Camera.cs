@@ -121,13 +121,13 @@ namespace JourneyToTheCenterOfTheCell
                 {
                     if(this.GetObservers()[ii].GetCodexType() == InputHandler.keyStates.Cell)
                     {
-                        Debug.WriteLine("Codex Type: " + this.GetObservers()[ii].GetCodexType());
+                        //Debug.WriteLine("Codex Type: " + this.GetObservers()[ii].GetCodexType());
                         GameTwoManager newGame = new GameTwoManager(gameCtx);
                         gameCtx.SetGameState(newGame);
                     }
                     else
                     {
-                        Debug.WriteLine("Codex Type: " + this.GetObservers()[ii].GetCodexType());
+                        //Debug.WriteLine("Codex Type: " + this.GetObservers()[ii].GetCodexType());
                         
                         if (!this.codexHash.ContainsKey(this.GetObservers()[ii].GetCodexType()))
                         {

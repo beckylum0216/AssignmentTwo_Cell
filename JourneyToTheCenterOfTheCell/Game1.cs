@@ -29,9 +29,11 @@ namespace JourneyToTheCenterOfTheCell
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            //graphics.IsFullScreen = true;
+            graphics.ApplyChanges();
+            graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
-            //graphics.HardwareModeSwitch = false;
+            graphics.HardwareModeSwitch = false;
+            this.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
 
         }
 

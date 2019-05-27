@@ -56,9 +56,14 @@ namespace JourneyToTheCenterOfTheCell
 
             gameCtx.GetGameInstance().IsMouseVisible = true;
             Mouse.SetPosition((int)centerX, (int)centerY);
-            gamePadInput = GamePad.GetState(PlayerIndex.One);
+            
 
             gameLevel = 0;
+
+            gamePadInput = GamePad.GetState(PlayerIndex.One);
+
+            Debug.WriteLine("game pad state: " + gamePadInput);
+
             mapClient = new ModelHandler(gameCtx.GetGameInstance().Content, 100, 100, 100, 1.0f, gameLevel);
             mapClient.SetPlotDictionary();
             mapClient.SetPlotList();
@@ -162,6 +167,7 @@ namespace JourneyToTheCenterOfTheCell
 
             inputHandlers = new InputHandler(screenX, screenY);
             mouseInputDelta = inputHandlers.MouseHandler(screenX, screenY, 1.00f);
+            mouseInputDelta = inputHandlers.RightGamePadHandler(screenX, screenY, 1.00f);
 
             if (!gamePadInput.IsConnected)
             {

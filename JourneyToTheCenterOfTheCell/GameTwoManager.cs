@@ -96,7 +96,7 @@ namespace JourneyToTheCenterOfTheCell
 
             foreach (var npc in mapClient.GetNPCHash())
             {
-                Debug.WriteLine("npc typey: " + npc.Value.GetCodexType());
+                //Debug.WriteLine("npc typey: " + npc.Value.GetCodexType());
                 camera.SetNPCs(npc.Value);
             }
 
@@ -162,6 +162,7 @@ namespace JourneyToTheCenterOfTheCell
 
             inputHandlers = new InputHandler(screenX, screenY);
             mouseInputDelta = inputHandlers.MouseHandler(screenX, screenY, 1.00f);
+            mouseInputDelta = inputHandlers.RightGamePadHandler(screenX, screenY, 1.00f);
 
             if (!gamePadInput.IsConnected)
             {
@@ -190,8 +191,6 @@ namespace JourneyToTheCenterOfTheCell
 
             stopWatch.Stop();
             ts = stopWatch.Elapsed;
-
-
 
             seconds = ts.Seconds;
             minutes = ts.Minutes;

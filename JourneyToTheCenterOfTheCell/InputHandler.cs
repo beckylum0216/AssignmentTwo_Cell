@@ -14,8 +14,8 @@ namespace JourneyToTheCenterOfTheCell
     /// @see https://www.gamefromscratch.com/post/2015/06/28/MonoGame-Tutorial-Handling-Keyboard-Mouse-and-GamePad-Input.aspx
     public class InputHandler
     {
-        public enum keyStates { Forwards, Backwards, Left, Right, NULL, CodexDown, CodexUp, Cell, Nucleus, ER,  
-                                Lysosome, Peroxisome, Golgi, Mitochondria, Cytoskeleton, Selenocysteine, RedBlood, WhiteBlood,ShieldToggle};
+        public enum keyStates {Forwards, Backwards, Left, Right, NULL, CodexDown, CodexUp, Cell, Nucleus, ER,  
+                               Lysosome, Peroxisome, Golgi, Mitochondria, Cytoskeleton, Selenocysteine, RedBlood, WhiteBlood,ShieldToggle};
         private KeyboardState keyboardInput;
         private MouseState mouseInput;
         private GamePadState gamePadInput;

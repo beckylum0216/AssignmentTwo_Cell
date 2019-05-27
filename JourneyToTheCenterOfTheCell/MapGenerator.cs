@@ -253,7 +253,7 @@ namespace JourneyToTheCenterOfTheCell
                             Vector3 buildingRotation = new Vector3(0, 0, 0);
                             int modelLevel = 1;
                             InputHandler.keyStates modelType = FindNPCCodexTypeLevel2(randomItem);
-                            Debug.WriteLine("npc type: " + modelType);
+                            //Debug.WriteLine("npc type: " + modelType);
                             Map tempMap = new Map(randomItemList[aa], modelType, modelPath, texturePath, mapScale, buildingRotation, FindNPCCodexTypeLevel2(randomItem), modelLevel);
                             npcMap[ii, jj] = tempMap;
                         }
