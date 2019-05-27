@@ -72,6 +72,7 @@ namespace JourneyToTheCenterOfTheCell
         public void SetShieldAmount(float shieldUseAmount)
         {
             shield = shield - shieldUseAmount;
+            if (shield > 100) { shield = 100; }
         }
 /** 
 *   @brief accessor for health variable 
