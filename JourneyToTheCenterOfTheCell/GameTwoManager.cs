@@ -41,7 +41,7 @@ namespace JourneyToTheCenterOfTheCell
         private int minutes = 0;
         Stopwatch stopWatch = new Stopwatch();
         TimeSpan ts = new TimeSpan();
-        HUD hud = new HUD();\
+        HUD hud = new HUD();
         List<NPCWander> npcStateList;
 
         /** 
