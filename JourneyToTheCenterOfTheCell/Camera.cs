@@ -5,7 +5,9 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,15 +21,30 @@ namespace JourneyToTheCenterOfTheCell
         private Vector3 zoomVector;
         private Quaternion deltaQuaternion;
         private ModelHandler itemHandler;
-        private Dictionary<InputHandler.keyStates, Actor> codexHash;
+        //private Dictionary<InputHandler.keyStates, Actor> codexHash;
+        //setting up persistence 
+        private CodexHash codexHash;
         private SoundEffect itemSound;
         private List<NPCWander> wanderList;
         private Player p1;
         private int gameLevel;
         private bool selenoAquired = false;
-
+        private string filePath = "codex.dat";
+        
+        /** 
+        *   @brief default camera constructor 
+        *   @return 
+        *	@pre 
+        *	@post creates a camera instance
+        */
         public Camera(){ }
 
+        /** 
+        *   @brief parameterised camera constructor
+        *	@return 
+        *	@pre 
+        *	@post creates a camera instance
+        */
         public Camera(GameContext gtx, ContentManager Content, Matrix inputCamera, Vector3 initPosition, Vector3 eyePosition, Vector3 deltaVector, Vector3 inputOffset, ModelHandler inputHandler, int inputLevel)
         {
             this.theCamera = inputCamera;
@@ -41,15 +58,39 @@ namespace JourneyToTheCenterOfTheCell
             this.minPoint = this.subjectPosition - this.AABBOffset;
             zoomVector = new Vector3(0, 0, 0);
             this.itemHandler = inputHandler;
-            this.codexHash = new Dictionary<InputHandler.keyStates, Actor>();
+            //this.codexHash = new Dictionary<InputHandler.keyStates, Actor>();
+            this.gameLevel = inputLevel;
+            if(gameLevel == 0)
+            {
+                this.codexHash = new CodexHash();
+            }
+            else
+            {
+                if (File.Exists("codex.dat"))
+                {
+                    Stream codexStream = new FileStream("codex.dat", FileMode.Open, FileAccess.Read);
+                    BinaryFormatter deserialiser = new BinaryFormatter();
+                    codexHash = (CodexHash)deserialiser.Deserialize(codexStream);
+                    codexStream.Close();
+                }
+            }
+            
+            
+            
+
             itemSound = Content.Load<SoundEffect>("Sound/Power_Up_Ray-Mike_Koenig-800933783");
             p1 = new Player(gtx);
-            this.gameLevel = inputLevel;
+            
             //this.endGameState = false;
 
         }
-        
 
+        /** 
+        *   @brief parameterised camera constructor
+        *	@return 
+        *	@pre 
+        *	@post creates a camera instance
+        */
         public Camera(GameContext gtx, ContentManager Content, String modelFile, String textureFile, Vector3 predictedPosition, Vector3 inputPosition, 
                         Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset, Camera inputCamera, ModelHandler inputHandler, int inputLevel)
         {
@@ -65,16 +106,30 @@ namespace JourneyToTheCenterOfTheCell
             this.maxPoint = this.subjectPosition + this.AABBOffset;
             this.minPoint = this.subjectPosition - this.AABBOffset;
             this.itemHandler = inputHandler;
-            this.codexHash = new Dictionary<InputHandler.keyStates, Actor>();
+            //this.codexHash = new Dictionary<InputHandler.keyStates, Actor>();
+            this.gameLevel = inputLevel;
+            if (gameLevel == 0)
+            {
+                this.codexHash = new CodexHash();
+            }
+            else
+            {
+                if (File.Exists("codex.dat"))
+                {
+                    Stream codexStream = new FileStream("codex.dat", FileMode.Open, FileAccess.Read);
+                    BinaryFormatter deserialiser = new BinaryFormatter();
+                    codexHash = (CodexHash)deserialiser.Deserialize(codexStream);
+                    codexStream.Close();
+                }
+            }
             itemSound = Content.Load<SoundEffect>("Sound/Power_Up_Ray-Mike_Koenig-800933783");
             p1 = new Player(gtx);
-            this.gameLevel = inputLevel;
+            
         }
 
 
         /** 
          *  @brief gets the player object of camera giving access to any object that accesses camera already 
-        
          *	@return p1 the player object in camera
          *	@pre 
          *	@post returns the cameras player class
@@ -122,6 +177,17 @@ namespace JourneyToTheCenterOfTheCell
                     if(this.GetObservers()[ii].GetCodexType() == InputHandler.keyStates.Cell)
                     {
                         //Debug.WriteLine("Codex Type: " + this.GetObservers()[ii].GetCodexType());
+                        if (!this.codexHash.GetCodexDictionary().ContainsKey(this.GetObservers()[ii].GetCodexType()))
+                        {
+                            itemSound.Play();
+                            this.codexHash.GetCodexDictionary().Add(this.GetObservers()[ii].GetCodexType(), this.GetObservers()[ii].GetCodexType().ToString());
+                        }
+
+                        Stream codexStream = new FileStream(filePath, FileMode.Create, FileAccess.Write);
+                        BinaryFormatter serialiser = new BinaryFormatter();
+                        serialiser.Serialize(codexStream, codexHash);
+                        codexStream.Close();
+
                         GameTwoManager newGame = new GameTwoManager(gameCtx);
                         gameCtx.SetGameState(newGame);
                     }
@@ -129,10 +195,10 @@ namespace JourneyToTheCenterOfTheCell
                     {
                         //Debug.WriteLine("Codex Type: " + this.GetObservers()[ii].GetCodexType());
                         
-                        if (!this.codexHash.ContainsKey(this.GetObservers()[ii].GetCodexType()))
+                        if (!this.codexHash.GetCodexDictionary().ContainsKey(this.GetObservers()[ii].GetCodexType()))
                         {
                             itemSound.Play();
-                            this.codexHash.Add(this.GetObservers()[ii].GetCodexType(), this.GetObservers()[ii]);
+                            this.codexHash.GetCodexDictionary().Add(this.GetObservers()[ii].GetCodexType(), this.GetObservers()[ii].GetCodexType().ToString());
                         }
 
                         this.AABBResolution(this.GetObservers()[ii], deltaTime, fps);
@@ -149,26 +215,35 @@ namespace JourneyToTheCenterOfTheCell
                     Debug.WriteLine("collided ID:" + this.GetItems()[ii].GetItemID());
 
                     // add to codex ticked list if not on list
-                    if (!this.codexHash.ContainsKey(this.GetItems()[ii].GetCodexType()))
+                    if (!this.codexHash.GetCodexDictionary().ContainsKey(this.GetItems()[ii].GetCodexType()))
                     {
                         itemSound.Play();
-                        this.codexHash.Add(this.GetItems()[ii].GetCodexType(), this.GetItems()[ii]);
+                        this.codexHash.GetCodexDictionary().Add(this.GetItems()[ii].GetCodexType(), this.GetItems()[ii].GetCodexType().ToString());
                     }
 
-                    // removes sprite from screen
-                    this.itemHandler.RemoveItemHash(this.GetItems()[ii].GetItemID());
+                    
 
                     if(this.GetItems()[ii].GetCodexType() == InputHandler.keyStates.Selenocysteine)
                     {
-
-                        this.GetItems().Remove(this.GetItems()[ii]);
-                        selenoAquired = true;
-
-
+                        if(!(this.codexHash.GetCodexDictionary().Count < 9))
+                        {
+                            // removes sprite from screen
+                            this.itemHandler.RemoveItemHash(this.GetItems()[ii].GetItemID());
+                            this.GetItems().Remove(this.GetItems()[ii]);
+                            selenoAquired = true;
+                            //File.Delete(filePath);
+                        }
+                        else
+                        {
+                            Debug.WriteLine("You have not sampled all the organelles in the cell!!!");
+                        }
                     }
+                    
+
                     if (this.GetItems()[ii].GetCodexType() == InputHandler.keyStates.Mitochondria)
                     {
-
+                        // removes sprite from screen
+                        this.itemHandler.RemoveItemHash(this.GetItems()[ii].GetItemID());
                         this.GetCamPlayer().SetShieldAmount(-50);
 
 
@@ -199,10 +274,10 @@ namespace JourneyToTheCenterOfTheCell
 
                             if (gameLevel == 1)
                             {
-                                if (!this.codexHash.ContainsKey(this.GetNPCs()[ii].GetNPCType()))
+                                if (!this.codexHash.GetCodexDictionary().ContainsKey(this.GetNPCs()[ii].GetNPCType()))
                                 {
                                     itemSound.Play();
-                                    this.codexHash.Add(this.GetNPCs()[ii].GetNPCType(), this.GetNPCs()[ii]);
+                                    this.codexHash.GetCodexDictionary().Add(this.GetNPCs()[ii].GetNPCType(), this.GetNPCs()[ii].GetCodexType().ToString());
                                 }
                             }
 
@@ -232,11 +307,23 @@ namespace JourneyToTheCenterOfTheCell
             return tempCameraObj;
         }
 
+        /** 
+        *   @brief mutator to the NPC wander waypoints
+        *	@return 
+        *	@pre 
+        *	@post sets NPC waypoints
+        */
         public void SetWanderList(List <NPCWander> inputList)
         {
             this.wanderList = inputList;
         }
 
+        /** 
+        *   @brief accessor to the NPC wander waypoints
+        *   @return wanderList the NPC waypoints 
+        *	@pre 
+        *	@post 
+        */
         public List<NPCWander> GetWanderList()
         {
             return this.wanderList;
@@ -269,12 +356,12 @@ namespace JourneyToTheCenterOfTheCell
         }
 
         /** 
-       *    @brief mutator for the camera viewport 
-       *	@param inputVector the new camera viewport position
-       *	@return 
-       *	@pre 
-       *	@post position must exist 
-       */
+        *   @brief mutator for the camera viewport 
+        *	@param inputVector the new camera viewport position
+        *	@return 
+        *	@pre 
+        *	@post position must exist 
+        */
         public void SetCameraEye(Vector3 inputVector)
         {
             this.cameraEye = inputVector;
@@ -479,6 +566,17 @@ namespace JourneyToTheCenterOfTheCell
             }
         }
 
+        /** 
+        *   @brief This function creates a roof plane
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return tempVector the roof position
+        *	@pre 
+        *	@post 
+        */
         private Vector3 RoofCheck()
         {
             if(subjectPosition.Y >= 10000)
@@ -492,6 +590,17 @@ namespace JourneyToTheCenterOfTheCell
             }
         }
 
+        /** 
+        *   @brief This function creates a front plane
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return tempVector the front position
+        *	@pre 
+        *	@post 
+        */
         private Vector3 FrontCheck()
         {
             if (subjectPosition.Z >= 10000)
@@ -506,6 +615,17 @@ namespace JourneyToTheCenterOfTheCell
             }
         }
 
+        /** 
+        *   @brief This function creates a back plane
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return tempVector the back position
+        *	@pre 
+        *	@post 
+        */
         private Vector3 BackCheck()
         {
             if (subjectPosition.Z <= -10000)
@@ -520,6 +640,17 @@ namespace JourneyToTheCenterOfTheCell
             }
         }
 
+        /** 
+        *   @brief This function creates a left plane
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return tempVector the left position
+        *	@pre 
+        *	@post 
+        */
         private Vector3 LeftCheck()
         {
             if (subjectPosition.X >= 10000)
@@ -534,6 +665,17 @@ namespace JourneyToTheCenterOfTheCell
             }
         }
 
+        /** 
+        *   @brief This function creates a right plane
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return tempVector the right position
+        *	@pre 
+        *	@post 
+        */
         private Vector3 RightCheck()
         {
             if (subjectPosition.X <= -10000)
@@ -548,11 +690,33 @@ namespace JourneyToTheCenterOfTheCell
             }
         }
 
-        public Dictionary<InputHandler.keyStates, Actor> GetCodexHash()
+        /** 
+        *   @brief accessor to the active codex list
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return codexHash the dictionary contained in the codexHash class
+        *	@pre 
+        *	@post 
+        */
+        public Dictionary<InputHandler.keyStates, String> GetCodexHash()
         {
-            return this.codexHash;
+            return this.codexHash.GetCodexDictionary();
         }
 
+        /** 
+        *   @brief accessor to the end game state
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return selenoAcquired the end game state
+        *	@pre 
+        *	@post 
+        */
         public bool SelenoAquired()
         {
             return selenoAquired;

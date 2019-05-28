@@ -11,6 +11,10 @@ using System.Diagnostics;
 
 namespace JourneyToTheCenterOfTheCell
 {
+    /// @author Rebecca Lim
+    /// <summary>
+    /// Class for the drawing and handling of map structures, items and NPCs
+    /// </summary>
     public class ModelHandler
     {
         private List<Actor> itemList = new List<Actor>();
@@ -200,11 +204,34 @@ namespace JourneyToTheCenterOfTheCell
             return npcHash;
         }
 
+
+        /** 
+        *   @brief mutator to the game level field
+        *   @see
+        *	@param inputLevel
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return 
+        *	@pre game must exist
+        *	@post 
+        */
         public void SetGameLevel(int inputLevel)
         {
             this.gameLevel = inputLevel;
         }
 
+        /** 
+        *   @brief mutator to the game level field
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return gameLevel the level of the game
+        *	@pre game must exist
+        *	@post 
+        */
         public int GetGameLevel()
         {
             return this.gameLevel;
@@ -236,7 +263,17 @@ namespace JourneyToTheCenterOfTheCell
             
         }
 
-        // bad bad code 
+        /** 
+        *   @brief mutator to an arrayList data structure for drawing 
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return gameLevel the level of the game
+        *	@pre game must exist
+        *	@post 
+        */
         public void SetPlotList()
         {
             if(gameLevel == 0)
@@ -320,14 +357,28 @@ namespace JourneyToTheCenterOfTheCell
             
         }
 
-        // 
+        /** 
+        *   @brief mutator to set the list of items to draw
+        *   @brief 
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
         public void SetItemHash()
         {
             Debug.WriteLine("item size:" + itemHash.Count);
 
             string modelSelenocysteine = "Models/selenocystine_obj";
             string textureSelenocysteine = "Textures/selenocystine_diff";
-            Vector3 positionSelenocysteine = new Vector3(10, 10, 10) * 20;
+            Vector3 positionSelenocysteine = new Vector3(30, 0, 30) * 20;
             Vector3 rotationSelenocysteine = new Vector3(0, 0, 0);
             float scaleSelenocysteine = 10f;
             Vector3 AABBSelenocysteine = new Vector3(1, 1, 1) * scaleSelenocysteine;
@@ -359,11 +410,41 @@ namespace JourneyToTheCenterOfTheCell
 
         }
 
+        /** 
+        *   @brief function to remove items from the game world
+        *   @brief 
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
         public void RemoveItemHash(int targetID)
         {
             itemHash.Remove(targetID);
         }
 
+        /** 
+        *   @brief mutator function for creating the NPC list
+        *   @brief 
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
         public void SetNPCHash()
         {
             //adds to the list the land and road tiles

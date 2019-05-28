@@ -7,7 +7,11 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 
 namespace JourneyToTheCenterOfTheCell
-{
+{   
+    /// @author Rebecca Lim
+    /// <summary>
+    /// map generator for the 3d environment
+    /// </summary>
     class MapGenerator
     {
         private int sizeX = 0;
@@ -709,11 +713,6 @@ namespace JourneyToTheCenterOfTheCell
 
                 }
             }
-            
-
         }
-
-
-
     }
 }

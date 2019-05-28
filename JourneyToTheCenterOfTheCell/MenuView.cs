@@ -4,14 +4,18 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using MonoGame.Extended.Gui;
-//using MonoGame.Extended.Gui.Controls;
 using GeonBit.UI;
 using GeonBit.UI.Entities;
 using Microsoft.Xna.Framework;
 
+
+
 namespace JourneyToTheCenterOfTheCell
 {
+    /// @author Rebecca Lim
+    /// <summary>
+    /// The view of the menu
+    /// </summary>
     class MenuView
     {
         public enum GameState {Menu, Game, Save, Load, Quiz, Statistics, Exit}
@@ -22,11 +26,41 @@ namespace JourneyToTheCenterOfTheCell
         int x;
         int y;
 
+        /** 
+        *   @brief parameterised constructor to the view 
+        *   @brief 
+        *   @see 
+        *	@param gameCtx the game context
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
         public MenuView(GameContext gameCtx)
         {
             this.gameContext = gameCtx;
         }
 
+        /** 
+        *   @brief function to set and get child entity to the menu view
+        *   @brief 
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
         public Panel GetPanel(int inputX, int inputY,UserInterface a)
         {
             x = inputX;
@@ -37,8 +71,8 @@ namespace JourneyToTheCenterOfTheCell
 
 
             buttonName.Add("New Game");
-            buttonName.Add("Save Game");
-            buttonName.Add("Load Game");
+            //buttonName.Add("Save Game");
+            //buttonName.Add("Load Game");
             buttonName.Add("Quiz");
             buttonName.Add("User Statistics");
             buttonName.Add("Exit");
@@ -67,7 +101,21 @@ namespace JourneyToTheCenterOfTheCell
             return newPanel;
         }
 
-
+        /** 
+        *   @brief event handler for the menu view buttons
+        *   @brief 
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
         private void MenuEvent(Entity btn)
         {
             Debug.WriteLine("ID: " + btn.Identifier);
@@ -102,6 +150,7 @@ namespace JourneyToTheCenterOfTheCell
                 case "User Statistics":
                     break;
                 case "Exit":
+                    gameContext.GetGameInstance().Exit();
                     break;
                 default:
                     Debug.WriteLine("Error invalid choice!!!");

@@ -22,6 +22,18 @@ namespace JourneyToTheCenterOfTheCell
         private Vector3 mouseDelta;
         private Vector3 mousePosition;
 
+
+        /** 
+        *   @brief parameterised constructor for the inputHandler
+        *   @see
+        *	@param screenX width of the viewport
+        *	@param screenY height of the viewport
+        *	@param 
+        *	@param 
+        *	@return 
+        *	@pre 
+        *	@post 
+        */
         public InputHandler(int screenX, int screenY)
         {
             this.mouseDelta = new Vector3(0, 0, 0);

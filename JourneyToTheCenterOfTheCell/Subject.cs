@@ -10,6 +10,10 @@ using System.Threading.Tasks;
 
 namespace JourneyToTheCenterOfTheCell
 {
+    /// @author Rebecca Lim
+    /// <summary>
+    /// implements the subject abstract class of the observer pattern
+    /// </summary>
     public abstract class Subject
     {
         public string modelPath;

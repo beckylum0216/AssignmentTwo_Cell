@@ -7,15 +7,47 @@ using Microsoft.Xna.Framework;
 
 namespace JourneyToTheCenterOfTheCell
 {
+    /// @author
+    /// <summary>
+    /// Concrete class for the NPC attack state
+    /// </summary>
     class NPCAttack : INPCState
     {
         Subject camera;
 
+        /** 
+        *   @brief parameterised constructor for observing the subject
+        *   @see 
+        *	@param inputSubject the camera
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return 
+        *	@pre 
+        *	@post 
+        */
         public NPCAttack(Subject inputSubject)
         {
             this.camera = inputSubject;
         }
 
+        /** 
+        *   @brief concrete class of the fsm animating the attack
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return resultVector the attack vector
+        *	@pre 
+        *	@post 
+        */
         public Vector3 Animate(NPC npcContext, float deltaTime, float fps)
         {
             Vector3 tempDirection = npcContext.actorPosition - this.camera.subjectPosition;

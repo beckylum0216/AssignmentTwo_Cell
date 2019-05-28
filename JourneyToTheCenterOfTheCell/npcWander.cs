@@ -8,6 +8,10 @@ using Microsoft.Xna.Framework;
 
 namespace JourneyToTheCenterOfTheCell
 {
+    /// @author rebecca Lim
+    /// <summary>
+    /// Concrete class of the wander state for the NPC
+    /// </summary>
     public class NPCWander : INPCState
     {
         List<Vector3> npcWaypoints;
@@ -16,6 +20,20 @@ namespace JourneyToTheCenterOfTheCell
         Vector3 resultVector;
         Vector3 tempDirection;
 
+        /** 
+        *   @brief parameterised constructor for the wander state
+        *   @see 
+        *	@param npcContext
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return 
+        *	@pre 
+        *	@post 
+        */
         public NPCWander(NPC npcContext)
         {
             this.npcWaypoints = npcContext.GetNPCWaypoints();
@@ -26,6 +44,20 @@ namespace JourneyToTheCenterOfTheCell
 
         }
 
+        /** 
+        *   @brief concrete class of the fsm animating the wander state
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return resultVector the wander vector
+        *	@pre 
+        *	@post 
+        */
         public Vector3 Animate(NPC npcContext, float deltaTime, float fps)
         {
             

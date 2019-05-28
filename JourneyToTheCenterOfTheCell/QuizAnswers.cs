@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace JourneyToTheCenterOfTheCell
 {
-	///   @brief  QuizAnswers class container for all the quiz questions and answers
+    /// @author Bruno Neto
+	/// @brief  QuizAnswers class container for all the quiz questions and answers
     class QuizAnswers
     {
         private int screenX;
@@ -37,15 +38,16 @@ namespace JourneyToTheCenterOfTheCell
         QuizView Quiz7; 
         QuizView Quiz8;
         QuizManager qm;
-/** 
-*   @brief initialise for the QuizAnwers container  
-*   @see
-*	@param gameCtx the current game context
-*	@param QM the current QuizManager state
-*	@return void
-*	@pre 
-*	@post 
-*/       
+
+        /** 
+        *   @brief initialise for the QuizAnwers container  
+        *   @see
+        *	@param gameCtx the current game context
+        *	@param QM the current QuizManager state
+        *	@return void
+        *	@pre 
+        *	@post 
+        */       
         public void Init(GameContext gameCtx, QuizManager QM)
         {
             qm = QM;

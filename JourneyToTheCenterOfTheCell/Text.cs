@@ -107,12 +107,8 @@ namespace JourneyToTheCenterOfTheCell
 
 
             spriteBatch.End();
-           
-
-            
-
-            
         }
+
 /** 
 *   @brief Update for text class unused as updating the text happens in classes using the text class in this implementation 
 *   @see

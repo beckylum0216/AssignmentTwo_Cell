@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace JourneyToTheCenterOfTheCell
 {
+    /// @author Rebecca Lim
+    /// <summary>
+    /// Concrete class for creating the Skybox
+    /// </summary>
     class SkyBox:Actor
     {
         public SkyBox(ContentManager Content, String modelFile, String textureFile,

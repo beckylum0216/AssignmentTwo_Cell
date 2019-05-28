@@ -12,7 +12,12 @@ using System.Threading.Tasks;
 
 namespace JourneyToTheCenterOfTheCell
 {
-    class GameTwoManager:GameState
+    /// @author Rebecca Lim
+    /// <summary>
+    /// Game state for creating the game level two
+    /// </summary>
+    /// 
+    class GameTwoManager :GameState
     {
         private Matrix theWorld;
         private Matrix theCamera;
@@ -36,16 +41,36 @@ namespace JourneyToTheCenterOfTheCell
         private int minutes = 0;
         Stopwatch stopWatch = new Stopwatch();
         TimeSpan ts = new TimeSpan();
-        HUD hud = new HUD();
-        
-
+        HUD hud = new HUD();\
         List<NPCWander> npcStateList;
-        
+
+        /** 
+        *   @brief default constructor for level two
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return 
+        *	@pre 
+        *	@post level exists
+        */
         public GameTwoManager()
         {
 
         }
 
+        /** 
+        *   @brief parameterised constructor for level two
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return 
+        *	@pre 
+        *	@post level exists
+        */
         public GameTwoManager(GameContext gameCtx)
         {
             Debug.WriteLine("Level 2 Initialised!!!");
@@ -118,41 +143,116 @@ namespace JourneyToTheCenterOfTheCell
             hud.Initialise(gameCtx,screenX,screenY);
             
         }
-        
+
+        /** 
+        *   @brief accessor to the width of the game viewport width
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return screenX the width of the game screen
+        *	@pre game exists
+        *	@post 
+        */
         public int GetScreenX()
         {
             return this.screenX;
         }
 
+        /** 
+        *   @brief accessor to the width of the game viewport height
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return screenY the height of the game screen
+        *	@pre game exists
+        *	@post 
+        */
         public int GetScreenY()
         {
             return this.screenY;
         }
 
+
+        /** 
+        *   @brief accessor to the game's camera
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return camera the player camera
+        *	@pre camera exists
+        *	@post 
+        */
         public Camera GetCamera()
         {
             return camera;
         }
 
-        //getter for the plotlist in mapclient
+        /** 
+        *   @brief accessor to the list of active structures in the game
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return screenX the width of the game screen
+        *	@pre game exists
+        *	@post 
+        */
         public List<Actor> GetStructureList()
         {
             return mapClient.GetPlotList();
         }
 
-        //getter for the plotlist in mapclient
+        /** 
+        *   @brief accessor to the active items of the game
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return mapclient
+        *	@pre game exists
+        *	@post 
+        */
         public List<Actor> GetItemList()
         {
             return mapClient.GetItemList();
         }
 
+        /** 
+        *   @brief concrete function of the abstract class game state
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return 
+        *	@pre 
+        *	@post 
+        */
         public override void Initialise(GameContext gameCtx)
         {
             
            
         }
 
-
+        /** 
+        *   @brief concrete update function of the abstract class game state
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return 
+        *	@pre 
+        *	@post 
+        */
         public override void Update(GameContext gameCtx)
         {
             screenX = gameCtx.GetGraphics().GraphicsDevice.Viewport.Width;
@@ -162,16 +262,18 @@ namespace JourneyToTheCenterOfTheCell
 
             inputHandlers = new InputHandler(screenX, screenY);
             mouseInputDelta = inputHandlers.MouseHandler(screenX, screenY, 1.00f);
-            mouseInputDelta = inputHandlers.RightGamePadHandler(screenX, screenY, 1.00f);
+           
 
             if (!gamePadInput.IsConnected)
             {
 
                 keyboardInput = inputHandlers.KeyboardHandler();
+
             }
             else
             {
                 keyboardInput = inputHandlers.LeftGamePadHandler();
+                mouseInputDelta = inputHandlers.RightGamePadHandler(screenX, screenY, 1.00f);
             }
 
 
@@ -215,6 +317,17 @@ namespace JourneyToTheCenterOfTheCell
 
         }
 
+        /** 
+        *   @brief concrete draw function of the abstract class game state
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return 
+        *	@pre 
+        *	@post 
+        */
         public override void Draw(GameContext gameCtx)
         {
             for (int ii = 0; ii < mapClient.GetPlotList().Count; ii++)
@@ -243,6 +356,17 @@ namespace JourneyToTheCenterOfTheCell
 
         }
 
+        /** 
+        *   @brief function to invoke the end game state
+        *   @see
+        *	@param gameCtx the game context
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return 
+        *	@pre 
+        *	@post game ends
+        */
         public void EndGame(GameContext gameCtx)
         {
             GameFinishedManager endGame = new GameFinishedManager();

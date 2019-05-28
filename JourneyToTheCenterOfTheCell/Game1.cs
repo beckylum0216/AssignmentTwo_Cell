@@ -30,10 +30,11 @@ namespace JourneyToTheCenterOfTheCell
         {
             graphics = new GraphicsDeviceManager(this);
             graphics.ApplyChanges();
+            this.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
             graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
             graphics.HardwareModeSwitch = false;
-            this.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+            
 
         }
 

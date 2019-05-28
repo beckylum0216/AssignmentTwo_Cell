@@ -47,32 +47,97 @@ namespace JourneyToTheCenterOfTheCell
             this.codexType = inputType;
         }
 
+        /** 
+        *   @brief mutator to the itemID
+        *   @see
+        *	@param inputID unique identifier for codex
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return 
+        *	@pre 
+        *	@post 
+        */
         public void SetItemID(int inputID)
         {
             this.itemID = inputID;
         }
 
+        /** 
+        *   @brief accessor to the itemID
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return itemID unique identifier for codex
+        *	@pre 
+        *	@post 
+        */
         public int GetItemID()
         {
             return this.itemID;
         }
 
+        /** 
+        *   @brief mutator to the codexType
+        *   @see
+        *	@param inputType the type of the Item in relation to the codex 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return 
+        *	@pre 
+        *	@post 
+        */
         public void SetCodexType(InputHandler.keyStates inputType)
         {
             this.codexType = inputType;
         }
 
+        /** 
+        *   @brief accessor to the codexType
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return codextype the type of the Item in relation to the codex 
+        *	@pre 
+        *	@post 
+        */
         public InputHandler.keyStates GetCodexType()
         {
             return  this.codexType;
         }
 
-
+        /** 
+        *   @brief concrete functions to the actor abstraact class
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return 
+        *	@pre 
+        *	@post 
+        */
         public override Actor ActorClone(ContentManager Content, string modelFile, string textureFile, Vector3 inputPosition, Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset, InputHandler.keyStates inputType)
         {
             throw new NotImplementedException();
         }
 
+        /** 
+        *   @brief concrete functions to the actor abstraact class
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return 
+        *	@pre 
+        *	@post 
+        */
         public override void ActorUpdate(float deltaTime, float fps)
         {
             throw new NotImplementedException();

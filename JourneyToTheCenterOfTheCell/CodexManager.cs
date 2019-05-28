@@ -27,39 +27,41 @@ namespace JourneyToTheCenterOfTheCell
         private List<Codex> codexList;
 
         private static CodexManager codexInstance = new CodexManager();
-/** 
-*	@brief default constuctor for CodexManager 
-*   @see
-*	@param   
-*	@return 
-*	@pre 
-*	@post 
-*/
+
+        /** 
+        *	@brief default constuctor for CodexManager 
+        *   @see
+        *	@param   
+        *	@return 
+        *	@pre 
+        *	@post 
+        */
         public CodexManager() { }
-/** 
-*   @brief Accessor for codexInstance 
-*   @see
-*	@param 
-*	@return codexInstance the instance of the codex manager
-*	@pre  
-*	@post 
-*/
+        
+        /** 
+        *   @brief Accessor for codexInstance 
+        *   @see
+        *	@param 
+        *	@return codexInstance the instance of the codex manager
+        *	@pre  
+        *	@post 
+        */
         public static CodexManager GetCodexInstance()
         {
             return codexInstance;
         }
 
-/** 
-*	@brief initialisation for CodexManager  plugs the codex into our game framework and loads all the codex entries
-*   @see
-*	@param  g the graphics device manager of our game
-*	@param 	Content the content manager of our game
-*	@param  activeState hash map of codex entry activation
-*	@return void
-*	@pre g must be initialised, Content must be initialised, activeState must be initialised
-*	@post 
-*/
-        public void Initialize(GraphicsDeviceManager g, ContentManager Content, Dictionary<InputHandler.keyStates, Actor> activeState)
+        /** 
+        *	@brief initialisation for CodexManager plugs the codex into our game framework and loads all the codex entries
+        *   @see
+        *	@param  g the graphics device manager of our game
+        *	@param 	Content the content manager of our game
+        *	@param  activeState hash map of codex entry activation
+        *	@return void
+        *	@pre g must be initialised, Content must be initialised, activeState must be initialised
+        *	@post 
+        */
+        public void Initialize(GraphicsDeviceManager g, ContentManager Content, Dictionary<InputHandler.keyStates, string> activeState)
         {
             Debug.WriteLine("Running codex initialise!!!");
             content = Content;
@@ -237,7 +239,7 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre 
         *	@post 
         */
-        public void Update(GameTime gameTime, InputHandler.keyStates inputState, Dictionary<InputHandler.keyStates, Actor> inputActive)
+        public void Update(GameTime gameTime, InputHandler.keyStates inputState, Dictionary<InputHandler.keyStates, string> inputActive)
         {
             
             codexGui.SetPanel(content, inputActive);
@@ -258,23 +260,31 @@ namespace JourneyToTheCenterOfTheCell
 
             for (int ii = 0; ii < codexList.Count; ii += 1)
             {
-                
-                if(inputState == codexList[ii].GetKeyBoardState())
+                if(inputActive.ContainsKey(codexList[ii].GetKeyBoardState()))
                 {
                     if(codexActivate)
                     {
-                        UserInterface.Active.Clear();
-                        infoGui.SetPanel(content, codexList[ii].GetItemTitle(), codexList[ii].GetItemInfo(), codexList[ii].GetFinalTexture());
-                        blah = infoGui.GetPanel();
-                        UserInterface.Active.AddEntity(blah);
+                        if(inputState == codexList[ii].GetKeyBoardState())
+                        {
+                            UserInterface.Active.Clear();
+                            infoGui.SetPanel(content, codexList[ii].GetItemTitle(), codexList[ii].GetItemInfo(), codexList[ii].GetFinalTexture());
+                            blah = infoGui.GetPanel();
+                            UserInterface.Active.AddEntity(blah);
+                        }
+                        
                     }
+                    
+                    
+                    
                 }
+                
                 codexList[ii].SetItemActive(false);
             }
 
             
             UserInterface.Active.Update(gameTime);
         }
+
 		/** 
         *   @brief Draw function draws the codex 
         *   @see	

@@ -9,11 +9,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace JourneyToTheCenterOfTheCell
 {
+    /// @author Rebecca Lim
+    /// <summary>
+    /// Concrete class implementing the Structure Actor
+    /// </summary>
     public class Structure : Actor
     {
-
-        
-
         /**
 	    *	@brief parameterised constructor to the plot object. Create a complete plot object.
 	    *	@param Content 

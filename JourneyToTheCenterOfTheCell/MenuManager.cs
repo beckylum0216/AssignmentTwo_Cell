@@ -10,14 +10,33 @@ using System.Threading.Tasks;
 
 namespace JourneyToTheCenterOfTheCell
 {
+    /// @author Rebecca Lim
+    /// <summary>
+    /// Menu manager for the menu state
+    /// </summary>
     class MenuManager:GameState
     {
         private int screenX;
         private int screenY;
         Texture2D titleS;
         SpriteBatch sb;
-
         int titleCount = 0;
+
+        /** 
+        *   @brief concrete function for initialising the menu state
+        *   @brief 
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
         public override void Initialise(GameContext gameCtx)
         {
             sb = new SpriteBatch(gameCtx.GetGraphics().GraphicsDevice);
@@ -34,6 +53,21 @@ namespace JourneyToTheCenterOfTheCell
             UserInterface.Active.AddEntity(testPanel);
         }
 
+        /** 
+        *   @brief concrete function for updating the menu state
+        *   @brief 
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
         public override void Update(GameContext gameCtx)
         {
             UserInterface.Active.Update(gameCtx.GetGameTime());
@@ -43,6 +77,21 @@ namespace JourneyToTheCenterOfTheCell
             }
         }
 
+        /** 
+        *   @brief concrete function for drawing the menu state
+        *   @brief 
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
         public override void Draw(GameContext gameCtx)
         {
             // draw cursor outside the render target

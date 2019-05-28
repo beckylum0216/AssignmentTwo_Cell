@@ -66,11 +66,33 @@ namespace JourneyToTheCenterOfTheCell
             this.modelLevel = inputLevel;
         }
 
+        /** 
+        *   @brief mutator to the map position
+        *   @see
+        *	@param inputPosition the position of the map item
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return 
+        *	@pre 
+        *	@post 
+        */
         public void SetPositionMap(Vector3 inputPosition)
         {
             this.positionMap = inputPosition;
         }
 
+        /** 
+        *   @brief accessor to the map position
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return positionMap the position of the map item
+        *	@pre 
+        *	@post 
+        */
         public Vector3 GetPositionMap()
         {
             return this.positionMap;

@@ -85,25 +85,7 @@ namespace JourneyToTheCenterOfTheCell
 
             UserInterface.Initialize(gameCtx.GetGameInstance().Content, BuiltinThemes.hd);
 
-            //List<String> tempAns = new List<String>();
-            //tempAns.Add("lorem ipsum");
-            //tempAns.Add("blah");
-
-            //Quiz testQuiz = new Quiz("Lorem ipsum dolor sit amet," +
-            //   " consectetur adipiscing elit, sed do eiusmod " +
-            //   "tempor incididunt ut labore et " +
-            //    "dolore magna aliqua.", tempAns, "blah");
-            // QuizView newQuiz = new QuizView(testQuiz, screenX, screenY);
-
-            //Panel testPanel = newQuiz.GetQuizPanel();
             
-
-            
-            
-            
-            
-            
-
             testPanel = questions.GetQuizView1().GetQuizPanel();
             UserInterface.Active.AddEntity(testPanel);
         }
@@ -124,7 +106,8 @@ namespace JourneyToTheCenterOfTheCell
                 UserInterface.Active.RemoveEntity(testPanel);
                 testPanel = questions.GetQuizView2().GetQuizPanel();
                 UserInterface.Active.AddEntity(testPanel);
-                questionComplete = false;// this boolean is to avoid redrawing the quiz unless a change has beem started by a completed quiz panel
+                // this boolean is to avoid redrawing the quiz unless a change has beem started by a completed quiz panel
+                questionComplete = false;
             }
             if (currentQuestionNumber == 3 & questionComplete == true)
             {
