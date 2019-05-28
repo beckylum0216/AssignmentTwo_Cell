@@ -47,9 +47,13 @@ namespace JourneyToTheCenterOfTheCell
         protected override void Initialize()
         {
             MenuManager menuManager = new MenuManager();
+            
             newGame = new GameContext(this, graphics, spriteBatch, GraphicsDevice);
+          
             newGame.SetGameState(menuManager);
+            
             newGame.Initialise();
+            
             Song cellSong = Content.Load<Song>("Music/JourneyToTheCentreOfTheCell");
             MediaPlayer.Play(cellSong);
             MediaPlayer.IsRepeating = true;

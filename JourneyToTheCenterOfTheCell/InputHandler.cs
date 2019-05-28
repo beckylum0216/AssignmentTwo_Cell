@@ -119,7 +119,7 @@ namespace JourneyToTheCenterOfTheCell
         {
             keyboardInput = Keyboard.GetState();
             keyStates directionState = keyStates.NULL;
-
+            
             if (keyboardInput.IsKeyDown(Keys.W))
             {
                 Debug.WriteLine("KeyDown W!!!");
@@ -288,9 +288,26 @@ namespace JourneyToTheCenterOfTheCell
             // get gamepad input
             gamePadInput = GamePad.GetState(PlayerIndex.One);
             keyStates directionState = keyStates.NULL;
-
-            if(gamePadInput.IsConnected)
+            
+            if (gamePadInput.IsConnected)
             {
+                if (gamePadInput.ThumbSticks.Left.X > 0)
+                {
+                    directionState = keyStates.Left;
+               
+                }
+                if (gamePadInput.ThumbSticks.Left.X < 0)
+                {
+                        directionState = keyStates.Right;
+                }
+                if (gamePadInput.ThumbSticks.Left.Y > 0)
+                {
+                    directionState = keyStates.Forwards;
+                }
+                if (gamePadInput.ThumbSticks.Left.Y < 0)
+                {
+                    directionState = keyStates.Backwards;
+                }
                 if (gamePadInput.DPad.Up == ButtonState.Pressed)
                 {
                    
@@ -311,11 +328,17 @@ namespace JourneyToTheCenterOfTheCell
                 {
                     directionState = keyStates.Right;
                 }
-
-               
-
-               
+                if (gamePadInput.Buttons.A == ButtonState.Pressed)
+                {
+                    
+                    //current.LeftButton = ButtonState.Pressed;
+                }
+                MouseState current2 = Mouse.GetState();
                 
+                Mouse.SetPosition((int)(current2.Position.X+gamePadInput.ThumbSticks.Left.X), (int)(current2.Position.Y + gamePadInput.ThumbSticks.Left.Y));
+                
+
+
             }
             
             // this is a hack
