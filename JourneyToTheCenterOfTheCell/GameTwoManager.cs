@@ -44,6 +44,8 @@ namespace JourneyToTheCenterOfTheCell
         HUD hud = new HUD();
         List<NPCWander> npcStateList;
 
+        
+
         /** 
         *   @brief default constructor for level two
         *   @see
@@ -141,7 +143,9 @@ namespace JourneyToTheCenterOfTheCell
             text.SetPosition(new Vector2((this.GetScreenX() / 2) - (this.GetScreenX() / 18), this.GetScreenY() / 52));
             stopWatch.Start();
             hud.Initialise(gameCtx,screenX,screenY);
+
             
+
         }
 
         /** 
@@ -299,7 +303,7 @@ namespace JourneyToTheCenterOfTheCell
 
             text.SetString("Time: " + minutes + ":" + seconds + "");
             stopWatch.Start();
-            hud.Update(camera.GetCamPlayer());
+            hud.Update(camera.GetCamPlayer(), camera.GetMessageState());
 
             if (camera.GetCamPlayer().GetHealth() < 1)
             {
@@ -308,11 +312,11 @@ namespace JourneyToTheCenterOfTheCell
                 newGame.Initialise(gameCtx);
             }
 
+            
+
             if (camera.SelenoAquired())
             {
-                GameFinishedManager newGame = new GameFinishedManager();
-                gameCtx.SetGameState(newGame);
-                newGame.Initialise(gameCtx);
+                EndGame(gameCtx);
             }
 
         }
@@ -349,6 +353,9 @@ namespace JourneyToTheCenterOfTheCell
             hud.Draw(gameCtx.GetSpriteBatch(), gameCtx.GetGraphics());
             text.Draw(gameCtx.GetSpriteBatch(), gameCtx.GetGraphics());
 
+            
+            
+
             //draw the codex (should be drawn in deactivated state i.e. top of the screen)
             CodexManager.GetCodexInstance().Draw();
             
@@ -369,9 +376,10 @@ namespace JourneyToTheCenterOfTheCell
         */
         public void EndGame(GameContext gameCtx)
         {
-            GameFinishedManager endGame = new GameFinishedManager();
-            endGame.Initialise(gameCtx);
-            gameCtx.SetGameState(endGame);
+            //GameFinishedManager endGame = new GameFinishedManager();
+            QuizManager newQuiz = new QuizManager();
+            newQuiz.Initialise(gameCtx);
+            gameCtx.SetGameState(newQuiz);
 
         }
     }

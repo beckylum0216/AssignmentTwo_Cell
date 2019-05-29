@@ -88,14 +88,6 @@ namespace JourneyToTheCenterOfTheCell
             }
         }
 
-        /** 
-        *   @brief Accessor for newPanel variable
-        *   @see
-        *	@param 
-        *	@return newPanel the local panel variable
-        *	@pre  newpanel must be set before using it from this accessor
-        *	@post 
-        */ 
         public Panel GetPanel()
         {
             return newPanel;

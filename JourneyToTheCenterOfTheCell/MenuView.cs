@@ -73,8 +73,8 @@ namespace JourneyToTheCenterOfTheCell
             buttonName.Add("New Game");
             //buttonName.Add("Save Game");
             //buttonName.Add("Load Game");
-            buttonName.Add("Quiz");
-            buttonName.Add("User Statistics");
+            //buttonName.Add("Quiz");
+            //buttonName.Add("User Statistics");
             buttonName.Add("Exit");
 
 

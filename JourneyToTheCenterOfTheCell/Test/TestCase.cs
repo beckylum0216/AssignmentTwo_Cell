@@ -910,9 +910,10 @@ public class TestCase
             SpriteBatch sb = new SpriteBatch(g.GraphicsDevice);
             GameContext gtx = new GameContext(game, g, sb, game.GraphicsDevice);
             Player p1 = new Player(gtx);
+            Camera camera = new Camera();
             HUD test = new HUD();
             test.Initialise(gtx, 300, 300);
-            test.Update(p1);
+            test.Update(p1, camera.GetMessageState());
         }
         catch (Exception e)
         {

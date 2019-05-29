@@ -30,7 +30,7 @@ namespace JourneyToTheCenterOfTheCell
         private int gameLevel;
         private bool selenoAquired = false;
         private string filePath = "codex.dat";
-        
+        private bool msgState = false;
         /** 
         *   @brief default camera constructor 
         *   @return 
@@ -82,7 +82,7 @@ namespace JourneyToTheCenterOfTheCell
             p1 = new Player(gtx);
             
             //this.endGameState = false;
-
+            
         }
 
         /** 
@@ -125,6 +125,7 @@ namespace JourneyToTheCenterOfTheCell
             itemSound = Content.Load<SoundEffect>("Sound/Power_Up_Ray-Mike_Koenig-800933783");
             p1 = new Player(gtx);
             
+
         }
 
 
@@ -153,6 +154,7 @@ namespace JourneyToTheCenterOfTheCell
          */
         public override Matrix SubjectUpdate(GameContext gameCtx, Vector3 inputVector, float deltaTime, float fps)
         {
+            msgState = false;
             /// calculate pitch axis for rotating, therefore the orthogonal between the forward and up 
             /// assuming righthandedness
             Vector3 pitchAxis = Vector3.Cross(subjectRotation, Vector3.Up);
@@ -181,6 +183,7 @@ namespace JourneyToTheCenterOfTheCell
                         {
                             itemSound.Play();
                             this.codexHash.GetCodexDictionary().Add(this.GetObservers()[ii].GetCodexType(), this.GetObservers()[ii].GetCodexType().ToString());
+                            this.codexHash.GetCodexDictionary().Add(InputHandler.keyStates.Cytoskeleton, InputHandler.keyStates.Cytoskeleton.ToString());
                         }
 
                         Stream codexStream = new FileStream(filePath, FileMode.Create, FileAccess.Write);
@@ -201,7 +204,14 @@ namespace JourneyToTheCenterOfTheCell
                             this.codexHash.GetCodexDictionary().Add(this.GetObservers()[ii].GetCodexType(), this.GetObservers()[ii].GetCodexType().ToString());
                         }
 
-                        this.AABBResolution(this.GetObservers()[ii], deltaTime, fps);
+                        if (this.subjectPosition.Y > 200f)
+                        {
+                            this.AABBResolution(this.GetObservers()[ii], deltaTime, fps);
+                        }
+                        else
+                        {
+                            this.AABBCollider(this.GetObservers()[ii]);
+                        }
                     }
                 }
             }
@@ -213,20 +223,18 @@ namespace JourneyToTheCenterOfTheCell
                 if(this.GetItems()[ii].AABBtoAABB(this))
                 {
                     Debug.WriteLine("collided ID:" + this.GetItems()[ii].GetItemID());
-
-                    // add to codex ticked list if not on list
-                    if (!this.codexHash.GetCodexDictionary().ContainsKey(this.GetItems()[ii].GetCodexType()))
+                    //itemSound.Play();
+                    if (this.GetItems()[ii].GetCodexType() == InputHandler.keyStates.Selenocysteine)
                     {
-                        itemSound.Play();
-                        this.codexHash.GetCodexDictionary().Add(this.GetItems()[ii].GetCodexType(), this.GetItems()[ii].GetCodexType().ToString());
-                    }
-
-                    
-
-                    if(this.GetItems()[ii].GetCodexType() == InputHandler.keyStates.Selenocysteine)
-                    {
-                        if(!(this.codexHash.GetCodexDictionary().Count < 9))
+                        if(!(this.codexHash.GetCodexDictionary().Count < 8))
                         {
+                            // add to codex ticked list if not on list
+                            if (!this.codexHash.GetCodexDictionary().ContainsKey(this.GetItems()[ii].GetCodexType()))
+                            {
+                                itemSound.Play();
+                                this.codexHash.GetCodexDictionary().Add(this.GetItems()[ii].GetCodexType(), this.GetItems()[ii].GetCodexType().ToString());
+                            }
+
                             // removes sprite from screen
                             this.itemHandler.RemoveItemHash(this.GetItems()[ii].GetItemID());
                             this.GetItems().Remove(this.GetItems()[ii]);
@@ -236,22 +244,31 @@ namespace JourneyToTheCenterOfTheCell
                         else
                         {
                             Debug.WriteLine("You have not sampled all the organelles in the cell!!!");
+                            msgState = true;
                         }
                     }
+                    //else
+                    //{
+                    //    // add to codex ticked list if not on list
+                    //    if (!this.codexHash.GetCodexDictionary().ContainsKey(this.GetItems()[ii].GetCodexType()))
+                    //    {
+                    //        itemSound.Play();
+                    //        this.codexHash.GetCodexDictionary().Add(this.GetItems()[ii].GetCodexType(), this.GetItems()[ii].GetCodexType().ToString());
+                    //    }
+                    //}
                     
 
                     if (this.GetItems()[ii].GetCodexType() == InputHandler.keyStates.Mitochondria)
                     {
                         // removes sprite from screen
+                        itemSound.Play();
                         this.itemHandler.RemoveItemHash(this.GetItems()[ii].GetItemID());
-                        this.GetCamPlayer().SetShieldAmount(-50);
-
-
-                    }
-                    else
-                    {
                         this.GetItems().Remove(this.GetItems()[ii]);
-                    }
+                        this.GetCamPlayer().SetShieldAmount(-50);
+                        
+
+                    }                  
+                   
                     
                     
                 }
@@ -722,5 +739,20 @@ namespace JourneyToTheCenterOfTheCell
             return selenoAquired;
         }
 
+        /** 
+        *   @brief accessor to the message state
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return selenoAcquired the end game state
+        *	@pre 
+        *	@post 
+        */
+        public bool GetMessageState()
+        {
+            return msgState;
+        }
     }
 }

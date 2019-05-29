@@ -304,7 +304,7 @@ namespace JourneyToTheCenterOfTheCell
             
             text.SetString("Time: "+ minutes+":"+seconds+"");
             stopWatch.Start();
-            hud.Update(camera.GetCamPlayer());
+            hud.Update(camera.GetCamPlayer(), camera.GetMessageState());
             //p1.Update();
             if (camera.GetCamPlayer().GetHealth() < 1)
             {

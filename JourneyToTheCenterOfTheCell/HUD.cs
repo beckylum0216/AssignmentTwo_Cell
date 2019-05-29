@@ -12,8 +12,10 @@ namespace JourneyToTheCenterOfTheCell
     {
         int health;
         int shield;
+        private bool msgState;
         Text m_health = new Text();
         Text m_shield = new Text();
+        private Text msgBox = new Text();
         Texture2D hudImage ;
         private SpriteFont font;
 
@@ -66,6 +68,9 @@ namespace JourneyToTheCenterOfTheCell
             m_health.SetString("Health:" + health);
             m_shield.SetString("Shield:" + shield);
             hudImage = gameCtx.GetGameInstance().Content.Load<Texture2D>("Textures/HUD");
+            msgBox.Initialise(font);
+            msgBox.SetPosition(new Vector2((screenX/2)-300f, screenY/2));
+            msgBox.SetString("Your supervisor would like you to sample all organelles before leaving");
         }
 
 
@@ -114,6 +119,10 @@ namespace JourneyToTheCenterOfTheCell
             m_health.Draw(spriteBatch, g);
             m_shield.Draw(spriteBatch, g);
 
+            if(msgState == true)
+            {
+                msgBox.Draw(spriteBatch, g);
+            }
 
         }
 
@@ -125,7 +134,7 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre 
         *	@post 
         */
-        public void Update(Player p1)
+        public void Update(Player p1, bool inputState)
         {
             //will need to pass a player object in here 
             //need to check if local ints for health and shield are the same as the players if not use the setters to update to the players actual current hp and shield
@@ -134,13 +143,14 @@ namespace JourneyToTheCenterOfTheCell
                 health = (int)p1.GetHealth();
                 m_health.SetString("Health: " + health);
             }
+
             if (shield != (int)p1.GetShield())
             {
                 shield = (int)p1.GetShield();
                 m_shield.SetString("Shield: " + shield);
             }
-            
 
+            msgState = inputState;
 
         }
     }
