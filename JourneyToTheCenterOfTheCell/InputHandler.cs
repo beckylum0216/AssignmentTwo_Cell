@@ -14,14 +14,26 @@ namespace JourneyToTheCenterOfTheCell
     /// @see https://www.gamefromscratch.com/post/2015/06/28/MonoGame-Tutorial-Handling-Keyboard-Mouse-and-GamePad-Input.aspx
     public class InputHandler
     {
-        public enum keyStates { Forwards, Backwards, Left, Right, NULL, CodexDown, CodexUp, Cell, Nucleus, ER,  
-                                Lysosome, Peroxisome, Golgi, Mitochondria, Cytoskeleton, Selenocysteine};
+        public enum keyStates {Forwards, Backwards, Left, Right, NULL, CodexDown, CodexUp, Cell, Nucleus, ER,  
+                               Lysosome, Peroxisome, Golgi, Mitochondria, Cytoskeleton, Selenocysteine, RedBlood, WhiteBlood,ShieldToggle};
         private KeyboardState keyboardInput;
         private MouseState mouseInput;
         private GamePadState gamePadInput;
         private Vector3 mouseDelta;
         private Vector3 mousePosition;
 
+
+        /** 
+        *   @brief parameterised constructor for the inputHandler
+        *   @see
+        *	@param screenX width of the viewport
+        *	@param screenY height of the viewport
+        *	@param 
+        *	@param 
+        *	@return 
+        *	@pre 
+        *	@post 
+        */
         public InputHandler(int screenX, int screenY)
         {
             this.mouseDelta = new Vector3(0, 0, 0);
@@ -107,7 +119,7 @@ namespace JourneyToTheCenterOfTheCell
         {
             keyboardInput = Keyboard.GetState();
             keyStates directionState = keyStates.NULL;
-
+            
             if (keyboardInput.IsKeyDown(Keys.W))
             {
                 Debug.WriteLine("KeyDown W!!!");
@@ -181,6 +193,13 @@ namespace JourneyToTheCenterOfTheCell
             {
 
                 directionState = keyStates.CodexUp;
+                //c.Deactivate();
+            }
+
+            if (keyboardInput.IsKeyDown(Keys.G))//keypress for deactivating codex
+            {
+
+                directionState = keyStates.ShieldToggle;
                 //c.Deactivate();
             }
 
@@ -269,9 +288,26 @@ namespace JourneyToTheCenterOfTheCell
             // get gamepad input
             gamePadInput = GamePad.GetState(PlayerIndex.One);
             keyStates directionState = keyStates.NULL;
-
-            if(gamePadInput.IsConnected)
+            
+            if (gamePadInput.IsConnected)
             {
+                if (gamePadInput.ThumbSticks.Left.X > 0)
+                {
+                    directionState = keyStates.Left;
+               
+                }
+                if (gamePadInput.ThumbSticks.Left.X < 0)
+                {
+                        directionState = keyStates.Right;
+                }
+                if (gamePadInput.ThumbSticks.Left.Y > 0)
+                {
+                    directionState = keyStates.Forwards;
+                }
+                if (gamePadInput.ThumbSticks.Left.Y < 0)
+                {
+                    directionState = keyStates.Backwards;
+                }
                 if (gamePadInput.DPad.Up == ButtonState.Pressed)
                 {
                    
@@ -292,11 +328,17 @@ namespace JourneyToTheCenterOfTheCell
                 {
                     directionState = keyStates.Right;
                 }
-
-               
-
-               
+                if (gamePadInput.Buttons.A == ButtonState.Pressed)
+                {
+                    
+                    //current.LeftButton = ButtonState.Pressed;
+                }
+                MouseState current2 = Mouse.GetState();
                 
+                Mouse.SetPosition((int)(current2.Position.X+gamePadInput.ThumbSticks.Left.X), (int)(current2.Position.Y + gamePadInput.ThumbSticks.Left.Y));
+                
+
+
             }
             
             // this is a hack

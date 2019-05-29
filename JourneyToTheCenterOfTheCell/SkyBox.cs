@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace JourneyToTheCenterOfTheCell
 {
+    /// @author Rebecca Lim
+    /// <summary>
+    /// Concrete class for creating the Skybox
+    /// </summary>
     class SkyBox:Actor
     {
         public SkyBox(ContentManager Content, String modelFile, String textureFile,
@@ -35,7 +39,7 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre 
         *	@post 
         */
-        public override Matrix ActorUpdate(Vector3 inputVector)
+        public override void ActorUpdate(float deltaTime, float fps)
         {
             throw new NotImplementedException();
         }
@@ -52,7 +56,7 @@ namespace JourneyToTheCenterOfTheCell
         *	@post 
         */
         public override Actor ActorClone(ContentManager Content, String modelFile, String textureFile, Vector3 inputPosition,
-                                    Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset)
+                                    Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset, InputHandler.keyStates inputType)
         {
             return new SkyBox(Content, modelPath, texturePath, actorPosition, actorRotation, actorScale, AABBOffset);
         }

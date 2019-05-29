@@ -26,9 +26,11 @@ namespace JourneyToTheCenterOfTheCell
 
         // enum of building types
         public enum buildType {NullMap, RoadHorizontal, RoadVertical, RoadCorner, Building, RoadT, RoadCross, SkyBox};
-        private buildType blockType;
+        private InputHandler.keyStates blockType;
         private String modelPath;
         private String texturePath;
+
+        private int modelLevel;
 
         /**
 	    *	@brief default constructor to the block object
@@ -40,7 +42,7 @@ namespace JourneyToTheCenterOfTheCell
         public Map()
         {
             this.positionMap = new Vector3();
-            this.blockType = buildType.NullMap;
+            this.blockType = InputHandler.keyStates.NULL;
         }
 
         /**
@@ -50,8 +52,9 @@ namespace JourneyToTheCenterOfTheCell
 	    *	@pre 
 	    *	@post Map will exist
 	    */
-        public Map(Vector3 gridPosition, buildType gridType, string modelFile, 
-                        string textureFile, float gridScale, Vector3 gridRotation, InputHandler.keyStates codexInput)
+        public Map(Vector3 gridPosition, InputHandler.keyStates gridType, string modelFile, 
+                        string textureFile, float gridScale, Vector3 gridRotation, 
+                        InputHandler.keyStates codexInput, int inputLevel)
         {
             this.positionMap = gridPosition;
             this.blockType = gridType;
@@ -60,13 +63,36 @@ namespace JourneyToTheCenterOfTheCell
             this.blockScale = gridScale;
             this.blockRotation = gridRotation;
             this.codexType = codexInput;
+            this.modelLevel = inputLevel;
         }
 
+        /** 
+        *   @brief mutator to the map position
+        *   @see
+        *	@param inputPosition the position of the map item
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return 
+        *	@pre 
+        *	@post 
+        */
         public void SetPositionMap(Vector3 inputPosition)
         {
             this.positionMap = inputPosition;
         }
 
+        /** 
+        *   @brief accessor to the map position
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return positionMap the position of the map item
+        *	@pre 
+        *	@post 
+        */
         public Vector3 GetPositionMap()
         {
             return this.positionMap;
@@ -151,7 +177,7 @@ namespace JourneyToTheCenterOfTheCell
         * @pre 
         * @post block type will exist
         */
-        public void SetMapType(buildType inputType)
+        public void SetMapType(InputHandler.keyStates inputType)
         {
             this.blockType = inputType;
         }
@@ -163,7 +189,7 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre block type must exist
         *	@post 
         */
-        public buildType GetMapType()
+        public InputHandler.keyStates GetMapType()
         {
             return this.blockType;
         }

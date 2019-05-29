@@ -8,31 +8,39 @@ using System.Threading.Tasks;
 
 namespace JourneyToTheCenterOfTheCell
 {
+	///   @brief  QuizManager class game state for quiz
     class QuizManager:GameState
     {
-        //private int screenX;
-        //private int screenY;
-        int numOfQuestions = 8;
+        
+        //int numOfQuestions = 8;
         int totalCorrect;
         int currentQuestionNumber;
-        double finalPercentage = 0.00;
+        //double finalPercentage = 0.00;
         bool questionComplete = false;
         QuizAnswers questions = new QuizAnswers();
         QuizFinishedView final = new QuizFinishedView(); 
         Panel testPanel = new Panel();
-        
+/** 
+*   @brief mutator for the questionComplete boolean used to update the quiz to next question 
+*   @see
+*	@param 
+*	@return void
+*	@pre 
+*	@post 
+*/        
         public void QuestionComplete()
         {
             questionComplete = true;
         }
-        public void CalculateQuizResult()
-        {
-            finalPercentage = totalCorrect / numOfQuestions;
-        }
-        public void DisplayQuizResult()
-        {
-            //need to make a quizFinalView to load a panel showing quiz stats after completion
-        }
+        
+/** 
+*   @brief mutator for the currentQuestionNumber int used to keep track of when to end quiz 
+*   @see
+*	@param 
+*	@return void
+*	@pre 
+*	@post 
+*/       
         //probably need a saveQuizResultToFile function if we have time so players can check their scores from a panel in menu
         public void AddToQuestionNumber()
         {
@@ -40,16 +48,31 @@ namespace JourneyToTheCenterOfTheCell
                 currentQuestionNumber = currentQuestionNumber + 1;
             
         }
-
+/** 
+*   @brief mutator for the totalCorrect int used to track how many correct answers have been entered 
+*   @see
+*	@param 
+*	@return void
+*	@pre 
+*	@post 
+*/
         public void AddToTotalCorrect()
         {
             
                 totalCorrect = totalCorrect + 1;
             
         }
-
+/** 
+*   @brief initialise for the QuizManager state  
+*   @see
+*	@param gameCtx the current game context
+*	@return void
+*	@pre 
+*	@post 
+*/
         public override void Initialise(GameContext gameCtx)
         {
+
             
             questions.Init(gameCtx,this);
             totalCorrect = 0;
@@ -62,29 +85,18 @@ namespace JourneyToTheCenterOfTheCell
 
             UserInterface.Initialize(gameCtx.GetGameInstance().Content, BuiltinThemes.hd);
 
-            //List<String> tempAns = new List<String>();
-            //tempAns.Add("lorem ipsum");
-            //tempAns.Add("blah");
-
-            //Quiz testQuiz = new Quiz("Lorem ipsum dolor sit amet," +
-            //   " consectetur adipiscing elit, sed do eiusmod " +
-            //   "tempor incididunt ut labore et " +
-            //    "dolore magna aliqua.", tempAns, "blah");
-            // QuizView newQuiz = new QuizView(testQuiz, screenX, screenY);
-
-            //Panel testPanel = newQuiz.GetQuizPanel();
             
-
-            
-            
-            
-            
-            
-
             testPanel = questions.GetQuizView1().GetQuizPanel();
             UserInterface.Active.AddEntity(testPanel);
         }
-       
+/** 
+*   @brief update for the QuizManager state  
+*   @see
+*	@param gameCtx the current game context
+*	@return void
+*	@pre 
+*	@post 
+*/       
         public override void Update(GameContext gameCtx)
         {
            
@@ -94,7 +106,8 @@ namespace JourneyToTheCenterOfTheCell
                 UserInterface.Active.RemoveEntity(testPanel);
                 testPanel = questions.GetQuizView2().GetQuizPanel();
                 UserInterface.Active.AddEntity(testPanel);
-                questionComplete = false;// this boolean is to avoid redrawing the quiz unless a change has beem started by a completed quiz panel
+                // this boolean is to avoid redrawing the quiz unless a change has beem started by a completed quiz panel
+                questionComplete = false;
             }
             if (currentQuestionNumber == 3 & questionComplete == true)
             {
@@ -141,14 +154,21 @@ namespace JourneyToTheCenterOfTheCell
             if (currentQuestionNumber == 9 & questionComplete == true)
             {
                 UserInterface.Active.RemoveEntity(testPanel);
-                testPanel = final.GetPanel(gameCtx.GetGameInstance().Content, (currentQuestionNumber-1),totalCorrect);
+                testPanel = final.GetPanel(gameCtx, (currentQuestionNumber-1),totalCorrect);
                 UserInterface.Active.AddEntity(testPanel);
                 questionComplete = false;
             }
 
             UserInterface.Active.Update(gameCtx.GetGameTime());
         }
-
+/** 
+*   @brief draw for the QuizManager state  draws the quiz
+*   @see
+*	@param gameCtx the current game context
+*	@return void
+*	@pre 
+*	@post 
+*/
         public override void Draw(GameContext gameCtx)
         {
             UserInterface.Active.Draw(gameCtx.GetSpriteBatch());

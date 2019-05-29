@@ -9,6 +9,7 @@ using GeonBit.UI;
 using GeonBit.UI.Entities;
 using System.Collections.Generic;
 using System;
+using Microsoft.Xna.Framework.Media;
 
 namespace JourneyToTheCenterOfTheCell
 {
@@ -17,19 +18,24 @@ namespace JourneyToTheCenterOfTheCell
     /// </summary>
     public class Game1 : Game
     {
-        private SpriteFont arial24;
+        
 
         public GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
         GameContext newGame;
         
-        TextBox t = new TextBox();
+       
         
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.ApplyChanges();
+            this.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+            graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
+            graphics.HardwareModeSwitch = false;
             
+
         }
 
         /// <summary>
@@ -41,26 +47,16 @@ namespace JourneyToTheCenterOfTheCell
         protected override void Initialize()
         {
             MenuManager menuManager = new MenuManager();
-            newGame = new GameContext(this, graphics, spriteBatch);
+            
+            newGame = new GameContext(this, graphics, spriteBatch, GraphicsDevice);
+          
             newGame.SetGameState(menuManager);
+            
             newGame.Initialise();
-
-
             
-
-            
-            List<String> tempAns = new List<String>();
-            tempAns.Add("lorem ipsum");
-            tempAns.Add("blah");
-            Quiz testQuiz = new Quiz("Lorem ipsum dolor sit amet," +
-                " consectetur adipiscing elit, sed do eiusmod " +
-                "tempor incididunt ut labore et " +
-                "dolore magna aliqua.", tempAns, "blah");
-            //QuizView quiz = new QuizView(testQuiz, screenX, screenY);
-            //Panel testPanel = quiz.GetQuizPanel();
-
-           
-            //UserInterface.Active.AddEntity(testPanel);
+            Song cellSong = Content.Load<Song>("Music/JourneyToTheCentreOfTheCell");
+            MediaPlayer.Play(cellSong);
+            MediaPlayer.IsRepeating = true;
 
             base.Initialize();
         }
@@ -75,8 +71,8 @@ namespace JourneyToTheCenterOfTheCell
             spriteBatch = new SpriteBatch(GraphicsDevice);
             newGame.SetSpriteBatch(spriteBatch);
 
-            arial24 = this.Content.Load<SpriteFont>("Fonts/arialFont");
-            t.Initialise(arial24);
+            
+           
 
             
             // TODO: use this.Content to load your game content here
@@ -120,14 +116,11 @@ namespace JourneyToTheCenterOfTheCell
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             newGame.Draw();
-
             
 
-            t.DisplayFont();//display
             // out textbox is ready to draw at all times will only actually draw if its boolean is set to true using textboxvariable.DisplayFont() method 
             //this way triggers or events that need a textbox can set the texbox parameters and switch the textbox to display for duration of event
             
-
 
             base.Draw(gameTime);
         }

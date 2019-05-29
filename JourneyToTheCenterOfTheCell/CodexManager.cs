@@ -6,14 +6,16 @@ using GeonBit.UI.Entities;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace JourneyToTheCenterOfTheCell
 {
+	/// @brief class for CodexManager
     public class CodexManager
     {
         private SpriteBatch spritebatch;
         private ContentManager content;
-        private Panel test;
+        private Panel blah;
         private CodexView codexGui;
         private InfoView infoGui;
         private bool codexActivate = false;
@@ -23,12 +25,48 @@ namespace JourneyToTheCenterOfTheCell
         private List<Anchor> anchorList;
         private List<string> titleList;
         private List<Codex> codexList;
-        
 
-        public void Initialize(GraphicsDeviceManager g, ContentManager Content, Dictionary<InputHandler.keyStates, Item> activeState)
+        private static CodexManager codexInstance = new CodexManager();
+
+        /** 
+        *	@brief default constuctor for CodexManager 
+        *   @see
+        *	@param   
+        *	@return 
+        *	@pre 
+        *	@post 
+        */
+        public CodexManager() { }
+        
+        /** 
+        *   @brief Accessor for codexInstance 
+        *   @see
+        *	@param 
+        *	@return codexInstance the instance of the codex manager
+        *	@pre  
+        *	@post 
+        */
+        public static CodexManager GetCodexInstance()
         {
+            return codexInstance;
+        }
+
+        /** 
+        *	@brief initialisation for CodexManager plugs the codex into our game framework and loads all the codex entries
+        *   @see
+        *	@param  g the graphics device manager of our game
+        *	@param 	Content the content manager of our game
+        *	@param  activeState hash map of codex entry activation
+        *	@return void
+        *	@pre g must be initialised, Content must be initialised, activeState must be initialised
+        *	@post 
+        */
+        public void Initialize(GraphicsDeviceManager g, ContentManager Content, Dictionary<InputHandler.keyStates, string> activeState)
+        {
+            Debug.WriteLine("Running codex initialise!!!");
             content = Content;
             spritebatch = new SpriteBatch(g.GraphicsDevice);
+            
             UserInterface.Initialize(content, BuiltinThemes.hd);
 
             // could be better - but this is slightly more maintainable
@@ -96,16 +134,16 @@ namespace JourneyToTheCenterOfTheCell
 
             codexGui = new CodexView(codexList);
             infoGui = new InfoView();
-            test = new Panel();
+            blah = new Panel();
 
             codexGui.SetPanel(content, activeState);
-            test = codexGui.GetPanel();
+            blah = codexGui.GetPanel();
             
-            test.Draggable = false;
+            blah.Draggable = false;
 
            
            
-            UserInterface.Active.AddEntity(test);
+            UserInterface.Active.AddEntity(blah);
             
         }
 
@@ -113,7 +151,7 @@ namespace JourneyToTheCenterOfTheCell
         *   @brief sets the boolean if the codex panel has been opened/activated 
         *   @see 
         *	@param 
-        *	@return 
+        *	@return void
         *	@pre 
         *	@post 
         */
@@ -126,7 +164,7 @@ namespace JourneyToTheCenterOfTheCell
         *   @brief deactivates the codex panel
         *   @see 
         *	@param 
-        *	@return 
+        *	@return void
         *	@pre 
         *	@post 
         */
@@ -135,56 +173,75 @@ namespace JourneyToTheCenterOfTheCell
             codexActivate = false;
         }
 
-        public void Draw()
-        {           
-            //turns off the geonbit cursor
-            UserInterface.Active.ShowCursor = false;
-            //draws the panels stored in active ui
-            UserInterface.Active.Draw(spritebatch);                 
-        }
-
+        
+		/** 
+        *   @brief mechanism for animating the codex dropping down
+        *   @see 
+        *	@param inputActivation the boolean that holds wether the codex has been activated from input
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
         private void CodexDown(bool inputActivation)
         {
             // if the codex has been activated
             if (inputActivation)
             {
                 //and the panel has not reached the desired offset
-                if (test.Offset != new Vector2(0, 0))
+                if (blah.Offset != new Vector2(0, 0))
                 {
                     //increment the offset each update
-                    test.Offset = new Vector2(0, test.Offset.Y + 10);
+                    blah.Offset = new Vector2(0, blah.Offset.Y + 10);
                 }
 
             }
         }
-
+		/** 
+        *   @brief mechanism for animating the codex going back up, not working as changes led to codex needing to reset so it could use 1 ui for many purposes
+        *   @see 
+        *	@param inputActivation the boolean that holds wether the codex has been activated from input
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
         private void CodexUp(bool inputActivation)
         {
 
             if(inputActivation==false)
             {
                 //remove whatever panel was last stored 
-                UserInterface.Active.RemoveEntity(test);
+                UserInterface.Active.Clear();
                 
                 //reset panel to content start page
-                test = codexGui.GetPanel();
+                blah = codexGui.GetPanel();
+
                 //send the panel to ui
-                UserInterface.Active.AddEntity(test);
+                UserInterface.Active.AddEntity(blah);
                 //initial ofset variable
-                test.Offset = new Vector2(0, -540);
+                blah.Offset = new Vector2(0, -540);
                 //if the panel has not reached the deactive position
-                if (test.Offset != new Vector2(0, -540))
+                if (blah.Offset != new Vector2(0, -540))
                 {
-                    //increment till we reach that position , 
-                    //this animation of the panel returning no longer works 
+                    //increment till we reach that position, this animation of the panel returning no longer works 
                     //because we need to clear the old panels every cycle or the program locks up
-                    test.Offset = new Vector2(0, test.Offset.Y - 10);
+                    blah.Offset = new Vector2(0, blah.Offset.Y - 10);
                 }
             }
         }
-
-        public void Update(GameTime gameTime, InputHandler.keyStates inputState, Dictionary<InputHandler.keyStates, Item> inputActive)
+		
+		/** 
+        *   @brief Update function animates drop down of codex 
+        *   @see 
+        *	@param gameTime the time variable for our game
+		*	@param inputState the current input from inputmanager
+		*	@param inputActive what entries are currently active	
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
+        public void Update(GameTime gameTime, InputHandler.keyStates inputState, Dictionary<InputHandler.keyStates, string> inputActive)
         {
+            
             codexGui.SetPanel(content, inputActive);
             // if the codex has been activated
             if (inputState == InputHandler.keyStates.CodexDown)
@@ -201,25 +258,49 @@ namespace JourneyToTheCenterOfTheCell
 
             CodexUp(codexActivate);
 
-            
-
             for (int ii = 0; ii < codexList.Count; ii += 1)
             {
-                if(inputState == codexList[ii].GetKeyBoardState())
+                if(inputActive.ContainsKey(codexList[ii].GetKeyBoardState()))
                 {
                     if(codexActivate)
                     {
-                        UserInterface.Active.RemoveEntity(test);
-                        infoGui.SetPanel(content, codexList[ii].GetItemTitle(), codexList[ii].GetItemInfo(), codexList[ii].GetFinalTexture());
-                        test = infoGui.GetPanel();
-                        UserInterface.Active.AddEntity(test);
+                        if(inputState == codexList[ii].GetKeyBoardState())
+                        {
+                            UserInterface.Active.Clear();
+                            infoGui.SetPanel(content, codexList[ii].GetItemTitle(), codexList[ii].GetItemInfo(), codexList[ii].GetFinalTexture());
+                            blah = infoGui.GetPanel();
+                            UserInterface.Active.AddEntity(blah);
+                        }
+                        
                     }
+                    
+                    
+                    
                 }
+                
                 codexList[ii].SetItemActive(false);
             }
 
+            
             UserInterface.Active.Update(gameTime);
         }
-        
+
+		/** 
+        *   @brief Draw function draws the codex 
+        *   @see	
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
+        public void Draw()
+        {
+            
+
+            //turns off the geonbit cursor
+            UserInterface.Active.ShowCursor = false;
+            //draws the panels stored in active ui
+            UserInterface.Active.Draw(spritebatch);
+        }
+
     }
 }

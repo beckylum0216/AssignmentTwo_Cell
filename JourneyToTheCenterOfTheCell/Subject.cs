@@ -10,6 +10,10 @@ using System.Threading.Tasks;
 
 namespace JourneyToTheCenterOfTheCell
 {
+    /// @author Rebecca Lim
+    /// <summary>
+    /// implements the subject abstract class of the observer pattern
+    /// </summary>
     public abstract class Subject
     {
         public string modelPath;
@@ -28,6 +32,7 @@ namespace JourneyToTheCenterOfTheCell
         public Vector3 AABBOffset;
         private List<Actor> observerList= new List<Actor>();
         private List<Item> itemList = new List<Item>();
+        private List<NPC> npcList = new List<NPC>();
 
 
         /** 
@@ -99,7 +104,7 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre 
         *	@post 
         */
-        public abstract Matrix SubjectUpdate(Vector3 inputVector, float deltaTime, float fps);
+        public abstract Matrix SubjectUpdate(GameContext gameCtx, Vector3 inputVector, float deltaTime, float fps);
 
         /** 
         *   @brief function subscribes observers to the subject. implementation of the observer pattern 
@@ -134,6 +139,22 @@ namespace JourneyToTheCenterOfTheCell
         }
 
         /** 
+        *   @brief function subscribes observers to the subject. implementation of the observer pattern 
+        *   @see 
+        *	@param targetActor observer to be added
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return 
+        *	@pre 
+        *	@post 
+        */
+        public void SetNPCs(NPC targetNPC)
+        {
+            this.npcList.Add(targetNPC);
+        }
+
+        /** 
         *   @brief accessor to the observer list
         *   @see 
         *	@param 
@@ -163,6 +184,22 @@ namespace JourneyToTheCenterOfTheCell
         public List<Item> GetItems()
         {
             return itemList;
+        }
+
+        /** 
+        *   @brief accessor to the observer list
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return observerList list of actors 
+        *	@pre 
+        *	@post 
+        */
+        public List<NPC> GetNPCs()
+        {
+            return npcList;
         }
 
         /** 

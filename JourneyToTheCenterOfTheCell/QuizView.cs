@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 
 namespace JourneyToTheCenterOfTheCell
 {
+	/// @brief class for QuizView the panels and layout of quiz state
     class QuizView:Quiz
     {
         Panel newPanel;
@@ -25,7 +26,14 @@ namespace JourneyToTheCenterOfTheCell
             answerButtons = new List<RadioButton>();
             this.SetQuizPanel();
         }
-
+/** 
+*   @brief mutator for newPanel the panel that stores the view for the current quiz question  
+*   @see
+*	@param 
+*	@return void
+*	@pre 
+*	@post 
+*/
         private void SetQuizPanel()
         {
             Paragraph questionField = new Paragraph(this.GetQuizQuestion(), Anchor.AutoCenter);
@@ -44,7 +52,14 @@ namespace JourneyToTheCenterOfTheCell
             submitButton.OnClick = (Entity btn) => QuizEvent(submitButton);
             this.newPanel.AddChild(submitButton);
         }
-
+/** 
+*   @brief function for determining user input on a quiz view and adding to questions correct tally if correct answer selected then trigers the next quiz question to generate 
+*   @see
+*	@param btn the submit button of the panel 
+*	@return void
+*	@pre 
+*	@post 
+*/
         public void QuizEvent(Entity btn)
         {
             
@@ -52,7 +67,8 @@ namespace JourneyToTheCenterOfTheCell
             {
                 if (answerButtons[ii].Checked == true)
                 {
-                    if (answerButtons[ii].Identifier.ToString() == q.GetQuizAnswer())//if true need to send some data back to quizmanager
+                    //if true need to send some data back to quizmanager
+                    if (answerButtons[ii].Identifier.ToString() == q.GetQuizAnswer())
                     {
                         
                         qm.AddToQuestionNumber();
@@ -69,7 +85,14 @@ namespace JourneyToTheCenterOfTheCell
                 }
             }
         }
-
+/** 
+*   @brief acessor for newPanel  
+*   @see
+*	@param 
+*	@return newPanel the curent panel of quizview
+*	@pre 
+*	@post 
+*/
         public Panel GetQuizPanel()
         {
             return this.newPanel;

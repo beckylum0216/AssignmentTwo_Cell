@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace JourneyToTheCenterOfTheCell
 {
-    abstract class GameState
+    /**
+     * @brief abstract class that encapsulates a game state
+     * @see https://gamedevelopment.tutsplus.com/tutorials/finite-state-machines-theory-and-implementation--gamedev-11867
+     */
+    public abstract class GameState
     {
         public abstract void Initialise(GameContext gameCtx);
         public abstract void Update(GameContext gameCtx);

@@ -9,6 +9,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace JourneyToTheCenterOfTheCell
 {
+    /// @author Rebecca Lim
+    /// <summary>
+    /// Concrete class implementing the Structure Actor
+    /// </summary>
     public class Structure : Actor
     {
         /**
@@ -26,7 +30,7 @@ namespace JourneyToTheCenterOfTheCell
 	    *	@post Camera will exist
 	    */
         public Structure(ContentManager Content,  String modelFile, String textureFile,
-                        Vector3 inputPosition, Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset)
+                        Vector3 inputPosition, Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset, InputHandler.keyStates inputCodex)
         {
             this.modelPath = modelFile;
             this.texturePath = textureFile;
@@ -39,8 +43,9 @@ namespace JourneyToTheCenterOfTheCell
             this.AABBOffset = inputAABBOffset;
             this.maxPoint = this.actorPosition + this.AABBOffset;
             this.minPoint = this.actorPosition - this.AABBOffset;
-        }
+            this.codexType = inputCodex;
 
+        }
 
         
 
@@ -55,7 +60,7 @@ namespace JourneyToTheCenterOfTheCell
         *	@pre 
         *	@post 
         */
-        public override Matrix ActorUpdate(Vector3 inputVector)
+        public override void ActorUpdate(float deltaTime, float fps)
         {
             throw new NotImplementedException();
         }
@@ -72,9 +77,9 @@ namespace JourneyToTheCenterOfTheCell
         *	@post 
         */
         public override Actor ActorClone(ContentManager Content, String modelFile, String textureFile, Vector3 inputPosition,
-                                    Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset)
+                                    Vector3 inputRotation, float inputScale, Vector3 inputAABBOffset, InputHandler.keyStates inputType)
         {
-            return new Structure(Content, modelPath, texturePath, actorPosition, actorRotation, actorScale, AABBOffset);
+            return new Structure(Content, modelPath, texturePath, actorPosition, actorRotation, actorScale, AABBOffset, inputType);
         }
 
         

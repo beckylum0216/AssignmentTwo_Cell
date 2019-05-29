@@ -11,12 +11,18 @@ using System.Diagnostics;
 
 namespace JourneyToTheCenterOfTheCell
 {
+    /// @author Rebecca Lim
+    /// <summary>
+    /// Class for the drawing and handling of map structures, items and NPCs
+    /// </summary>
     public class ModelHandler
     {
         private List<Actor> itemList = new List<Actor>();
         private List <Actor> plotList = new List<Actor>();
-        private Dictionary<int, Item> itemHash; 
+        private Dictionary<int, Item> itemHash;
+        private Dictionary<int, NPC> npcHash;
         private Dictionary<string, Actor> landPlots = new Dictionary<string, Actor>();
+        private Map[,] npcMap;
         private Map[,] itemMap;
         private Map[,] gridMap;
         private MapGenerator mapCreate;
@@ -25,20 +31,8 @@ namespace JourneyToTheCenterOfTheCell
         private int sizeY;
         private int sizeZ;
         private float plotScale;
+        private int gameLevel;
 
-
-        //=======Not needed once Models are added that hold textures
-        private const int NumOfModels = 3;
-        string[] ModelNameMatrix = new string[NumOfModels] { "Models/Cube", "Models/Cubic", "Models/Cube" };
-        Vector3[] ModelTranslations = new Vector3[NumOfModels]
-        {
-            new Vector3(100, 200, 100),
-            new Vector3(50, 50, 50),
-            new Vector3(100, 50, 100)
-        };
-        private float[] ModelRotations = new float[NumOfModels] { 0.0f, 0.75f, 0.0f };
-
-        Model[] Models = new Model[NumOfModels]; //Not needed once PlotList is working
 
 
         /**
@@ -51,8 +45,9 @@ namespace JourneyToTheCenterOfTheCell
 	    *	@pre 
 	    *	@post Camera will exist
 	    */
-        public ModelHandler(ContentManager inputContent,  int inputX, int inputY, int inputZ, float inputScale)
+        public ModelHandler(ContentManager inputContent,  int inputX, int inputY, int inputZ, float inputScale, int inputLevel)
         {
+            this.gameLevel = inputLevel;
             Content = inputContent;
             sizeX = inputX;
             sizeY = inputY;
@@ -60,19 +55,41 @@ namespace JourneyToTheCenterOfTheCell
             this.plotScale = inputScale;
 
             itemHash = new Dictionary<int, Item>();
+            npcHash = new Dictionary<int, NPC>();
+
             // initialise map
             mapCreate = new MapGenerator(sizeX, sizeY, sizeZ);
-            mapCreate.SetStructureMap();
+
+            if(gameLevel ==  0)
+            {
+                mapCreate.SetNPCMapLevel1();
+                mapCreate.SetNPCCoords();
+                npcMap = mapCreate.GetNPCMap();
+            }
+            else 
+            {
+                mapCreate.SetStructureMap();
+
+                //mapCreate.PrintGrid();
+                mapCreate.SetStructureCoords();
+                mapCreate.PrintCoords();
+
+                mapCreate.SetItemMap();
+                mapCreate.SetItemCoords();
+
+                mapCreate.SetNPCMapLevel2();
+                mapCreate.SetNPCCoords();
+                //mapCreate.PrintNPCCoords();
+
+                gridMap = mapCreate.GetGridMap();
+                itemMap = mapCreate.GetItemMap();
+                Debug.WriteLine("NPC map size: " + mapCreate.GetNPCMap().Length);
+                npcMap = mapCreate.GetNPCMap();
+
+            }
             
-            mapCreate.PrintGrid();
-            mapCreate.SetStructureCoords();
-            mapCreate.PrintCoords();
 
-            mapCreate.SetItemMap();
-            mapCreate.SetItemCoords();
-
-            gridMap = mapCreate.GetGridMap();
-            itemMap = mapCreate.GetItemMap();
+            
         }
 
         /** 
@@ -171,6 +188,54 @@ namespace JourneyToTheCenterOfTheCell
             return itemHash;
         }
 
+        /** 
+        *   @brief accessor to the plot list. 
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return plotList the whole list
+        *	@pre 
+        *	@post 
+        */
+        public Dictionary<int, NPC> GetNPCHash()
+        {
+            return npcHash;
+        }
+
+
+        /** 
+        *   @brief mutator to the game level field
+        *   @see
+        *	@param inputLevel
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return 
+        *	@pre game must exist
+        *	@post 
+        */
+        public void SetGameLevel(int inputLevel)
+        {
+            this.gameLevel = inputLevel;
+        }
+
+        /** 
+        *   @brief mutator to the game level field
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return gameLevel the level of the game
+        *	@pre game must exist
+        *	@post 
+        */
+        public int GetGameLevel()
+        {
+            return this.gameLevel;
+        }
 
         /** 
         *   @brief function creates all the prototypes for the game. not used as  
@@ -195,61 +260,133 @@ namespace JourneyToTheCenterOfTheCell
             SkyBox plotSkyBox = new SkyBox(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
             landPlots.Add(Map.buildType.SkyBox.ToString(), plotSkyBox);
 
-            //Ben's Code
-            for (int i = 0; i < NumOfModels; i++)
-            {
-                Models[i] = Content.Load<Model>(ModelNameMatrix[i]);
-                //Structure plotModel = new Structure()
-
-                //Add dictionary element to landPlots
-            }
-
             
         }
 
-        // bad bad code 
+        /** 
+        *   @brief mutator to an arrayList data structure for drawing 
+        *   @see
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@return gameLevel the level of the game
+        *	@pre game must exist
+        *	@post 
+        */
         public void SetPlotList()
         {
-            string modelFile = "Models/skybox_cube";
-            string textureFile = "Textures/InnerBody2";
-            // move the centre of the skybox to the centre of the "city"
-            float centerOrigin = 1;
-            Vector3 positionSkyBox = new Vector3(centerOrigin, 0f, centerOrigin);
-            Vector3 rotationSkyBox = new Vector3(0, 0, 0);
-            Vector3 AABBOffset = new Vector3(0, 0, 0);
-            float scaleSkyBox = 100f;
-            //Actor plotSkyBox = landPlots["SkyBox"].ActorClone(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
-            SkyBox skyBoxObj = new SkyBox(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
-            plotList.Add(skyBoxObj);
-
-            Debug.WriteLine("list size:" + plotList.Count);
-            //adds to the list the land and road tiles
-            for (int ii = 0; ii < sizeX; ii++)
+            if(gameLevel == 0)
             {
-                for (int jj = 0; jj < sizeY; jj++)
-                {
-                    if(!(gridMap[ii, jj] == null))
-                    {
-                        Vector3 tempPosition = new Vector3(gridMap[ii, jj].GetCoordX(), gridMap[ii, jj].GetCoordY(), gridMap[ii, jj].GetCoordZ());
-                        Vector3 tempOffset = new Vector3(20, 10, 20);
-                        // prototyping map tiles not working as planned 
-                        // Actor tempPlot = landPlots[gridMap[ii, jj].GetBlockType().ToString()].ActorClone(Content, gridMap[ii, jj].GetModelPath(), gridMap[ii, jj].GetTexturePath(), tempPosition, gridMap[ii, jj].GetBlockRotation(), gridMap[ii, jj].GetBlockScale(), tempOffset);
-                        Structure tempPlot = new Structure(Content, gridMap[ii, jj].GetModelPath(), gridMap[ii, jj].GetTexturePath(), tempPosition, gridMap[ii, jj].GetMapRotation(), gridMap[ii, jj].GetMapScale(), tempOffset);
-                        plotList.Add(tempPlot);
-                    }
-                    
-                }
+                string modelFile = "Models/manualskybox_obj";
+                string textureFile = "Textures/blood_cubemap";
+                // move the centre of the skybox to the centre of the "city"
+                float centerOrigin = 1;
+                Vector3 positionSkyBox = new Vector3(centerOrigin, 0f, centerOrigin);
+                Vector3 rotationSkyBox = new Vector3(0, 0, 0);
+                Vector3 AABBOffset = new Vector3(0, 0, 0);
+                float scaleSkyBox = 2000f;
+                //Actor plotSkyBox = landPlots["SkyBox"].ActorClone(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
+                SkyBox skyBoxObj = new SkyBox(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
+                plotList.Add(skyBoxObj);
             }
-            Debug.WriteLine("list size:" + plotList.Count);
+            else
+            {
+                string modelFile = "Models/manualskybox_obj";
+                string textureFile = "Textures/aliencell_cubemap";
+                // move the centre of the skybox to the centre of the "city"
+                float centerOrigin = 1;
+                Vector3 positionSkyBox = new Vector3(centerOrigin, 0f, centerOrigin);
+                Vector3 rotationSkyBox = new Vector3(0, 0, 0);
+                Vector3 AABBOffset = new Vector3(0, 0, 0);
+                float scaleSkyBox = 2000f;
+                //Actor plotSkyBox = landPlots["SkyBox"].ActorClone(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
+                SkyBox skyBoxObj = new SkyBox(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
+                plotList.Add(skyBoxObj);
+            }
+
+
+            if(gameLevel == 0)
+            {
+                string modelCell = "Models/cell_obj";
+                string textureCell = "Textures/cell_diff";
+                Vector3 positionCell = new Vector3(100, 100, 100) * 20;
+                Vector3 rotationCell = new Vector3(0, 0, 0);
+                float scaleCell = 100f;
+                Vector3 AABBCell = new Vector3(2, 2, 2) * scaleCell;
+                
+                //Actor plotSkyBox = landPlots["SkyBox"].ActorClone(Content, modelFile, textureFile, positionSkyBox, rotationSkyBox, scaleSkyBox, AABBOffset);
+                Structure cellObj = new Structure(Content, modelCell, textureCell, positionCell, rotationCell, scaleCell, AABBCell, InputHandler.keyStates.Cell);
+                plotList.Add(cellObj);
+            }
+            
+
+            if(gameLevel == 1)
+            {
+                Debug.WriteLine("list size:" + plotList.Count);
+
+                string modelNucleus = "Models/nucleus";
+                string textureNucleus = "Textures/nucleus_diff";
+                Vector3 positionNucleus = new Vector3(200, 200, 200) * 20;
+                Vector3 rotationNucleus = new Vector3(0, 0, 0);
+                float scaleNucleus = 100f;
+                Vector3 AABBNucleus = new Vector3(20, 20, 20) * scaleNucleus;
+                Structure nucleusObj = new Structure(Content, modelNucleus, textureNucleus, positionNucleus, rotationNucleus, scaleNucleus, AABBNucleus, InputHandler.keyStates.Nucleus);
+                plotList.Add(nucleusObj);
+
+                string modelReticulum = "Models/Riticulum";
+                string textureReticulum = "Textures/Riticulum_diff";
+                Vector3 positionReticulum = new Vector3(200, 200, 200) * 20;
+                Vector3 rotationReticulum = new Vector3(0, 0, 0);
+                float scaleReticulum = 100f;
+                Vector3 AABBReticulum = new Vector3(20, 20, 20) * scaleReticulum;
+                Structure reticulumObj = new Structure(Content, modelReticulum, textureReticulum, positionReticulum, rotationReticulum, scaleReticulum, AABBReticulum, InputHandler.keyStates.ER);
+                plotList.Add(reticulumObj);
+
+                string modelGolgi = "Models/golgi";
+                string textureGolgi = "Textures/golgi_diff";
+                Vector3 positionGolgi = new Vector3(100, 200, 100) * 20;
+                Vector3 rotationGolgi = new Vector3(0, 0, 0);
+                float scaleGolgi = 100f;
+                Vector3 AABBGolgi = new Vector3(10, 10, 10) * scaleGolgi;
+                Structure golgiObj = new Structure(Content, modelGolgi, textureGolgi, positionGolgi, rotationGolgi, scaleGolgi, AABBGolgi, InputHandler.keyStates.Golgi);
+                plotList.Add(golgiObj);
+
+                Debug.WriteLine("list size:" + plotList.Count);
+            }
             
         }
 
-        // 
+        /** 
+        *   @brief mutator to set the list of items to draw
+        *   @brief 
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
         public void SetItemHash()
         {
+            Debug.WriteLine("item size:" + itemHash.Count);
 
-            Debug.WriteLine("list size:" + plotList.Count);
-            //adds to the list the land and road tiles
+            string modelSelenocysteine = "Models/selenocystine_obj";
+            string textureSelenocysteine = "Textures/selenocystine_diff";
+            Vector3 positionSelenocysteine = new Vector3(30, 0, 30) * 20;
+            Vector3 rotationSelenocysteine = new Vector3(0, 0, 0);
+            float scaleSelenocysteine = 10f;
+            Vector3 AABBSelenocysteine = new Vector3(1, 1, 1) * scaleSelenocysteine;
+            int selenocysteineID = (int)Math.Round((positionSelenocysteine.X * positionSelenocysteine.Y * positionSelenocysteine.Z));
+            Item selenocysteineObj = new Item(Content, selenocysteineID, modelSelenocysteine, textureSelenocysteine, positionSelenocysteine, rotationSelenocysteine, scaleSelenocysteine, AABBSelenocysteine, InputHandler.keyStates.Selenocysteine);
+            itemHash.Add(selenocysteineID, selenocysteineObj);
+
+            // creating random mitochondria
             for (int ii = 0; ii < sizeX; ii++)
             {
                 for (int jj = 0; jj < sizeY; jj++)
@@ -257,10 +394,10 @@ namespace JourneyToTheCenterOfTheCell
                     if (!(itemMap[ii, jj] == null))
                     {
                         Vector3 tempPosition = new Vector3(itemMap[ii, jj].GetCoordX(), itemMap[ii, jj].GetCoordY(), itemMap[ii, jj].GetCoordZ());
-                        Vector3 tempOffset = new Vector3(20, 10, 20);
+                        Vector3 tempOffset = new Vector3(20, 20, 20);
                         
                         int tempID = (int) Math.Round( (itemMap[ii, jj].GetCoordX() * itemMap[ii, jj].GetCoordY() * itemMap[ii, jj].GetCoordZ())) ;
-                        Item tempPlot = new Item(Content, tempID,itemMap[ii, jj].GetModelPath(), itemMap[ii, jj].GetTexturePath(), tempPosition, itemMap[ii, jj].GetMapRotation(),itemMap[ii, jj].GetMapScale(), tempOffset, itemMap[ii,jj].GetCodexType());
+                        Item tempPlot = new Item(Content, tempID, itemMap[ii, jj].GetModelPath(), itemMap[ii, jj].GetTexturePath(), tempPosition, itemMap[ii, jj].GetMapRotation(),itemMap[ii, jj].GetMapScale(), tempOffset, itemMap[ii,jj].GetCodexType());
                         if(!itemHash.ContainsKey(tempPlot.GetItemID()))
                         {
                             itemHash.Add(tempPlot.GetItemID(), tempPlot);
@@ -269,13 +406,89 @@ namespace JourneyToTheCenterOfTheCell
 
                 }
             }
-            Debug.WriteLine("list size:" + plotList.Count);
+            Debug.WriteLine("item size:" + itemHash.Count);
 
         }
 
+        /** 
+        *   @brief function to remove items from the game world
+        *   @brief 
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
         public void RemoveItemHash(int targetID)
         {
             itemHash.Remove(targetID);
+        }
+
+        /** 
+        *   @brief mutator function for creating the NPC list
+        *   @brief 
+        *   @see 
+        *	@param 
+        *	@param 
+        *	@param  
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@param 
+        *	@return void
+        *	@pre 
+        *	@post 
+        */
+        public void SetNPCHash()
+        {
+            //adds to the list the land and road tiles
+            for (int ii = 0; ii < sizeX; ii++)
+            {
+                for (int jj = 0; jj < sizeY; jj++)
+                {
+                    if (!(npcMap[ii, jj] == null))
+                    {
+                        Vector3 tempPosition = new Vector3(npcMap[ii, jj].GetCoordX(), npcMap[ii, jj].GetCoordY(), npcMap[ii, jj].GetCoordZ());
+                        Vector3 tempOffset = new Vector3(20, 20, 20);
+                        float tempSpeed = 1;
+                        int tempID = (int)Math.Round((npcMap[ii, jj].GetCoordX() * npcMap[ii, jj].GetCoordY() * npcMap[ii, jj].GetCoordZ()));
+                        List<Vector3> newWayPoints = new List<Vector3>();
+                        Random randomNum = new Random();
+                        int npcWaypointSize = 50;
+                        int npcWaypointRange = 200;
+                        int npcRealWorld = 20;
+                        for (int aa = 0; aa < npcWaypointSize; aa += 1)
+                        {
+                            int randomX = randomNum.Next(npcWaypointRange) * npcRealWorld;
+                            int randomY = randomNum.Next(npcWaypointRange) * npcRealWorld;
+                            int randomZ = randomNum.Next(npcWaypointRange) * npcRealWorld;
+
+                            Vector3 newPosition = new Vector3(randomX, randomY, randomZ);
+                            newWayPoints.Add(newPosition);
+                        }
+
+                        //Debug.WriteLine("npc codex type: " + npcMap[ii, jj].GetCodexType());
+
+                        NPC tempPlot = new NPC(Content, tempID, npcMap[ii, jj].GetModelPath(), 
+                                                npcMap[ii, jj].GetTexturePath(), tempPosition, 
+                                                    npcMap[ii, jj].GetMapRotation(), npcMap[ii, jj].GetMapScale(), 
+                                                        tempOffset, tempSpeed, newWayPoints, npcMap[ii, jj].GetCodexType());
+                        if (!npcHash.ContainsKey(tempPlot.GetNPCID()))
+                        {
+                            npcHash.Add(tempPlot.GetNPCID(), tempPlot);
+                        }
+                    }
+
+                }
+            }
+            Debug.WriteLine("npc size:" + npcHash.Count);
+
         }
 
         /** 
@@ -316,30 +529,7 @@ namespace JourneyToTheCenterOfTheCell
             }
         }
 
-        // Ben's Code
-        public void DrawModel(Matrix view, Matrix projection)
-        {
-            for (int i = 0; i < NumOfModels; i++)
-            {
-                Model model = Models[i];
-                Matrix[] transforms = new Matrix[model.Bones.Count];
-                model.CopyAbsoluteBoneTransformsTo(transforms);
-
-                foreach (ModelMesh mesh in model.Meshes) //for each mesh in the model
-                {
-                    foreach (BasicEffect effect in mesh.Effects) //and for each effect in the model
-                    {
-                        effect.EnableDefaultLighting();
-                        effect.World = transforms[mesh.ParentBone.Index] * Matrix.CreateRotationY(ModelRotations[i]) * Matrix.CreateTranslation(ModelTranslations[i]);
-                        effect.View = view;
-                        effect.Projection = projection;
-                    }
-
-                    mesh.Draw(); //draw the model
-
-                }
-            }
-        }
+        
 
 
 

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace JourneyToTheCenterOfTheCell
 {
+    /// @author Bruno Neto
+	/// @brief  QuizAnswers class container for all the quiz questions and answers
     class QuizAnswers
     {
         private int screenX;
@@ -36,7 +38,16 @@ namespace JourneyToTheCenterOfTheCell
         QuizView Quiz7; 
         QuizView Quiz8;
         QuizManager qm;
-        
+
+        /** 
+        *   @brief initialise for the QuizAnwers container  
+        *   @see
+        *	@param gameCtx the current game context
+        *	@param QM the current QuizManager state
+        *	@return void
+        *	@pre 
+        *	@post 
+        */       
         public void Init(GameContext gameCtx, QuizManager QM)
         {
             qm = QM;
@@ -91,35 +102,98 @@ namespace JourneyToTheCenterOfTheCell
             Quiz7 = new QuizView(qm, question7, screenX, screenY);
             Quiz8 = new QuizView(qm, question8, screenX, screenY);
         }
-
+/** 
+*   @brief accessor for Quiz1 the first quiz question 
+*   @see
+*	@param 
+*	@return Quiz1
+*	@pre 
+*	@post 
+*/
         public QuizView GetQuizView1()
         {
             return Quiz1;
         }
+/** 
+*   @brief accessor for Quiz2 the 2nd quiz question 
+*   @see
+*	@param 
+*	@return Quiz2
+*	@pre 
+*	@post 
+*/
         public QuizView GetQuizView2()
         {
             return Quiz2;
         }
+/** 
+*   @brief accessor for Quiz3 the 3rd quiz question 
+*   @see
+*	@param 
+*	@return Quiz7
+*	@pre 
+*	@post 
+*/
         public QuizView GetQuizView3()
         {
             return Quiz3;
         }
+/** 
+*   @brief accessor for Quiz4 the 4th quiz question 
+*   @see
+*	@param 
+*	@return Quiz4
+*	@pre 
+*	@post 
+*/
         public QuizView GetQuizView4()
         {
             return Quiz4;
         }
+/** 
+*   @brief accessor for Quiz5 the 5th quiz question 
+*   @see
+*	@param 
+*	@return Quiz5
+*	@pre 
+*	@post 
+*/
         public QuizView GetQuizView5()
         {
             return Quiz5;
         }
+/** 
+*   @brief accessor for Quiz6 the 6th quiz question 
+*   @see
+*	@param 
+*	@return Quiz6
+*	@pre 
+*	@post 
+*/
         public QuizView GetQuizView6()
         {
             return Quiz6;
         }
+/** 
+*   @brief accessor for Quiz7 the 7th quiz question 
+*   @see
+*	@param 
+*	@return Quiz7
+*	@pre 
+*	@post 
+*/
         public QuizView GetQuizView7()
         {
             return Quiz7;
         }
+/** 
+*   @brief accessor for Quiz8 the 8th quiz question 
+*   @see
+*	@param 
+*	@return Quiz8
+*	@pre 
+*	@post 
+*/
         public QuizView GetQuizView8()
         {
             return Quiz8;

@@ -4,6 +4,8 @@ Lysosome-wikimedia:			wikimedia.com
 cytoskeleton-thecellimagelibrary: 	cellimagelibrary.org 
 ER-thecellimagelibrary: 		cellimagelibrary.org
 mitochondrion-cell image library	cellimagelibrary.org
+wikimedia_Cells-base2 base image from  	wikimedia.com edited by :Bruno Neto
+pixabay-pharmaceutials	base image from www.pixabay.com	edited by :Bruno Neto
 golgi			:Bruno Neto
 lockedInfoCodex		:Bruno Neto
 placeHolderCodex	:Bruno Neto
