@@ -247,26 +247,25 @@ namespace JourneyToTheCenterOfTheCell
                             msgState = true;
                         }
                     }
-                    //else
-                    //{
-                    //    // add to codex ticked list if not on list
-                    //    if (!this.codexHash.GetCodexDictionary().ContainsKey(this.GetItems()[ii].GetCodexType()))
-                    //    {
-                    //        itemSound.Play();
-                    //        this.codexHash.GetCodexDictionary().Add(this.GetItems()[ii].GetCodexType(), this.GetItems()[ii].GetCodexType().ToString());
-                    //    }
-                    //}
                     
+
 
                     if (this.GetItems()[ii].GetCodexType() == InputHandler.keyStates.Mitochondria)
                     {
+
+                        // add to codex ticked list if not on list
+                        if (!this.codexHash.GetCodexDictionary().ContainsKey(this.GetItems()[ii].GetCodexType()))
+                        {
+                            itemSound.Play();
+                            this.codexHash.GetCodexDictionary().Add(this.GetItems()[ii].GetCodexType(), this.GetItems()[ii].GetCodexType().ToString());
+                        }
+
                         // removes sprite from screen
-                        itemSound.Play();
+                        //itemSound.Play();
                         this.itemHandler.RemoveItemHash(this.GetItems()[ii].GetItemID());
                         this.GetItems().Remove(this.GetItems()[ii]);
                         this.GetCamPlayer().SetShieldAmount(-50);
                         
-
                     }                  
                    
                     

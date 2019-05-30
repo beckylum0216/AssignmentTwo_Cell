@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace JourneyToTheCenterOfTheCell
 {
-/// @brief class for codex
+    /// @brief class for codex
     class Codex
     {
         private String initTexture;
